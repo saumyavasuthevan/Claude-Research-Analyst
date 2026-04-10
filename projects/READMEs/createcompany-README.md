@@ -1,4 +1,4 @@
-# Research Automation Agent 
+# Create Company Agent 
 
 ## Overview
 Claude Code agent for company deep-dives across company overviews, competitors, markets, and product specs. Evaluated agent against Claude outputs to double accuracy in subsequent iterations with prompt engineering.
