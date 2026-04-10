@@ -14,9 +14,9 @@ Ask the user: "Which company's survey results would you like to analyse?"
 
 Once the company name is provided:
 
-1. Find the matching company folder under `context/Company/` (case-insensitive match on folder name).
-2. Read all company context files found in that folder.
-3. Find the matching survey file under `context/research/surveys/` — look for a filename that contains the company name (case-insensitive). If multiple files match, list them and ask the user to confirm which one to use. If no file matches, tell the user and stop.
+1. Find the matching company folder under `projects/` (case-insensitive match on folder name).
+2. Read all company context files found in `projects/[CompanyName]/01- company context/`.
+3. Find the matching survey file under `projects/[CompanyName]/02- research/Surveys/` — look for a filename that contains the company name (case-insensitive). If multiple files match, list them and ask the user to confirm which one to use. If no file matches, tell the user and stop.
 4. Read the survey file.
 5. Before executing the analysis, summarise your approach to the user:
    - Which company context files you read
@@ -80,7 +80,7 @@ For each recommendation:
 
 Always connect insights back to the company context (product, personas, strategy) when relevant.
 
-7. After delivering the report, save the full output to `outputs/research/` as a Markdown file using this exact filename format:
+7. After delivering the report, save the full output to `projects/[CompanyName]/03 - analysis/` as a Markdown file using this exact filename format:
 
 ```
 survey-results-[YYYY-MM-DD]-[company_name].md
@@ -90,7 +90,7 @@ survey-results-[YYYY-MM-DD]-[company_name].md
 - `[company_name]` — lowercase, spaces replaced with hyphens, special characters removed
 
 **Examples:**
-- `outputs/research/survey-results-2026-04-01-zalando.md`
-- `outputs/research/survey-results-2026-04-01-legalgraph.md`
+- `projects/Zalando/03 - analysis/survey-results-2026-04-01-zalando.md`
+- `projects/Legal Graph/03 - analysis/survey-results-2026-04-01-legalgraph.md`
 
 After saving, confirm to the user with the exact filename.
