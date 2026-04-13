@@ -18,7 +18,7 @@ This repo is a multi-company PM Operating System used for freelance product mana
 ### Step 2 — Identify the active project
 
 1. Open the identified `projects/[CompanyName]/` folder and inspect its contents.
-2. **Standard structure** (single project): the folder contains numbered subfolders like `01 - company context/`, `02- research/`, `03 - analysis/`, `04- outputs/`. In this case, treat the whole company folder as one project — no need to ask.
+2. **Standard structure** (single project): the folder contains numbered subfolders like `01 - company context/`, `02 - project context/`, `03- research/`, `04- analysis/`, `05- outputs/`. In this case, treat the whole company folder as one project — no need to ask.
 3. **Multi-project structure**: the folder contains named project subfolders (e.g., `contract-review/`, `risk-scoring/`). In this case, list the projects and ask: *"[CompanyName] has multiple projects: [list]. Which project should I work on?"*
 4. If the task makes the project obvious from context, proceed without asking — but state your assumption.
 
@@ -26,10 +26,12 @@ This repo is a multi-company PM Operating System used for freelance product mana
 
 Once the company and project are confirmed, all paths resolve as:
 - **Context:** `projects/[CompanyName]/01 - company context/`
-- **Research:** `projects/[CompanyName]/02- research/`
-- **Analysis:** `projects/[CompanyName]/03 - analysis/`
-- **Outputs:** `projects/[CompanyName]/04- outputs/`
-- **Memory:** `projects/[CompanyName]/05- memory/` (if it exists)
+- **Project Context:** `projects/[CompanyName]/02 - project context/`
+- **Research:** `projects/[CompanyName]/03- research/`
+- **Analysis:** `projects/[CompanyName]/04- analysis/`
+- **Outputs:** `projects/[CompanyName]/05- outputs/`
+- **Evals:** `projects/[CompanyName]/06- evals/`
+- **Memory:** `projects/[CompanyName]/07- memory/` (if it exists)
 
 For multi-project companies, paths are nested one level deeper:
 - `projects/[CompanyName]/[ProjectName]/01 - company context/` etc.
@@ -156,16 +158,8 @@ When context is incomplete:
 - Verify information from multiple sources when possible
 
 #### How to cite:
-```
-According to [Source Name]'s [Report/Study Name], [finding]
-(source: [Source], [Date]).
-```
 
-Always include:
-- Source name
-- Publication/study name
-- Date
-- URL if available
+For any output that references a web source, follow the **`cite-links` skill**.
 
 ---
 
@@ -178,7 +172,7 @@ Always include:
 - Vague requirements ("improve performance" - be specific with metrics!)
 - No citations for market data or external information
 - Not following template structure when templates are provided
-- Forgetting to save outputs to `projects/[ActiveCompany]/04- outputs/`
+- Forgetting to save outputs to `projects/[ActiveCompany]/05- outputs/`
 - Making assumptions without stating them clearly
 - Not asking clarifying questions when critical information is missing
 
@@ -189,7 +183,7 @@ Always include:
 - Consider all personas mentioned in context
 - Follow templates exactly when provided
 - Cite all sources properly
-- Save outputs to `projects/[ActiveCompany]/04- outputs/`
+- Save outputs to `projects/[ActiveCompany]/05- outputs/`
 - Ask targeted questions when context is incomplete
 - State assumptions clearly when making them
 - Use reasoning to connect insights and make recommendations
@@ -242,7 +236,7 @@ Ask only the questions that aren't already clear from the user's message:
 1. **Company name** — confirm spelling/exact name if ambiguous
 2. **Focus areas** — e.g., funding, product, competitive position, customer sentiment (default: full report if not specified)
 3. **Any specific competitors** to benchmark against?
-4. **Output folder** — confirm the active project so the report saves to the right place: `projects/[ActiveCompany]/04- outputs/`
+4. **Output folder** — confirm the active project so the report saves to the right place: `projects/[ActiveCompany]/05- outputs/`
 
 Once confirmed, spawn the `company-intelligence` agent with a clear brief: company name, focus areas, date range, and output folder path. The agent handles all research execution in its own context window.
 

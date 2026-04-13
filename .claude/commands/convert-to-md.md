@@ -1,14 +1,4 @@
-
----
-name: convert-to-md
-description: |
-  Convert uploaded research files (CSV, XLSX, PDF, DOCX) to Markdown format for a company project.
-
-  Trigger this skill when the user:
-  - Says "[company name] md conversion" (e.g. "zalando md conversion")
-  - Says "convert files to md", "convert files to markdown"
-  - Says "convert [company] files", "md convert [company]"
----
+Convert uploaded research files (CSV, XLSX, PDF, DOCX) to Markdown format for a company project.
 
 ## Step 1 — Resolve the company
 

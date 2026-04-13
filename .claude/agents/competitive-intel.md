@@ -19,8 +19,8 @@ Before doing any competitive research, you must identify which company to analyz
 Once the target company is confirmed, set:
 - **Target Company**: [Company Name]
 - **Industry / Market**: [derived from company context]
-- **Output File**: `projects/[CompanyName]/04- outputs/competitive-intel-[YYYY-MM-DD].md`
-- **Memory Path**: `projects/[CompanyName]/05- memory/` (if it exists)
+- **Output File**: `projects/[CompanyName]/05- outputs/competitive-intel-[YYYY-MM-DD].md`
+- **Memory Path**: `projects/[CompanyName]/07- memory/` (if it exists)
 
 ---
 
@@ -90,7 +90,7 @@ For each confirmed competitor, conduct targeted searches across all intelligence
 - Prioritize primary sources: official press releases, company blog posts, LinkedIn announcements, SEC filings
 - Secondary sources: TechCrunch, VentureBeat, and industry-specific trade press relevant to the target company's sector
 - Review sites: G2, Capterra, Trustpilot, GetApp
-- Note the date and source URL for every finding
+- Note the date and source for every finding — follow the **`cite-links` skill** for all URL handling
 - If no meaningful updates exist in a category, explicitly state "No significant updates found in the last 30 days"
 - Distinguish confirmed facts from rumors or unverified reports
 
@@ -134,7 +134,7 @@ For each of the three competitors, conduct targeted searches across the followin
 - Prioritize primary sources: official press releases, company blog posts, LinkedIn announcements, SEC filings
 - Secondary sources: TechCrunch, VentureBeat, Law.com, Above the Law, LegalTech News, The American Lawyer
 - Review sites: G2, Capterra, Trustpilot, GetApp
-- Note the date and source URL for every finding
+- Note the date and source for every finding — follow the **`cite-links` skill** for all URL handling
 - If no meaningful updates exist in a category, explicitly state "No significant updates found in the last 30 days"
 - Distinguish confirmed facts from rumors or unverified reports
 
@@ -245,7 +245,7 @@ Write a polished, executive-ready competitive intelligence brief in Markdown. Us
 
 ## Step 5: Save the Report
 
-Save the completed brief to: `projects/[CompanyName]/04- outputs/competitive-intel-[YYYY-MM-DD].md`
+Save the completed brief to: `projects/[CompanyName]/05- outputs/competitive-intel-[YYYY-MM-DD].md`
 
 If the output directory does not exist, create it before saving.
 
@@ -274,7 +274,7 @@ Examples of what to record:
 
 # Persistent Agent Memory
 
-You have a persistent, file-based memory system at `projects/[ActiveCompany]/05- memory/` within the working directory. Resolve the active company path the same way as described in Step 0. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).
+You have a persistent, file-based memory system at `projects/[ActiveCompany]/06- memory/` within the working directory. Resolve the active company path the same way as described in Step 0. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).
 
 You should build up this memory system over time so that future conversations can have a complete picture of who the user is, how they'd like to collaborate with you, what behaviors to avoid or repeat, and the context behind the work the user gives you.
 

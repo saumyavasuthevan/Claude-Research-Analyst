@@ -13,7 +13,7 @@ The main conversation has already confirmed:
 - **Company to research**: provided in the prompt that spawned you
 - **Focus areas**: provided (or default: full report)
 - **Date range**: provided (or default: last 24 months)
-- **Output folder**: provided (e.g., `projects/[ActiveCompany]/04- outputs/`)
+- **Output folder**: provided (e.g., `projects/[ActiveCompany]/05- outputs/`)
 
 ---
 

@@ -1,0 +1,158 @@
+
+---
+name: cite-links
+description: |
+  Enforce safe URL handling using the Fact ID pattern: Claude collects sources and writes drafts using opaque IDs only. A deterministic Python script — not Claude — does the final URL substitution, making hallucinated links structurally impossible.
+
+  Trigger this skill when:
+  - User asks for research with citations or sources
+  - User asks Claude to include links or references in a document
+  - Any task combining web search (WebSearch/WebFetch) with document generation
+  - User asks to "cite sources", "add references", or "back this up with links"
+---
+
+## Why This Matters
+
+If Claude writes URLs inline — even at the end, even "just to resolve" — it can still hallucinate them. The URL was grounded earlier in context, so it's *less likely* to be wrong, but "less likely" is not a guarantee. The only way to make hallucinated links **structurally impossible** is to ensure Claude never writes a URL at any stage. A Python script handles substitution instead.
+
+---
+
+## Sequencing Rule (read before starting)
+
+**Fetch first. Write second. Never invent a registry entry.**
+
+These phases must run in order. Do not begin writing until all sources for the document have been fetched. Do not create a registry entry for a source you have not actually retrieved — if you couldn't fetch it, it gets a `[SRC:MISSING]` citation, not a made-up entry. An invented registry entry is indistinguishable from a hallucinated URL.
+
+After completing Phase 1, proceed directly to Phase 2 — no confirmation needed.
+
+---
+
+## Phase 1 — Research: Build the Fact Registry
+
+When fetching any web source via WebSearch or WebFetch, register it immediately in a fact registry JSON file. Save the registry at `fact_registry.json` in the project's research folder.
+
+**Fact ID format:** `SRC:[short_snake_case_description]`
+- Good: `SRC:openai_pricing_2026`, `SRC:techcrunch_funding_april`, `SRC:gdpr_article_17`
+- Bad: `SRC:source1`, `SRC:link`, `SRC:ref`
+
+**Registry structure:**
+
+```json
+{
+  "SRC:openai_pricing_2026": {
+    "url": "https://openai.com/pricing",
+    "title": "OpenAI API Pricing",
+    "fetched_at": "2026-04-13",
+    "quote": "GPT-4o: $2.50 / 1M input tokens"
+  },
+  "SRC:techcrunch_funding_april": {
+    "url": "https://techcrunch.com/2026/04/01/acme-raises-50m",
+    "title": "Acme Raises $50M Series B",
+    "fetched_at": "2026-04-13",
+    "quote": "focused on enterprise compliance workflows"
+  }
+}
+```
+
+**Before adding a new entry, check if the URL already exists in the registry.** If it does, reuse the existing ID — do not create a duplicate. Two IDs pointing to the same URL cause drift and confuse resolution.
+
+**Write cadence:** Write the registry to disk using the Write tool after each new source is added. If the file does not exist yet, create it with an empty JSON object `{}` before the first write. If the Write tool fails, stop and report the error — do not continue research without a working registry file, as sources will be lost.
+
+**Failed fetches:** If WebFetch returns an error, a 4xx/5xx status, or clearly partial/blocked content (e.g. a paywall), do not register it as a valid source. Instead, note it as `[SRC:MISSING — fetch failed: brief description]` in your draft. A failed fetch registered as valid is a different kind of bad link.
+
+**Hard rule: Never write a raw URL (`https://...`) anywhere — not in the draft, not in prose, not in footnotes. Register it, then cite by ID.**
+
+---
+
+## Phase 2 — Writing: Fact IDs Only
+
+Write the entire document using only registered IDs as citations. Claude's job is complete after this step.
+
+**Example:**
+> OpenAI charges $2.50 per million input tokens for GPT-4o [SRC:openai_pricing_2026], making it the most cost-effective frontier model for this use case [SRC:techcrunch_funding_april].
+
+**If a citation is needed but no source has been fetched:**
+- Write `[SRC:MISSING — brief description of what's needed]`
+- Do NOT guess a URL, construct one from memory, or skip the citation silently
+
+`[SRC:MISSING]` entries are loud and grep-able. A visible failure is always better than a silently published hallucination.
+
+**Claude stops here. Do not attempt to resolve IDs yourself.**
+
+---
+
+## Phase 3 — Resolution: Python Script (No AI)
+
+Run the following script to mechanically substitute all `[SRC:id]` placeholders with proper Markdown links. Claude does not participate in this step.
+
+```python
+import json, re, sys
+
+def resolve_fact_ids(draft_path: str, registry_path: str, output_path: str):
+    with open(draft_path, "r") as f:
+        draft = f.read()
+    with open(registry_path, "r") as f:
+        registry = json.load(f)
+
+    missing = []
+
+    def replace(match):
+        fact_id = match.group(1)  # e.g. "SRC:openai_pricing_2026"
+        if fact_id in registry:
+            url = registry[fact_id]["url"]
+            title = registry[fact_id]["title"]
+            return f"[{title}]({url})"
+        else:
+            missing.append(fact_id)
+            return f"[BROKEN LINK: {fact_id}]"
+
+    resolved = re.sub(r'\[(SRC:[^\]]+)\]', replace, draft)
+
+    # Catch any raw URLs that leaked through — treat as errors
+    raw_urls = re.findall(r'https?://\S+', resolved)
+    if raw_urls:
+        print(f"ERROR: Raw URLs found in resolved output (should not exist): {raw_urls}")
+        sys.exit(1)
+
+    if missing:
+        print(f"WARNING: Unresolved fact IDs: {missing}")
+        print("These appear as [BROKEN LINK: ...] in the output.")
+
+    with open(output_path, "w") as f:
+        f.write(resolved)
+
+    print(f"Done. Written to {output_path}")
+
+if __name__ == "__main__":
+    resolve_fact_ids(sys.argv[1], sys.argv[2], sys.argv[3])
+```
+
+**Claude runs this script using the Bash tool** — the user does not need to touch a terminal:
+
+```bash
+python3 resolve_links.py draft.md fact_registry.json final_report.md
+```
+
+Save the script as `resolve_links.py` alongside the registry file before running. The script exits with an error if any raw URLs are present in the output — catching leaks before publishing.
+
+---
+
+## Responsibility Boundary
+
+| Step | Who does it | What happens |
+|---|---|---|
+| Fetch source | Claude (WebFetch/WebSearch) | URL stored in registry only |
+| Write draft | Claude | `[SRC:id]` placeholders only — no URLs |
+| Resolve links | Python script | Deterministic substitution |
+| Catch leaks | Python script | Errors on any raw `https://` in output |
+
+Claude never writes a URL at any stage. If it did, that's a bug — the script will catch it.
+
+---
+
+## What Never to Do
+
+- Never write `https://...` or `http://...` directly in a draft or resolution step
+- Never construct a URL from memory, even if confident ("I think it's at openai.com/blog/...")
+- Never resolve `[SRC:id]` placeholders yourself — run the script instead
+- Never silently omit a citation — use `[SRC:MISSING — description]`
