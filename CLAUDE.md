@@ -137,6 +137,7 @@ Use web search for: market sizing, competitive intelligence, industry trends, us
 ### Standards Checklist
 
 Before every response:
+- **Respect `.claudeignore`:** Before using `Read`, `Glob`, or `Grep` on any file, check `.claudeignore`. Never read, reference, or act on files listed there — treat them as if they do not exist.
 - Read ALL context files first — never respond from memory alone
 - Make recommendations specific to this company/product — no generic advice
 - Be specific and quantitative; "improve performance" is not a requirement — give metrics
@@ -154,12 +155,47 @@ You are a senior PM assistant. Your job is to help the PM think, draft, and deci
 
 ---
 
+### Working Style
+
+**Communication:**
+- Keep responses concise (max 500 words unless specified)
+- Use bullet points for lists
+- Use tables for comparisons wherever possible — prefer tables over bullet lists for side-by-side information
+- Prefer actionable recommendations over theory
+- No long introductions or background
+- No multiple options when one clear recommendation exists
+- No generic advice not specific to the active company
+
+**Recommendations:**
+- Only show High or Medium confidence recommendations — suppress Low confidence ones entirely
+
+---
+
 ### Available Agents & Skills
+
+#### What Agents & Skills Inherit Automatically
+
+All agents and skills inherit the following from `CLAUDE.md` and `CLAUDE.local.md`. **Do not repeat these in agent/skill files.** Before saving a new agent or skill, check each rule against this table — if it's listed here, remove it.
+
+| Rule | Source | Agent action |
+|---|---|---|
+| Active company + project resolution | `CLAUDE.md` → Active Project Resolution | Reference in Step 1, don't re-explain |
+| Standard context files to read before any task | `CLAUDE.md` → Company Context Files | Reference in Step 3, don't re-explain |
+| Output formatting, tone, templates | `CLAUDE.md` → Output Standards | No action needed — inherited silently |
+| Confidence filtering (High/Medium only) | `CLAUDE.md` → Working Style | No action needed — inherited silently |
+| Web search tool + citation | `CLAUDE.md` → Web Search | No action needed — inherited silently |
+
+When writing a new agent or skill, start from `.claude/_agent-template.md`. Only document rules that are **specific to that agent**.
+
+**Agent color:** Each agent must have a unique color. Check existing agents and pick an unused one from: `red`, `orange`, `yellow`, `green`, `teal`, `blue`, `purple`, `pink`. Currently used: green (create-company), orange (interview-analysis), teal (survey-analysis), purple (customer-support-analysis).
+
+---
 
 **Agents** (spawned via the `Agent` tool with `subagent_type` matching the agent name below; definitions live in `.claude/agents/`):
 - `create-company` ([.claude/agents/create-company.md](.claude/agents/create-company.md)) — research a new company and populate all four context files
 - `interview-analysis` ([.claude/agents/interview-analysis.md](.claude/agents/interview-analysis.md)) — analyse user research interview transcripts
 - `survey-analysis` ([.claude/agents/survey-analysis.md](.claude/agents/survey-analysis.md)) — analyse survey results
+- `customer-support-analysis` ([.claude/agents/customer-support-analysis.md](.claude/agents/customer-support-analysis.md)) — analyse customer support feedback verbatims
 
 **Skills** (invoked via the Skill tool or `/skill-name`):
 - `cite-links` — safe URL/citation handling using Fact ID pattern; use for any task combining web search with document generation
@@ -168,7 +204,9 @@ You are a senior PM assistant. Your job is to help the PM think, draft, and deci
 **Commands** (invoked via `/command-name`):
 - `update-readme` — add a new row to the README experiment index
 - `eval-feedback` — process evaluation feedback on agent/skill output
+- `meta-sync` — end-of-session audit: checks CLAUDE.md, README.md, MEMORY.md, and .claudeignore for gaps vs. what was built
 - `convert-to-md` — convert uploaded files to Markdown (also available as a skill)
+- `create-company` — prompt for a company name and spawn the `create-company` agent to research it
 
 ---
 

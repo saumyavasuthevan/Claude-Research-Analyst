@@ -47,14 +47,7 @@ All transcripts have already been analysed. No new files created.
 
 ## Step 4 — Read Company Context and Project Context
 
-Before reading any transcripts, read the following company context files (if they exist):
-
-- `projects/[company-name]/01- company context/company-overview.md`
-- `projects/[company-name]/01- company context/user-personas.md`
-- `projects/[company-name]/01- company context/product-description.md`
-- `projects/[company-name]/01- company context/competitive-landscape.md`
-
-Then read **all `.md` files directly inside** `projects/[company-name]/02 - project context/` (non-recursive, if the folder exists). These may include a discussion guide, PRD, converted Likert/Excel data, or other study materials. Files may have any filename — identify each by its content.
+Read standard context files per CLAUDE.md before reading any transcripts. Then read **all `.md` files directly inside** `projects/[company-name]/02 - project context/` (non-recursive, if the folder exists). These may include a discussion guide, PRD, converted Likert/Excel data, or other study materials. Files may have any filename — identify each by its content.
 
 Note which files you found and what each appears to contain (e.g. discussion guide, structured rating data, PRD).
 
@@ -124,19 +117,20 @@ For each transcript not already analysed:
 
 ### Filename convention
 
-Derive the unit identifier from the source filename:
-- `U1-john.md` → `[Company-Name]-interview-analysis-U1.md`
-- `interview-U4.md` → `[Company-Name]-interview-analysis-U4.md`
-- If no number is detectable, use the source filename stem: `[Company-Name]-interview-analysis-john.md`
+Derive the unit identifier from the source filename (e.g. `user-interview-u1.md` → `u1`). Use lowercase.
 
-Save to: `projects/[company-name]/04- analysis/[Company-Name]-interview-analysis-[unit].md`
+- `user-interview-u1.md` → `interview-analysis-u1.md`
+- `user-interview-u4.md` → `interview-analysis-u4.md`
+- If no number is detectable, use the source filename stem: `interview-analysis-john.md`
+
+Save to: `projects/[company-name]/04- analysis/interview-analysis-[unit].md`
 
 If the `04- analysis/` folder does not exist, create it before writing the first file.
 
 ### Output file structure
 
 ```markdown
-# [Company Name] Interview Analysis — [Unit]
+# Interview Analysis — [Unit]
 
 **Source file:** [source-filename.md]
 **Analysis date:** [today's date]
