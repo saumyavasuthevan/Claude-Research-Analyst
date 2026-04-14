@@ -104,16 +104,6 @@ Aim for 3–5 competitors. Copy-paste and fill one block per competitor. -->
 - **[Differentiator 2]:** [Specific claim]
 - **[Differentiator 3]:** [Specific claim]
 
-**When we lose to [Competitor 1]:**
-<!-- Be honest — analytical objectivity requires noting where you lose -->
-- [Loss scenario 1]
-- [Loss scenario 2]
-- [Loss scenario 3]
-
-**When we win against [Competitor 1]:**
-- [Win scenario 1]
-- [Win scenario 2]
-- [Win scenario 3]
 
 ---
 
@@ -155,14 +145,6 @@ Aim for 3–5 competitors. Copy-paste and fill one block per competitor. -->
 - **[Differentiator 2]:** [Specific claim]
 - **[Differentiator 3]:** [Specific claim]
 
-**When we lose to [Competitor 2]:**
-- [Loss scenario 1]
-- [Loss scenario 2]
-
-**When we win against [Competitor 2]:**
-- [Win scenario 1]
-- [Win scenario 2]
-
 ---
 
 ### 3. [Competitor 3]
@@ -198,14 +180,6 @@ Aim for 3–5 competitors. Copy-paste and fill one block per competitor. -->
 **[Company Name]'s Differentiation:**
 - **[Differentiator 1]:** [Specific claim]
 - **[Differentiator 2]:** [Specific claim]
-
-**When we lose to [Competitor 3]:**
-- [Loss scenario 1]
-- [Loss scenario 2]
-
-**When we win against [Competitor 3]:**
-- [Win scenario 1]
-- [Win scenario 2]
 
 ---
 
@@ -245,106 +219,6 @@ Label [ASSUMPTION] for anything inferred. -->
 
 ---
 
-## Win/Loss Analysis ([Most Recent Quarter/Period Available])
-
-<!-- Search for: "[Company Name] case studies customer wins press releases"
-This data is often not public — label [DATA UNAVAILABLE] if not findable.
-If found in press releases, earnings calls, or customer stories, cite source. -->
-
-### Deals We Won
-
-**vs [Competitor 1] ([X] wins [source/date — or ASSUMPTION]):**
-- Reason: [Win reason 1]
-- Reason: [Win reason 2]
-- Reason: [Win reason 3]
-
-**vs [Competitor 2] ([X] wins):**
-- Reason: [Win reason 1]
-- Reason: [Win reason 2]
-
-**vs Manual Process ([X] wins):**
-- Reason: [Win reason 1 — e.g., time savings]
-- Reason: [Win reason 2 — e.g., consistency/accuracy]
-
-### Deals We Lost
-
-**to [Competitor 1] ([X] losses):**
-- Reason: [Loss reason 1]
-- Reason: [Loss reason 2]
-
-**to Manual Process ([X] losses):**
-- Reason: [Loss reason 1 — e.g., low volume, not worth cost]
-- Reason: [Loss reason 2 — e.g., change resistance]
-
-*(Label this entire section [DATA UNAVAILABLE] if win/loss data is not publicly accessible)*
-
----
-
-## Competitive Trends to Watch
-
-<!-- Search for: "[industry] trends 2025 2026 competitive dynamics M&A AI"
-List 4–6 forward-looking trends that could shift competitive dynamics. Label [ASSUMPTION] for projections. -->
-
-### 1. [Trend 1 — e.g., GenAI Integration]
-- [What is happening]
-- [Which competitors are affected and how]
-- [Strategic implication for Company Name]
-
-### 2. [Trend 2 — e.g., Platform Consolidation]
-- [What is happening]
-- [Risk or opportunity]
-
-### 3. [Trend 3 — e.g., International Expansion]
-- [What is happening]
-- [Strategic implication]
-
-### 4. [Trend 4 — e.g., Compliance/Security Arms Race]
-- [What certifications or standards are emerging]
-- [Which competitors already have them]
-
-### 5. [Trend 5]
-- [What is happening]
-- [Strategic implication]
-
----
-
-## Strategic Recommendations
-
-<!-- Search for: "[Company Name] roadmap 2025 product announcements"
-Recommendations should flow from gaps identified above.
-Label [ASSUMPTION] for anything not sourced from the company directly. -->
-
-### Short-term ([Current Quarter]–[Next Quarter])
-
-**1. [Recommendation 1]**
-- [Specific action]
-- [Why this matters competitively]
-
-**2. [Recommendation 2]**
-- [Specific action]
-- [Why this matters]
-
-**3. [Recommendation 3]**
-- [Specific action]
-
-### Medium-term ([H2 of current year])
-
-**1. [Recommendation 1]**
-- [Specific action]
-- [Competitive rationale]
-
-**2. [Recommendation 2]**
-- [Specific action]
-
-### Long-term ([Following year])
-
-**1. [Recommendation 1]**
-- [e.g., Vertical solutions, partnerships, acquisitions]
-
-**2. [Recommendation 2]**
-
----
-
 ## Key Takeaways
 
 <!-- Synthesize from research above. Follow the LegalGraph pattern: what to learn, what to avoid, sustainable advantages. -->
@@ -365,21 +239,4 @@ Label [ASSUMPTION] for anything not sourced from the company directly. -->
 
 ---
 
-**Use this competitive intel when:**
-- Evaluating feature requests ("Does this differentiate us?")
-- Planning roadmap (where to compete vs. avoid)
-- Sales conversations (why us vs. [Competitor X])
-- Pricing decisions
-- Partnership opportunities
-- Positioning and messaging
-
----
-
-<!-- RESEARCH NOTES
-Source log — update as you research:
-- G2 comparison pages: [URLs]
-- Crunchbase profiles: [URLs]
-- Company pricing pages: [URLs]
-- Key analyst reports: [URLs]
-- Last verified: [YYYY-MM-DD]
--->
+<!-- Last verified: [YYYY-MM-DD] -->

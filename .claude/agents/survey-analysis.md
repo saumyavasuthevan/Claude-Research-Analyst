@@ -1,6 +1,6 @@
 ---
-name: analyse-survey-results
-description: "Use this agent to analyse survey results for a given company. Runs in an isolated context window to process survey data without polluting the main conversation.\n\nTrigger this agent when the user:\n- Types \"/analyse-survey-results\" or asks to analyse survey results\n- Asks to \"analyse survey data\", \"analyse survey responses\", or \"review survey feedback\"\n- Asks for insights from survey results"
+name: survey-analysis
+description: "Use this agent to analyse survey results for a given company. Runs in an isolated context window to process survey data without polluting the main conversation.\n\nTrigger this agent when the user:\n- Types \"/survey-analysis\" or asks to analyse survey results\n- Asks to \"analyse survey data\", \"analyse survey responses\", or \"review survey feedback\"\n- Asks for insights from survey results"
 model: sonnet
 color: teal
 ---

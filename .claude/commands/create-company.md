@@ -15,7 +15,7 @@ Check whether `projects/[CompanyName]/` already exists:
 
 ## Step 3 — Spawn the Agent
 
-Once the company name is confirmed, spawn the `createcompany` agent with this brief:
+Once the company name is confirmed, spawn the `create-company` agent with this brief:
 
 ```
 Company name: [CompanyName]

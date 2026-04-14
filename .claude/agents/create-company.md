@@ -1,5 +1,5 @@
 ---
-name: createcompany
+name: create-company
 description: "Use this agent to research a company and populate all four context files. Receives a pre-scoped brief (company name, output folder, templates folder) from the main conversation and runs all research in an isolated context window.\n\nSpawn this agent after the user has confirmed the company name in the main conversation."
 model: sonnet
 color: green

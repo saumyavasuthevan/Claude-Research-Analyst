@@ -196,100 +196,6 @@ Source from homepage hero copy, pitch decks, investor materials, or G2/Capterra 
 
 ---
 
-## Product Philosophy
-
-### Core Beliefs
-
-<!-- Search for: "[Company Name] product philosophy principles how we build"
-Source from engineering blog, about page, CEO interviews, or product pages.
-If not publicly stated, infer from product decisions and label [ASSUMPTION]. -->
-
-**1. [Core belief]**
-- [Supporting evidence or elaboration]
-- [How this manifests in the product]
-
-**2. [Core belief]**
-- [Supporting evidence or elaboration]
-
-**3. [Core belief]**
-- [Supporting evidence or elaboration]
-
-*(Match number of beliefs to what is publicly evidenced — do not pad with generics)*
-
----
-
-## Product Overview
-
-### Core Features
-
-<!-- Search for: "[Company Name] features product capabilities"
-Source from product pages, help docs, G2/Capterra listings, demo videos, or press coverage.
-List features as they appear — be specific, not generic. -->
-
-**[Feature Category 1]**
-- [Specific capability]
-- [Specific capability]
-- [Specific capability]
-
-**[Feature Category 2]**
-- [Specific capability]
-- [Specific capability]
-
-**[Feature Category 3]**
-- [Specific capability]
-- [Specific capability]
-
-**[Feature Category 4 — Analytics/Reporting if applicable]**
-- [Specific capability]
-- [Specific capability]
-
-**Integrations**
-<!-- Search for: "[Company Name] integrations API ecosystem" -->
-- [Integration 1] ([category])
-- [Integration 2] ([category])
-- [Integration 3] ([category])
-*(Label [DATA UNAVAILABLE] for integrations not confirmed on product pages)*
-
-### Technology Stack
-
-<!-- Search for: "[Company Name] tech stack engineering blog AI/ML infrastructure"
-Source from engineering blog posts, job descriptions (often reveal stack), BuiltWith, Stackshare, or press coverage.
-Label [ASSUMPTION] for anything inferred from job postings or indirect signals. -->
-
-**AI/ML:**
-- [Model or framework used — e.g., custom NLP, GPT-4, fine-tuned models] [source or ASSUMPTION]
-- [Training approach or dataset size if disclosed]
-
-**Security:**
-- [Certifications: SOC 2, GDPR, HIPAA, FedRAMP, etc.] [source, date]
-- [Encryption and access control standards]
-- [Compliance claims]
-
-**Infrastructure:**
-- [Cloud provider and regions] [source or ASSUMPTION]
-- [Uptime SLA if stated]
-- [Deployment options: cloud-only, on-premise, hybrid]
-
----
-
-## Company Culture
-
-### How We Work
-
-<!-- Search for: "[Company Name] culture remote work values careers"
-Source from Glassdoor, company careers page, LinkedIn posts, or team blog.
-Label [ASSUMPTION] for anything inferred. -->
-
-**Work model:** [Remote / Hybrid / In-office — include details if available]
-
-**Notable cultural traits:**
-- [Trait 1 — source if available]
-- [Trait 2]
-
-**Tools (if publicly known):**
-- [Tool] ([purpose]) — [source or ASSUMPTION]
-
----
 
 ## Strategic Priorities ([Current Year])
 
@@ -327,57 +233,58 @@ Label [ASSUMPTION] for anything inferred. If not public, omit and label [DATA UN
 
 ---
 
-## Key Terminology
+## Key Risks & Challenges
 
-<!-- Search for: "[Company Name] glossary product terminology"
-List 5–10 product-specific terms and their definitions, as used by the company.
-Source from help docs, onboarding materials, or product pages. -->
+<!-- Search for: "[Company Name] lawsuit regulatory risk churn challenge"
+Also review press coverage for negative narratives, product gaps, or operational issues.
+Categorise under the three headings below. Label [DATA UNAVAILABLE] if a category has no publicly available signals. -->
 
-**[Term 1]:** [Definition as the company uses it]
-**[Term 2]:** [Definition]
-**[Term 3]:** [Definition]
-**[Term 4]:** [Definition]
-**[Term 5]:** [Definition]
-*(Add more as found — these should be terms specific to the company's domain or product, not generic)*
+### Market Risks
+- **[Risk 1]:** [Description — e.g., category commoditisation, macro headwinds, buyer consolidation]
+- **[Risk 2]:** [Description]
 
----
+### Operational Risks
+- **[Risk 1]:** [Description — e.g., key-person dependency, execution capacity, product debt]
+- **[Risk 2]:** [Description]
 
-## Key Use Cases
+### Regulatory & Reputational Risks
+- **[Risk 1]:** [Description — e.g., pending litigation, data privacy exposure, negative press narrative]
+- **[Risk 2]:** [Description]
 
-<!-- Search for: "[Company Name] case studies customer stories use cases"
-Source from the company website, G2 reviews, press coverage, or demo pages.
-Structure each use case to match: User → Scenario → Before → After → Value.
-Aim for 2–3 use cases covering different user types or workflows. -->
-
-### Use Case 1: [Use Case Name]
-**User:** [Job title/role at what kind of company]
-**Scenario:** [What they're trying to accomplish]
-**Before [Company Name]:** [Time/effort/cost without the product]
-**After [Company Name]:** [Time/effort/cost with the product]
-**Value:** [Quantified outcome — time saved, cost reduced, risk avoided]
-
-### Use Case 2: [Use Case Name]
-**User:** [Job title/role]
-**Scenario:** [Workflow or task]
-**Before [Company Name]:** [Status quo]
-**After [Company Name]:** [Improved state]
-**Value:** [Quantified outcome]
-
-### Use Case 3: [Use Case Name]
-**User:** [Job title/role]
-**Scenario:** [Workflow or task]
-**Before [Company Name]:** [Status quo]
-**After [Company Name]:** [Improved state]
-**Value:** [Quantified outcome]
+*(Label [DATA UNAVAILABLE — as of date] for any category with no public signals)*
 
 ---
 
-<!-- RESEARCH NOTES
-Source log — update as you research:
-- Company website: [URL]
-- Crunchbase: [URL]
-- LinkedIn: [URL]
-- G2/Capterra: [URL]
-- Key press articles: [URLs]
-- Last verified: [YYYY-MM-DD]
--->
+## Market & Customer Sentiment
+
+<!-- For public companies: search for analyst ratings, institutional ownership trends.
+For private companies: search G2, Capterra, Trustpilot for reviews; search press for sentiment tone.
+Always note the review platform, rating, review count, and date. -->
+
+### Customer Reviews
+<!-- Search for: "[Company Name] G2 reviews Capterra Trustpilot" -->
+
+| Platform | Rating | Review Count | Date | Top Themes |
+|---|---|---|---|---|
+| [G2 / Capterra / Trustpilot] | [X.X / 5] | [N reviews] | [Month Year] | [Praise themes] / [Complaint themes] |
+
+**Recurring praise:** [What customers consistently highlight as strengths]
+**Recurring complaints:** [What customers consistently flag as weaknesses or gaps]
+
+### Press Sentiment
+<!-- Search for: "[Company Name] news 2024 2025 2026" — note tone and recurring narratives -->
+
+**Overall tone:** [Positive / Mixed / Negative]
+**Key narratives in coverage:**
+- [Narrative 1 — e.g., "positioned as category leader in X"]
+- [Narrative 2 — e.g., "concerns raised about Y"]
+
+**Key publications covering [Company Name]:** [Publication 1], [Publication 2], [Publication 3]
+
+### Analyst / Investor Sentiment
+<!-- For public companies: consensus rating, institutional ownership trends.
+For private companies: label [DATA UNAVAILABLE] unless investor signals are publicly accessible (e.g., noted in press). -->
+
+[DATA UNAVAILABLE — as of research date] *(or fill from public sources if available)*
+
+<!-- Last verified: [YYYY-MM-DD] -->

@@ -18,15 +18,15 @@ This repo is a multi-company PM Operating System used for freelance product mana
 ### Step 2 — Identify the active project
 
 1. Open the identified `projects/[CompanyName]/` folder and inspect its contents.
-2. **Standard structure** (single project): the folder contains numbered subfolders like `01 - company context/`, `02 - project context/`, `03- research/`, `04- analysis/`, `05- outputs/`. In this case, treat the whole company folder as one project — no need to ask.
+2. **Standard structure** (single project): the folder contains numbered subfolders like `01- company context/`, `02- project context/`, `03- research/`, `04- analysis/`, `05- outputs/`. In this case, treat the whole company folder as one project — no need to ask.
 3. **Multi-project structure**: the folder contains named project subfolders (e.g., `contract-review/`, `risk-scoring/`). In this case, list the projects and ask: *"[CompanyName] has multiple projects: [list]. Which project should I work on?"*
 4. If the task makes the project obvious from context, proceed without asking — but state your assumption.
 
 ### Step 3 — Set active paths
 
 Once the company and project are confirmed, all paths resolve as:
-- **Context:** `projects/[CompanyName]/01 - company context/`
-- **Project Context:** `projects/[CompanyName]/02 - project context/`
+- **Company Context:** `projects/[CompanyName]/01- company context/`
+- **Project Context:** `projects/[CompanyName]/02- project context/`
 - **Research:** `projects/[CompanyName]/03- research/`
 - **Analysis:** `projects/[CompanyName]/04- analysis/`
 - **Outputs:** `projects/[CompanyName]/05- outputs/`
@@ -34,7 +34,7 @@ Once the company and project are confirmed, all paths resolve as:
 - **Memory:** `projects/[CompanyName]/07- memory/` (if it exists)
 
 For multi-project companies, paths are nested one level deeper:
-- `projects/[CompanyName]/[ProjectName]/01 - company context/` etc.
+- `projects/[CompanyName]/[ProjectName]/01- company context/` etc.
 
 ---
 
@@ -45,14 +45,30 @@ For multi-project companies, paths are nested one level deeper:
 #### ALWAYS read these files before starting ANY task (after resolving the active project above):
 
 **Core Context (Read First):**
-- `projects/[ActiveCompany]/01 - company context/company-overview.md` - Company background, team, metrics, strategy, OKRs
-- `projects/[ActiveCompany]/01 - company context/user-personas.md` - User personas and their needs
-- `projects/[ActiveCompany]/01 - company context/product-description.md` - Current product features, roadmap, tech stack
-- `projects/[ActiveCompany]/01 - company context/competitive-landscape.md` - Competitors and market positioning
+- `projects/[ActiveCompany]/01- company context/company-overview.md` - Company background, team, metrics, strategy, OKRs
+- `projects/[ActiveCompany]/01- company context/product-description.md` - Current product features, roadmap, tech stack
+- `projects/[ActiveCompany]/01- company context/competitive-landscape.md` - Competitors and market positioning
+- `projects/[ActiveCompany]/01- company context/market-research.md` - Market size, growth rates, trends, opportunities
+
+If `PRD.md` exists inside `projects/[ActiveCompany]/02- project context/`, read it. Ignore all other files in that folder.
+
+**If a context file is missing:** note it explicitly (e.g., "competitive-landscape.md not found — proceeding without it") and continue. Do not halt the task.
+
+If `projects/[ActiveCompany]/07- memory/` exists, read all `.md` files inside it before starting.
 
 **Templates (Use for Output Structure):**
+- `templates/company-overview-template.md` - Structure for company overview context files
+- `templates/competitive-landscape-template.md` - Structure for competitive landscape context files
+- `templates/product-description-template.md` - Structure for product description context files
 - `templates/market-research-template.md` - Structure for market research deliverables
 - `templates/prd-template.md` - Structure for Product Requirements Documents
+
+**Template selection rules — apply automatically without waiting for the user to specify:**
+- Use `prd-template.md` for any feature spec, requirements doc, or user story task
+- Use `market-research-template.md` for any market sizing, trend analysis, or opportunity sizing task
+- Use `competitive-landscape-template.md` for any competitor analysis or positioning task
+- Use `company-overview-template.md` when creating or updating a company overview context file
+- Use `product-description-template.md` when creating or updating a product description context file
 
 ---
 
@@ -64,7 +80,6 @@ If critical information is missing from context files, **ask crisp verification 
 
 **Examples of good verification questions:**
 - "What is the target timeline for this feature launch?"
-- "Which user persona should be prioritized for this feature?"
 - "What are the key success metrics we're tracking?"
 - "What is the budget or resource constraint for this project?"
 - "Are there any technical constraints or dependencies I should be aware of?"
@@ -74,13 +89,7 @@ If critical information is missing from context files, **ask crisp verification 
 - "What do you want?" (not specific)
 - "Is there anything else?" (not actionable)
 
-#### Using Your Reasoning:
-
-When context is incomplete:
-1. **Analyze what you know** - Review available context files and identify gaps
-2. **Reason about what's needed** - Use your understanding of PM best practices to determine what information would be critical
-3. **Ask targeted questions** - Frame questions that will help you deliver better output
-4. **Make reasonable assumptions** - If the user confirms you can proceed, make educated assumptions based on industry standards and best practices, but clearly state them
+If the user confirms you can proceed without complete context, make educated assumptions based on industry standards — but state them explicitly.
 
 ---
 
@@ -89,8 +98,7 @@ When context is incomplete:
 #### Quality Requirements:
 - **Clear and specific:** No vague statements like "improve UX" - be precise with measurable outcomes
 - **Data-driven:** Include metrics, percentages, dollar amounts where relevant. Use web search for current data
-- **Cited sources:** All web search data must include sources with dates
-- **Persona-focused:** Always consider impact on all user personas mentioned in context
+- **Cited sources:** Follow the `cite-links` skill for all source handling
 - **Template adherence:** Follow template structure exactly when templates are provided
 - **Professional tone:** Write for audience of engineers, designers, and executives
 - **Actionable:** Every recommendation should be specific and implementable
@@ -105,138 +113,62 @@ When context is incomplete:
 
 ---
 
-### Reasoning and Analysis Guidelines
+### PM Frameworks
 
-#### Think Through Problems Systematically:
-
-1. **Understand the problem deeply:**
-   - What is the user trying to achieve?
-   - What constraints exist (technical, business, timeline)?
-   - Who are the stakeholders and what are their priorities?
-
-2. **Analyze available information:**
-   - Review all context files thoroughly
-   - Identify patterns and connections between different pieces of information
-   - Note any contradictions or gaps
-
-3. **Apply PM frameworks when appropriate:**
-   - Prioritization frameworks (RICE, MoSCoW, Kano Model)
-   - User journey mapping
-   - Competitive analysis frameworks
-   - Risk assessment
-   - Cost-benefit analysis
-
-4. **Synthesize insights:**
-   - Connect market research to user needs
-   - Link user research to product requirements
-   - Consider technical feasibility with business goals
-   - Balance short-term wins with long-term strategy
-
-5. **Provide recommendations with rationale:**
-   - Explain why you're recommending something
-   - Show the reasoning chain
-   - Acknowledge trade-offs
-   - Suggest alternatives when appropriate
+Apply these when appropriate — don't force-fit:
+- **Prioritization:** RICE, MoSCoW, Kano Model
+- **Discovery:** User journey mapping, Jobs-to-be-done
+- **Analysis:** Competitive analysis, risk assessment, cost-benefit analysis
+- **Strategy:** OKR alignment, opportunity sizing
+- **Always:** show reasoning chain, acknowledge trade-offs, state assumptions
 
 ---
 
-### Web Search Guidelines
+### Web Search
 
-#### When to use web search:
-- Market sizing and growth rates
-- Competitive intelligence (recent funding, product launches, pricing)
-- Industry trends and benchmarks
-- User behavior research
-- Technology trends (AI/ML, security standards)
-- Regulatory requirements
-- Best practices and case studies
+**Always use `mcp__brave-search__brave_web_search`** for all web searches (lower token cost than WebSearch/WebFetch).
 
-#### Search query best practices:
-- Use specific, targeted queries
-- Include current year for time-sensitive data
-- Search for multiple perspectives on the same topic
-- Verify information from multiple sources when possible
+Use web search for: market sizing, competitive intelligence, industry trends, user behavior research, regulatory requirements, and best practices.
 
-#### How to cite:
-
-For any output that references a web source, follow the **`cite-links` skill**.
+**Citing sources:** Follow the `cite-links` skill for all URL handling — never write raw URLs inline.
 
 ---
 
-### Error Prevention
+### Standards Checklist
 
-**Common mistakes to avoid:**
-- Not reading company context files before responding
-- Making generic recommendations not specific to the company/product
-- Ignoring persona differences (one-size-fits-all solutions)
-- Vague requirements ("improve performance" - be specific with metrics!)
-- No citations for market data or external information
-- Not following template structure when templates are provided
-- Forgetting to save outputs to `projects/[ActiveCompany]/05- outputs/`
-- Making assumptions without stating them clearly
-- Not asking clarifying questions when critical information is missing
-
-**Best practices:**
-- Always read ALL context files first
-- Use web search for current, accurate data
-- Be specific and quantitative in recommendations
-- Consider all personas mentioned in context
-- Follow templates exactly when provided
-- Cite all sources properly
-- Save outputs to `projects/[ActiveCompany]/05- outputs/`
-- Ask targeted questions when context is incomplete
-- State assumptions clearly when making them
-- Use reasoning to connect insights and make recommendations
+Before every response:
+- Read ALL context files first — never respond from memory alone
+- Make recommendations specific to this company/product — no generic advice
+- Be specific and quantitative; "improve performance" is not a requirement — give metrics
+- Use web search for current data; cite all sources via `cite-links` skill
+- Follow template structure exactly when a template applies
+- Save outputs to the folder specified by the active agent/skill instructions. For direct PM tasks with no agent active, save to `projects/[ActiveCompany]/05- outputs/[YYYY-MM-DD]-[task-name].md`
+- State all assumptions explicitly
+- Ask targeted clarifying questions when critical information is missing
 
 ---
 
-### Your Role (PM Assistant)
+### Your Role
 
-You are an AI assistant helping a Product Manager. Your job is to:
-- Conduct thorough market and user research
-- Write comprehensive, actionable PRDs
-- Provide data-driven recommendations with clear reasoning
-- Consider all user personas in every decision
-- Ask clarifying questions when needed
-- Use your reasoning capabilities to analyze problems systematically
-- Synthesize information from multiple sources
-- Balance user needs, business goals, and technical constraints
-
-Every output should be production-ready — something the PM can immediately share with engineering, design, or leadership teams.
+You are a senior PM assistant. Your job is to help the PM think, draft, and decide — not to produce outputs for direct external consumption. Always present your work as a draft for the PM to review, refine, and own before sharing with any audience.
 
 ---
 
-### Communication Style
+### Available Agents & Skills
 
-#### Be Proactive:
-- If you notice potential issues or risks, mention them
-- Suggest improvements or alternatives when appropriate
-- Highlight important considerations that might be overlooked
+**Agents** (spawned via the `Agent` tool with `subagent_type` matching the agent name below; definitions live in `.claude/agents/`):
+- `create-company` ([.claude/agents/create-company.md](.claude/agents/create-company.md)) — research a new company and populate all four context files
+- `interview-analysis` ([.claude/agents/interview-analysis.md](.claude/agents/interview-analysis.md)) — analyse user research interview transcripts
+- `survey-analysis` ([.claude/agents/survey-analysis.md](.claude/agents/survey-analysis.md)) — analyse survey results
 
-#### Be Transparent:
-- Clearly state when you're making assumptions
-- Acknowledge limitations or uncertainties
-- Explain your reasoning process
+**Skills** (invoked via the Skill tool or `/skill-name`):
+- `cite-links` — safe URL/citation handling using Fact ID pattern; use for any task combining web search with document generation
+- `convert-to-md` — convert uploaded research files (CSV, XLSX, PDF, DOCX) to Markdown
 
-#### Be Concise but Complete:
-- Get to the point quickly
-- Include all necessary details
-- Use structure to make information scannable
+**Commands** (invoked via `/command-name`):
+- `update-readme` — add a new row to the README experiment index
+- `eval-feedback` — process evaluation feedback on agent/skill output
+- `convert-to-md` — convert uploaded files to Markdown (also available as a skill)
 
 ---
-
-## Company Research
-
-When the user asks to research a company, handle scoping in the main conversation first, then delegate execution to the `company-intelligence` agent.
-
-### Scoping (do this before spawning the agent)
-
-Ask only the questions that aren't already clear from the user's message:
-
-1. **Company name** — confirm spelling/exact name if ambiguous
-2. **Focus areas** — e.g., funding, product, competitive position, customer sentiment (default: full report if not specified)
-3. **Any specific competitors** to benchmark against?
-4. **Output folder** — confirm the active project so the report saves to the right place: `projects/[ActiveCompany]/05- outputs/`
-
-Once confirmed, spawn the `company-intelligence` agent with a clear brief: company name, focus areas, date range, and output folder path. The agent handles all research execution in its own context window.
 
