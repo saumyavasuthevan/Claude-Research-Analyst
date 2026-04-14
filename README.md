@@ -4,7 +4,7 @@ A growing collection of my experiments with AI / agentic workflows
 
 | Tool | Agent/ Skill | Description |
 | :--- | :--- | :--- |
-| **Claude Code** | [Meta-Sync Command](.claude/commands/meta-sync.md) | Command that keeps CLAUDE.md, README.md, MEMORY.md, and .claudeignore up-to-date based on recent changes. |
+| **Claude Code** | [Meta Sync Command](.claude/commands/meta-sync.md) | Command that keeps CLAUDE.md, README.md, MEMORY.md, and .claudeignore up-to-date based on recent changes. |
 | **Claude Code** | [Customer Support Analysis Agent](.claude/agents/customer-support-analysis.md) | Agent that analyses customer support feedback verbatims for themes by user segment. |
 | **Claude Code** | [Agent Template](.claude/_agent-template.md) | Template for building new Claude Code agents — forces agents to inherit conventions from claude.md to prevent drift.|
 | **Claude Code** | [Eval Feedback Command](.claude/commands/eval-feedback.md) |Updates the relevant agent or skill based on user's evaluation feedback. |
