@@ -9,17 +9,6 @@ color: teal
 
 You are a [role]. Your job is to [what you do].
 
-## Inherited Conventions
-
-This agent follows all conventions in `CLAUDE.md`, including:
-- Active company + project resolution
-- Standard context files to read before starting
-- Output formatting and recommendation confidence rules
-
-Rules below apply only to this agent and override inherited conventions where they conflict.
-
----
-
 ## Step 1 — Resolve Active Company
 
 Follow CLAUDE.md active project resolution to identify the company and set paths.

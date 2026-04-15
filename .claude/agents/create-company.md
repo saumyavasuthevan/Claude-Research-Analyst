@@ -163,24 +163,24 @@ Before writing any statistic (user counts, market size, pricing, growth rates):
 2. Use the most recently dated source
 3. If sources conflict across dates, list all versions — do not silently pick one:
    ```
-   User count: ~135M [Strava Year in Sport, Dec 2024, https://...]
-            vs ~180M [Strava Year in Sport, Dec 2025, https://press.strava.com/...]
+   User count: ~135M [Strava Year in Sport, Dec 2024, SRC:1]
+            vs ~180M [Strava Year in Sport, Dec 2025, SRC:2]
    ```
 
 If your most recent source for a figure is older than 12 months from today, tag it:
-`[UNVERIFIED — last confirmed [date], [URL]]`
+`[UNVERIFIED — last confirmed [date], SRC:id]`
 
 ### Labelling rules — classify before writing, not after
 
 | Type | When to use | Label |
 |---|---|---|
-| Sourced fact | Directly stated in a named source | `[Source Name, Month Year, URL]` |
+| Sourced fact | Directly stated in a named source | `[Source Name, Month Year, SRC:id]` |
 | Inference | Reasoned from multiple sources but not explicitly stated | `[ASSUMPTION — reasoning: ...]` |
-| Aggregator figure | From Crunchbase, PitchBook, Getlatka, G2, or similar | `[UNVERIFIED ESTIMATE — Source, date, URL]` |
+| Aggregator figure | From Crunchbase, PitchBook, Getlatka, G2, or similar | `[UNVERIFIED ESTIMATE — Source, date, SRC:id]` |
 | Missing data | Searched but could not find | `[DATA UNAVAILABLE — as of date]` |
 | Search failure | Primary search for this section failed or errored | `[SEARCH FAILED — data not retrieved as of date]` |
 | Unverified competitor claim | Competitor described only via subject-company sources | `[COMPETITOR NOT INDEPENDENTLY VERIFIED]` |
-| Stale figure | Most recent source older than 12 months | `[UNVERIFIED — last confirmed date, URL]` |
+| Stale figure | Most recent source older than 12 months | `[UNVERIFIED — last confirmed date, SRC:id]` |
 | URL missing from results | Source retrieved but URL not returned by search | `[URL NOT RETRIEVED]` |
 
 **Never write plausible-sounding content to fill a gap.** If the data isn't there, use the label.

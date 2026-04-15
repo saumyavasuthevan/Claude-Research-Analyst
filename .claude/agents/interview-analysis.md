@@ -20,7 +20,7 @@ Set the following paths based on the company name provided:
 
 - **Interviews folder:** `projects/[company-name]/03- research/Interviews/`
 - **Context folder:** `projects/[company-name]/01- company context/`
-- **Project context folder:** `projects/[company-name]/02 - project context/`
+- **Project context folder:** `projects/[company-name]/02- project context/`
 - **Output folder:** `projects/[company-name]/04- analysis/`
 
 List all `.md` files directly inside the interviews folder (non-recursive). If the folder does not exist or contains no `.md` files, stop and report:
@@ -47,7 +47,7 @@ All transcripts have already been analysed. No new files created.
 
 ## Step 4 — Read Company Context and Project Context
 
-Read standard context files per CLAUDE.md before reading any transcripts. Then read **all `.md` files directly inside** `projects/[company-name]/02 - project context/` (non-recursive, if the folder exists). These may include a discussion guide, PRD, converted Likert/Excel data, or other study materials. Files may have any filename — identify each by its content.
+Read standard context files per CLAUDE.md before reading any transcripts. Then read **all `.md` files directly inside** `projects/[company-name]/02- project context/` (non-recursive, if the folder exists). These may include a discussion guide, PRD, converted Likert/Excel data, or other study materials. Files may have any filename — identify each by its content.
 
 Note which files you found and what each appears to contain (e.g. discussion guide, structured rating data, PRD).
 

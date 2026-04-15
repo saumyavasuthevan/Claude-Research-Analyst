@@ -158,16 +158,17 @@ You are a senior PM assistant. Your job is to help the PM think, draft, and deci
 ### Working Style
 
 **Communication:**
-- Keep responses concise (max 500 words unless specified)
-- Use bullet points for lists
-- Use tables for comparisons wherever possible — prefer tables over bullet lists for side-by-side information
-- Prefer actionable recommendations over theory
-- No long introductions or background
+- Format hierarchy: tables > bullets > paragraphs — use the most structured format the content naturally supports
+- Sharp and concise — omit superfluous information the user didn't ask for
+- No introductions, preamble, or trailing summaries
 - No multiple options when one clear recommendation exists
 - No generic advice not specific to the active company
+- Max 500 words prose responses unless specified (excludes code output)
 
 **Recommendations:**
+- Confidence tiers: High = grounded in provided data; Medium = inferred from patterns; Low = speculative
 - Only show High or Medium confidence recommendations — suppress Low confidence ones entirely
+
 
 ---
 
@@ -187,7 +188,7 @@ All agents and skills inherit the following from `CLAUDE.md` and `CLAUDE.local.m
 
 When writing a new agent or skill, start from `.claude/_agent-template.md`. Only document rules that are **specific to that agent**.
 
-**Agent color:** Each agent must have a unique color. Check existing agents and pick an unused one from: `red`, `orange`, `yellow`, `green`, `teal`, `blue`, `purple`, `pink`. Currently used: green (create-company), orange (interview-analysis), teal (survey-analysis), purple (customer-support-analysis).
+**Agent color:** Each agent must have a unique color. Check existing agents and pick an unused one from: `red`, `orange`, `yellow`, `green`, `teal`, `blue`, `purple`, `pink`. Currently used: green (create-company), orange (interview-analysis), teal (survey-analysis), purple (customer-feedback-analysis).
 
 ---
 
@@ -195,7 +196,7 @@ When writing a new agent or skill, start from `.claude/_agent-template.md`. Only
 - `create-company` ([.claude/agents/create-company.md](.claude/agents/create-company.md)) — research a new company and populate all four context files
 - `interview-analysis` ([.claude/agents/interview-analysis.md](.claude/agents/interview-analysis.md)) — analyse user research interview transcripts
 - `survey-analysis` ([.claude/agents/survey-analysis.md](.claude/agents/survey-analysis.md)) — analyse survey results
-- `customer-support-analysis` ([.claude/agents/customer-support-analysis.md](.claude/agents/customer-support-analysis.md)) — analyse customer support feedback verbatims
+- `customer-feedback-analysis` ([.claude/agents/customer-feedback-analysis.md](.claude/agents/customer-feedback-analysis.md)) — analyse customer feedback (support tickets, website feedback, NPS/CSAT, open-ended qual)
 
 **Skills** (invoked via the Skill tool or `/skill-name`):
 - `cite-links` — safe URL/citation handling using Fact ID pattern; use for any task combining web search with document generation
@@ -204,6 +205,7 @@ When writing a new agent or skill, start from `.claude/_agent-template.md`. Only
 **Commands** (invoked via `/command-name`):
 - `update-readme` — add a new row to the README experiment index
 - `eval-feedback` — process evaluation feedback on agent/skill output
+- `check-agent` — post-edit quality check on any agent, skill, or command file: flags LLM-confusing inconsistencies, template compliance gaps, and reuse opportunities
 - `meta-sync` — end-of-session audit: checks CLAUDE.md, README.md, MEMORY.md, and .claudeignore for gaps vs. what was built
 - `convert-to-md` — convert uploaded files to Markdown (also available as a skill)
 - `create-company` — prompt for a company name and spawn the `create-company` agent to research it

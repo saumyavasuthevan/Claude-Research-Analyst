@@ -26,10 +26,14 @@ Using the existing rows as style reference, determine:
   - Use `/tree/main/` for folders, `/blob/main/` for files
   - **Never construct a GitHub URL without first confirming the file/folder exists on disk. If you cannot find a matching file, tell the user and ask them to provide the path.**
 - **Description** — write a concise description matching the tone and length of existing rows. Rules:
-  - Use human language (e.g. "analyses" not "processes", "generates" not "creates and outputs")
-  - Lead with the type: "Agent that...", "Skill that...", "Command that..."
-  - Max ~25 words. No nested clauses. No redundant phrases.
-  - Match the style of this example: `Agent that analyses user interviews for pain points and bright spots with verbatim quotes — one analysis per participant. No synthesis.`
+  - Lead with a strong verb: "Analyses...", "Calculates...", "Reviews...", "Conducts..." — never lead with "Agent that", "Skill that", or "Command that"
+  - Use a purpose clause ("to resolve X", "to speed up X", "for Y") to frame the problem being solved — not the mechanics or output
+  - The test: does the description explain *why someone would use this*, not just *what it technically does*?
+  - Max ~20 words. No nested clauses. No redundant phrases.
+  - Match the style of these human-written examples:
+    - `Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis.`
+    - `Automatically calculates survey margin of error and highlights key themes by user segment to speed up product discovery`
+    - `Reviews and updates agent, skill, and command files to resolve conflicts, avoid template drift, and ensure consistency across files.`
 
 ## Step 4 — Insert into README.md
 
