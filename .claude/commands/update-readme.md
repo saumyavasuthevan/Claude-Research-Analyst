@@ -10,9 +10,22 @@ Wait for the user's response before continuing.
 
 ## Step 2 — Gather context
 
-Read `README.md` to understand the existing row style (tone, naming convention, description length).
+Read `README.md` to understand the existing row style (tone, naming convention, description length) and the current group sections.
 
 If the user gave a file or folder path, verify it exists in the repo. If they didn't, search the repo for a likely match based on what they described (check `.claude/agents/`, `.claude/commands/`, `.claude/skills/`, and `projects/`).
+
+## Step 2b — Determine the group
+
+Classify the new entry into one of the existing `###` sections based on its primary function:
+
+- **Product Discovery** — research agents, interview/survey analysis, company intelligence, competitive intel
+- **Artifacts** — document generators (PRDs, specs, reports)
+- **Eval / Verification** — eval feedback processing, agent/skill quality checks
+- **Observability** — hooks, logging, tracing, debug tooling
+- **Tooling** — templates, sync commands, structural meta-tooling
+- **RAG** — retrieval-augmented generation, chatbots, context window tools
+
+If none of the above fits, propose a new `###` section name to the user before inserting.
 
 ## Step 3 — Derive the row automatically
 
@@ -34,9 +47,10 @@ Using the existing rows as style reference, determine:
     - `Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis.`
     - `Automatically calculates survey margin of error and highlights key themes by user segment to speed up product discovery`
     - `Reviews and updates agent, skill, and command files to resolve conflicts, avoid template drift, and ensure consistency across files.`
+    - `Captures tool inputs/outputs via deterministic shell hooks, preventing token consumption and Claude from forgetting instructions. Used by Debug Agent to trace errors and recommend improvements to agents and skills.`
 
 ## Step 4 — Insert into README.md
 
-Read `README.md`. Insert the new row as the **first data row** of the table — directly after the header and divider rows (`| :--- |` line), pushing all existing rows down.
+Read `README.md`. Locate the `###` section matching the group determined in Step 2b. Insert the new row as the **first data row** of that group's table — directly after the header and divider rows (`| :--- |` line), pushing existing rows in that group down.
 
-Save the file, then show the user the row that was added.
+Save the file, then show the user the row that was added and which group it was placed in.
