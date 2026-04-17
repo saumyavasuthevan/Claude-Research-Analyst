@@ -51,7 +51,19 @@ Read standard context files per CLAUDE.md before reading any transcripts. Then r
 
 Note which files you found and what each appears to contain (e.g. discussion guide, structured rating data, PRD).
 
-If none of these files exist, note this and proceed to Step 6.
+If none of these files exist, note this. Then ask the user:
+
+> "No discussion guide or project context files found — I'll analyse transcripts for Pain Points and Bright Spots only.
+>
+> The following transcripts are ready to analyse:
+> [numbered list of unanalysed transcript filenames]
+>
+> I'll start with **[first transcript filename]** by default.
+>
+> 1. Should I start with a different file?
+> 2. Would you like me to process **one file at a time** (stopping after each for your review) or **all remaining files in one go**?"
+
+**Do not read any transcripts or write any output files until the user has confirmed.** Default to **one at a time** if no preference is given. Then proceed to Step 6.
 
 ## Step 5 — Derive Project-Specific Analysis Dimensions
 
@@ -62,7 +74,7 @@ If none of these files exist, note this and proceed to Step 6.
    - Any specific evaluation tasks (e.g., ad rating, prototype walk-through, card sort, brand perception exercise)
    - The structure of the session (sections, prompts, sub-prompts)
 
-2. Based on the above, propose **3–6 project-specific qualitative analysis dimensions** to extract from transcripts, in addition to the standard Pain Points and Bright Spots. Each dimension captures *what participants said* — not numerical scores or ratings. Format them as a numbered list with a one-line description of what to look for.
+2. Based on the above, propose **3–6 project-specific qualitative analysis dimensions** to extract from transcripts, in addition to the standard Pain Points and Bright Spots. Format them as a numbered list with a one-line description of what to look for.
 
    **Example:**
    ```
@@ -74,19 +86,28 @@ If none of these files exist, note this and proceed to Step 6.
    4. CTA Clarity: Did participants understand what they were being asked to do, and where did clarity break down?
    ```
 
-   **Do not include Likert scores, numerical ratings, or any quantitative data as a dimension or within a dimension.** If the transcript contains ratings (e.g. "I give it a 4"), extract only the participant's verbal explanation of *why* they gave that rating — not the number itself.
-
 3. **STOP HERE.** Present the proposed dimensions to the user and ask:
 
    > "Based on the discussion guide [and project context], here's what I plan to extract from each transcript — in addition to pain points and bright spots:
    >
    > [numbered list]
    >
-   > Would you like to adjust, add, or remove any of these before I proceed?"
+   > The following transcripts are ready to analyse:
+   > [numbered list of unanalysed transcript filenames]
+   >
+   > I'll start with **[first transcript filename]** by default.
+   >
+   > Before I proceed:
+   > 1. Would you like to adjust, add, or remove any of the analysis dimensions?
+   > 2. Should I start with a different file?
+   > 3. Would you like me to process **one file at a time** (stopping after each for your review) or **all remaining files in one go**?"
 
-4. **Do not read any transcripts or write any output files until the user has confirmed or revised the dimensions.** This is a hard gate — proceeding without confirmation is not permitted regardless of how clear the dimensions seem.
+4. **Do not read any transcripts or write any output files until the user has confirmed the dimensions, the starting file, and the processing mode.** This is a hard gate — proceeding without confirmation is not permitted regardless of how clear the dimensions seem.
 
-Once confirmed, treat the finalised list of dimensions as binding for all transcript analysis in Step 6.
+Once confirmed:
+- Treat the finalised list of dimensions as binding for all transcript analysis in Step 6.
+- Note the confirmed processing mode: **one at a time** (default) or **all remaining**.
+- If no processing mode preference is given, default to **one at a time**.
 
 ## Step 6 — Process Each New Transcript
 
@@ -168,7 +189,25 @@ If the `04- analysis/` folder does not exist, create it before writing the first
 [Repeat for each confirmed project-specific dimension]
 ```
 
-## Step 8 — Confirm
+## Step 8 — Per-File Approval Gate (one-at-a-time mode only)
+
+If the confirmed processing mode is **one at a time**, after writing each output file:
+
+1. Summarise what was written (filename, pain point count, bright spot count, and project-specific dimensions covered).
+2. **STOP and ask:**
+
+   > "Analysis written to `[filename]`. Ready for the next transcript: **[next filename]**?
+   >
+   > - Reply **yes** (or any confirmation) to proceed.
+   > - Reply with a specific filename or number if you'd like to jump to a different transcript.
+   > - Reply **stop** if you're done for now."
+
+3. **Do not process the next transcript until the user confirms.** This is a hard gate — do not auto-advance regardless of remaining files.
+4. If the user replies **stop**, skip to Step 9 and report only what was completed in this session.
+
+If the confirmed processing mode is **all remaining**, skip this step and continue processing each transcript sequentially without pausing.
+
+## Step 9 — Confirm
 
 After all files are written, confirm with:
 

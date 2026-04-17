@@ -50,21 +50,30 @@ If you do pause, summarise:
 
 Read the full feedback file. Adapt your analysis approach to the feedback type detected in Step 4.
 
-### 5a — Detect Data Structure
+### 5a — Establish Statistical Baseline
+
+Before categorising, calculate and state:
+- N = total entries.
+- MoE = 1/√N × 100 — express as a percentage rounded to one decimal place.
+- Reporting Threshold = 2 × MoE. Only report differences between segments where the gap exceeds this threshold.
+- Rule of 30: Do not report on any sub-segment where n < 30. If a segment is under n=30 but shows a notable pattern, attempt to merge with a logically adjacent segment and re-check n before reporting.
+- If MoE ≤ 5%: no caveat needed — results can be treated as statistically reliable. If MoE > 5%: flag as a limitation in the Methodology section and add a directional-use caveat.
+
+### 5b — Detect Data Structure
 
 Before categorising, identify:
 - **Score field** (if present): the column containing satisfaction scores (e.g. NPS, CSAT, star rating, 1–10 scale). Note the scale range.
 - **Verbatim field(s)**: the column(s) containing free-text responses.
 - **Metadata fields**: any columns beyond the score and verbatim fields that can enrich the analysis — common examples include date, device type, channel, and page URL. If a URL field is present, infer the **topic of the page** from the URL path (e.g. `/weather/` → weather pages, `/about` → company about page, `/checkout` → purchase flow) and use this as a segmentation dimension throughout the analysis.
 
-### 5b — Classify Sentiment
+### 5c — Classify Sentiment
 
 Before deriving themes, classify each entry as **Positive** or **Negative**:
 - If a score field is present, use it as the primary signal (define the threshold based on the scale — e.g. NPS 0–6 = Negative, 9–10 = Positive, 7–8 = Neutral; treat Neutral as Negative for theme analysis).
 - If no score field is present, infer sentiment from the verbatim text.
 - Record the overall split: total Positive (n, %), total Negative (n, %).
 
-### 5c — Derive Themes Within Each Sentiment Group
+### 5d — Derive Themes Within Each Sentiment Group
 
 Derive themes **separately** within Negative entries and within Positive entries. Themes describe the type of fix or improvement signal — not the sentiment itself.
 
@@ -81,7 +90,7 @@ Guidelines:
 
 - Keep the number of themes per sentiment group between 3 and 7. Merge very similar patterns; split only if the distinction is actionable.
 
-### 5d — Derive Sub-themes Within Each Theme
+### 5e — Derive Sub-themes Within Each Theme
 
 After assigning entries to themes, derive 2–4 sub-themes within each theme by reading the verbatims assigned to it. Sub-themes are the specific, concrete patterns inside a theme — not restatements of the theme itself.
 
@@ -90,15 +99,16 @@ Guidelines:
 - A sub-theme should correspond to a distinct user pain or distinct fix — if two sub-patterns require the same fix, merge them.
 - Sub-themes are surfaced in the unified feedback tables (Sections 2 and 3) and in the HTML report.
 
-### 5e — Score Analysis (if scores present)
+### 5f — Score Analysis (if scores present)
 
 If satisfaction scores exist:
 - Calculate **mean score** overall and per sentiment group.
 - Identify the **score distribution** (e.g. % Promoters / Passives / Detractors for NPS; % satisfied / neutral / dissatisfied for CSAT). Suppress any distribution bucket with fewer than 5 entries — note it as "insufficient sample."
 - Within the Negative group, calculate mean score per theme — flag themes with the lowest scores as priority pain points.
-- **Sample size threshold for means:** only report a mean score for a segment (theme, period, or group) if it has **n ≥ 30**. For segments with n < 30, show "—" in the mean score field and add a note: "Mean suppressed (n=[x] — below threshold of 30)."
+- **Segment reporting rules:** apply the statistical baseline from 5a throughout — only report a mean score or segment comparison if n ≥ 30 and the difference exceeds the Reporting Threshold. For segments with n < 30, show "—" and note: "Mean suppressed (n=[x] — below threshold of 30)." Prioritise linear trends over single-segment spikes.
+- **Every segment comparison must state, for every segment cited: the value (% or mean), n in parentheses, and the gap (pp or score difference).** Format: "Segment A: X% (n=Y) vs. Segment B: A2% (n=B2) — a Cpp gap." Never name a segment without its value and n — directional claims without data (e.g. "mobile users are more likely to...") are not permitted. Do not collapse distinct segments into one claim if their patterns differ — report each separately.
 
-### 5f — Longitudinal Analysis *(only if data spans multiple distinct periods)*
+### 5g — Longitudinal Analysis *(only if data spans multiple distinct periods)*
 
 If the dataset covers multiple years or clearly distinct time periods:
 - Split entries by **year and month** (or the finest granularity the date field supports).
@@ -108,7 +118,7 @@ If the dataset covers multiple years or clearly distinct time periods:
 
 If the dataset is a single snapshot, skip this step entirely.
 
-### 5g — Count Frequency
+### 5h — Count Frequency
 
 For each theme within each sentiment group, count how many entries are assigned to it.
 
@@ -133,7 +143,10 @@ Output the following structured report:
 
 | Parameter | Value |
 |---|---|
-| Total entries | [count] |
+| Total entries | N = [count] |
+| Margin of error | ±[X.X]% (= 1/√N × 100) |
+| Reporting threshold | ±[X.X]% (= 2 × MoE) — only report segment differences exceeding this |
+| Segment minimum | n ≥ 30 per sub-segment |
 | Entry types | Freeform-only: [n] / Score + freeform: [n] / Score-only: [n] |
 | Score field | [field name + scale, or "None"] |
 | Feedback period | [date range or "Not specified"] |
@@ -296,7 +309,7 @@ Location: projects/[company-name]/04- analysis/
 
 ## Rules
 
-- Every finding must be grounded in the feedback data — no unsupported claims.
+- Every finding must be grounded in the feedback data — no unsupported claims. Every segment comparison must include the value (% or mean), n, and gap for every segment cited. Directional claims without data are not permitted.
 - **Themes:** prefer the standard theme set; only create a new theme if a significant pattern has no home in the standard set. When adding a new theme, name it by the type of fix required — not the product feature or symptom.
 - **Never paraphrase or edit verbatim quotes** — copy the exact words from the source.
 - **Score analysis is conditional** — only include score sections if a score field is present and populated.

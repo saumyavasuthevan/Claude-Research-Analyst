@@ -2,8 +2,9 @@
 
 A growing collection of my experiments with AI / agentic workflows 
 
-| Tool | Agent/ Skill | Description |
+| Tool | Agent/ Skill | Purpose |
 | :--- | :--- | :--- |
+| **Claude Code** | [Observability Hooks](.claude/hooks/) | Captures every tool call input and output via deterministic shell hooks — zero tokens, no instructions Claude can forget — so a debug agent can trace exactly what went wrong and recommend improvements to agents and skills. |
 | **Claude Code** | [Check Agent Command](.claude/commands/check-agent.md) | Reviews and updates agent, skill, and command files to resolve conflicts, avoid template drift, and ensure consistency across files. |
 | **Claude Code** | [Meta Sync Command](.claude/commands/meta-sync.md) | Command that keeps CLAUDE.md, README.md, MEMORY.md, and .claudeignore up-to-date based on recent changes. |
 | **Claude Code** | [Customer Support Analysis Agent](.claude/agents/customer-support-analysis.md) | Agent that analyses customer support feedback verbatims for themes by user segment. |
