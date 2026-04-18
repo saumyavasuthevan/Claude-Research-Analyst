@@ -13,7 +13,17 @@ Search these folders for non-`.md` files:
 
 Target file types: `.csv`, `.xlsx`, `.xls`, `.pdf`, `.docx`, `.doc`
 
-List every file found. If none are found, tell the user and stop.
+**Exception — skip these CSV files (keep as CSV for analysis scripts):**
+- Any `.csv` file inside a `Surveys/` subfolder
+- Any `.csv` file inside a `Feedback/` subfolder
+
+List every file found. Mark skipped files separately:
+```
+Skipped (kept as CSV for analysis):
+  - 03- research/Surveys/Survey.csv  ← tabular research data, not converted
+```
+
+If no convertible files are found (after exclusions), tell the user and stop.
 
 ## Step 3 — Confirm before converting
 

@@ -38,15 +38,14 @@ Using the existing rows as style reference, determine:
   - Strip the repo root to get the relative path, then build: `https://github.com/saumyavasuthevan/AI-Experiments/blob/main/[relative-path]`
   - Use `/tree/main/` for folders, `/blob/main/` for files
   - **Never construct a GitHub URL without first confirming the file/folder exists on disk. If you cannot find a matching file, tell the user and ask them to provide the path.**
-- **Description** — write a concise description matching the tone and length of existing rows. Rules:
-  - Lead with a strong verb: "Analyses...", "Calculates...", "Reviews...", "Conducts..." — never lead with "Agent that", "Skill that", or "Command that"
-  - Use a purpose clause ("to resolve X", "to speed up X", "for Y") to frame the problem being solved — not the mechanics or output
-  - The test: does the description explain *why someone would use this*, not just *what it technically does*?
-  - Max ~20 words. No nested clauses. No redundant phrases.
+- **Description** — write a concise description matching the tone and structure of existing rows. Rules:
+  - Lead with a strong verb: "Analyses...", "Evaluates...", "Reviews...", "Conducts..." — never lead with "Agent that", "Skill that", or "Command that"
+  - Use 1–3 short sentences. Preferred structure: **Sentence 1** — what it evaluates/acts on (the object). **Sentence 2** — how it works (the mechanism). **Sentence 3** — the outcome or metric produced. Omit sentences that don't add meaning.
+  - No inline code or backtick formatting. No feature checklists or enumeration — describe the purpose, not the feature list. No nested clauses.
   - Match the style of these human-written examples:
+    - `Evaluates internal user research outputs. Combines human and machine evaluations to verify qual claims and quant calculations. Benchmarks Precision and Recall.`
+    - `Evaluates external web-based research outputs. Aggregates human's subjective assessment of Helpfulness, Honesty, and Harmlessness scores across reports to benchmark HHH scores over time. Machine evaluates objective criteria in each report (e.g., link validity, template adherence).`
     - `Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis.`
-    - `Automatically calculates survey margin of error and highlights key themes by user segment to speed up product discovery`
-    - `Reviews and updates agent, skill, and command files to resolve conflicts, avoid template drift, and ensure consistency across files.`
     - `Captures tool inputs/outputs via deterministic shell hooks, preventing token consumption and Claude from forgetting instructions. Used by Debug Agent to trace errors and recommend improvements to agents and skills.`
 
 ## Step 4 — Insert into README.md

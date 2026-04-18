@@ -188,7 +188,7 @@ All agents and skills inherit the following from `CLAUDE.md` and `CLAUDE.local.m
 
 When writing a new agent or skill, start from `.claude/_agent-template.md`. Only document rules that are **specific to that agent**.
 
-**Agent color:** Each agent must have a unique color. Check existing agents and pick an unused one from: `red`, `orange`, `yellow`, `green`, `teal`, `blue`, `purple`, `pink`. Currently used: green (create-company), orange (interview-analysis), teal (survey-analysis), purple (customer-feedback-analysis).
+**Agent color:** Each agent must have a unique color. Check existing agents and pick an unused one from: `red`, `orange`, `yellow`, `green`, `teal`, `blue`, `purple`, `pink`. Currently used: green (create-company), orange (interview-analysis), teal (survey-analysis), purple (customer-feedback-analysis), blue (int-research-verification), yellow (ext-research-verification).
 
 ---
 
@@ -197,6 +197,8 @@ When writing a new agent or skill, start from `.claude/_agent-template.md`. Only
 - `interview-analysis` ([.claude/agents/interview-analysis.md](.claude/agents/interview-analysis.md)) — analyse user research interview transcripts
 - `survey-analysis` ([.claude/agents/survey-analysis.md](.claude/agents/survey-analysis.md)) — analyse survey results
 - `customer-feedback-analysis` ([.claude/agents/customer-feedback-analysis.md](.claude/agents/customer-feedback-analysis.md)) — analyse customer feedback (support tickets, website feedback, NPS/CSAT, open-ended qual)
+- `int-research-verification` ([.claude/agents/int-research-verification.md](.claude/agents/int-research-verification.md)) — verify accuracy of internal research outputs (interview-analysis, survey-analysis, customer-feedback-analysis): quote accuracy, calculation correctness, structural compliance, inference violations
+- `ext-research-verification` ([.claude/agents/ext-research-verification.md](.claude/agents/ext-research-verification.md)) — verify accuracy of external research outputs (create-company): quant claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator labels, banned patterns, stale sources; HHH human eval
 
 **Skills** (invoked via the Skill tool or `/skill-name`):
 - `cite-links` — safe URL/citation handling using Fact ID pattern; use for any task combining web search with document generation

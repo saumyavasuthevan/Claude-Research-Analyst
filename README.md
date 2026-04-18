@@ -7,7 +7,7 @@ A growing collection of my experiments with AI / agentic workflows
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
 | **Claude Code** | [Interview Analysis Agent](.claude/agents/interview-analysis.md) | Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis. |
-| **Claude Code** | [Survey Analysis Agent](.claude/agents/survey-analysis.md) | Automatically calculates survey margin of error and highlights key themes by user segment to speed up product discovery. |
+| **Claude Code** | [Survey Analysis Agent](.claude/agents/survey-analysis.md) | Highlights key themes by user segment; deterministically computes all statistics via Python/pandas so the model only interprets, improving accuracy. |
 | **Claude Code** | [Company Context Agent](portfolio/create-company.md) | Conducts automated deep-dives into a company, its competitors, market landscape, and products. Serves as context for other agents (e.g. Interview Analysis Agent, PRD Generator). |
 | **Claude Code** | [Customer Support Analysis Agent](.claude/agents/customer-support-analysis.md) | Analyses customer support feedback verbatims for themes by user segment. |
 | **OpenClaw** | [Competitive Intel](.claude/agents/competitive-intel.md) | Sends a weekly competitive intelligence report to PMs. |
@@ -22,6 +22,8 @@ A growing collection of my experiments with AI / agentic workflows
 
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
+| **Claude Code** | [Int Research Verification Agent](.claude/agents/int-research-verification.md) | Evaluates internal user research outputs. Combines human and machine evaluations to verify qual claims and quant calculations. Benchmarks Precision and Recall. |
+| **Claude Code** | [Ext Research Verification Agent](.claude/agents/ext-research-verification.md) | Evaluates external web-based research outputs. Aggregates human's subjective assessment of Helpfulness, Honesty, and Harmlessness scores across reports to benchmark HHH scores over time. Machine evaluates objective criteria in each report (e.g., link validity, template adherence). |
 | **Claude Code** | [Eval Feedback Command](.claude/commands/eval-feedback.md) | Updates the relevant agent or skill based on user's evaluation feedback. |
 | **Claude Code** | [Check Agent Command](.claude/commands/check-agent.md) | Reviews and updates agent, skill, and command files to resolve conflicts, avoid template drift, and ensure consistency across files. |
 

@@ -46,18 +46,70 @@ If you do pause, summarise:
 - Whether the data is longitudinal or a single snapshot
 - Your specific questions
 
+## Step 4b — Compute Stats via Code (do this before writing the report)
+
+Write and execute a Python script against the feedback data. **Treat the script output as authoritative — never override it with your own arithmetic.** If the script output conflicts with your mental arithmetic, trust the script.
+
+If the source file is a CSV, read it with `pandas`. If it is a Markdown file with a table, parse the table into a DataFrame using `io.StringIO`. Adapt to the file format you find.
+
+The script must compute and output a JSON block saved as `feedback-stats.json` alongside the feedback file:
+
+```python
+import pandas as pd, json, math, io
+
+# Adapt reading logic to file format (CSV or markdown table)
+df = pd.read_csv("<feedback_file_path>")  # or parse markdown table into DataFrame
+N = len(df)
+moe = round(100 / math.sqrt(N), 1)
+threshold = round(2 * moe, 1)
+
+# Sentiment classification — adapt to score field or verbatim text
+# If score field present, apply scale-appropriate threshold (e.g. NPS ≤ 6 = Negative)
+# neg_n = len(df[df["<score_col>"] <= <threshold>])
+# pos_n = len(df[df["<score_col>"] >= <positive_threshold>])
+# neutral_n = N - neg_n - pos_n  # treat Neutral as Negative for theme analysis
+
+stats = {
+    "N": N,
+    "moe_pct": moe,
+    "reporting_threshold_pct": threshold,
+    "segment_minimum": 30,
+    "negative_n": neg_n,
+    "positive_n": pos_n,
+    "negative_pct": round(neg_n / N * 100, 1),
+    "positive_pct": round(pos_n / N * 100, 1),
+    # If scores present, add:
+    # "mean_score_overall": round(df["<score_col>"].mean(), 2),
+    # "mean_score_negative": round(df.loc[neg_mask, "<score_col>"].mean(), 2),
+    # After theme classification, add per-theme counts:
+    # "theme_neg_<name>_n": <count>,
+    # "theme_pos_<name>_n": <count>,
+    # For longitudinal data, add per-period counts:
+    # "period_<YYYY_MM>_negative_n": <count>,
+    # "period_<YYYY_MM>_positive_n": <count>,
+}
+
+with open("feedback-stats.json", "w") as f:
+    json.dump(stats, f, indent=2)
+print(json.dumps(stats, indent=2))
+```
+
+Load `feedback-stats.json` at the start of Step 5 and reference its values throughout — do not recompute any figure in prose.
+
+**MoE threshold:** if `moe_pct` ≤ 5, omit the Methodology limitation block. If > 5, include it.
+
 ## Step 5 — Parse and Categorise Feedback
 
-Read the full feedback file. Adapt your analysis approach to the feedback type detected in Step 4.
+Read the full feedback file. Load `feedback-stats.json` first. Use its values for N, MoE, threshold, and sentiment splits throughout — do not recompute any figure manually.
 
 ### 5a — Establish Statistical Baseline
 
-Before categorising, calculate and state:
-- N = total entries.
-- MoE = 1/√N × 100 — express as a percentage rounded to one decimal place.
-- Reporting Threshold = 2 × MoE. Only report differences between segments where the gap exceeds this threshold.
-- Rule of 30: Do not report on any sub-segment where n < 30. If a segment is under n=30 but shows a notable pattern, attempt to merge with a logically adjacent segment and re-check n before reporting.
-- If MoE ≤ 5%: no caveat needed — results can be treated as statistically reliable. If MoE > 5%: flag as a limitation in the Methodology section and add a directional-use caveat.
+Read the following values directly from `feedback-stats.json` — do not recompute:
+- N = `stats["N"]`
+- MoE = `stats["moe_pct"]`%
+- Reporting Threshold = `stats["reporting_threshold_pct"]`%
+- Rule of 30: suppress any sub-segment where n < `stats["segment_minimum"]`. If a segment is under n=30 but shows a notable pattern, attempt to merge with a logically adjacent segment, rerun the script to recheck n, then report only if n ≥ 30.
+- If `moe_pct` ≤ 5: no caveat needed. If > 5: flag as a limitation in the Methodology section and add a directional-use caveat.
 
 ### 5b — Detect Data Structure
 
@@ -68,10 +120,10 @@ Before categorising, identify:
 
 ### 5c — Classify Sentiment
 
-Before deriving themes, classify each entry as **Positive** or **Negative**:
+Before deriving themes, classify each entry as **Positive** or **Negative** in the Python script (Step 4b):
 - If a score field is present, use it as the primary signal (define the threshold based on the scale — e.g. NPS 0–6 = Negative, 9–10 = Positive, 7–8 = Neutral; treat Neutral as Negative for theme analysis).
 - If no score field is present, infer sentiment from the verbatim text.
-- Record the overall split: total Positive (n, %), total Negative (n, %).
+- Record the overall split from `feedback-stats.json`: `negative_n`, `negative_pct`, `positive_n`, `positive_pct`.
 
 ### 5d — Derive Themes Within Each Sentiment Group
 
@@ -101,20 +153,24 @@ Guidelines:
 
 ### 5f — Score Analysis (if scores present)
 
-If satisfaction scores exist:
-- Calculate **mean score** overall and per sentiment group.
-- Identify the **score distribution** (e.g. % Promoters / Passives / Detractors for NPS; % satisfied / neutral / dissatisfied for CSAT). Suppress any distribution bucket with fewer than 5 entries — note it as "insufficient sample."
-- Within the Negative group, calculate mean score per theme — flag themes with the lowest scores as priority pain points.
-- **Segment reporting rules:** apply the statistical baseline from 5a throughout — only report a mean score or segment comparison if n ≥ 30 and the difference exceeds the Reporting Threshold. For segments with n < 30, show "—" and note: "Mean suppressed (n=[x] — below threshold of 30)." Prioritise linear trends over single-segment spikes.
-- **Every segment comparison must state, for every segment cited: the value (% or mean), n in parentheses, and the gap (pp or score difference).** Format: "Segment A: X% (n=Y) vs. Segment B: A2% (n=B2) — a Cpp gap." Never name a segment without its value and n — directional claims without data (e.g. "mobile users are more likely to...") are not permitted. Do not collapse distinct segments into one claim if their patterns differ — report each separately.
+If satisfaction scores exist, extend the Step 4b script to compute and add to `feedback-stats.json`:
+- `mean_score_overall`, `mean_score_negative`, `mean_score_positive`
+- Score distribution buckets (e.g. Promoters / Passives / Detractors) as `pct` and `n` fields — suppress any bucket with n < 5 and note "insufficient sample"
+- `mean_score_theme_<name>` for each negative theme — flag the lowest-scoring theme as a priority pain point
+
+Read all score values from `feedback-stats.json`. Do not compute any mean or percentage in prose.
+
+**Segment reporting rules:** only report a mean score or segment comparison if n ≥ 30 and the difference exceeds `reporting_threshold_pct`. For segments with n < 30, show "—" and note: "Mean suppressed (n=[x] — below threshold of 30)." Prioritise linear trends over single-segment spikes.
+
+**Every segment comparison must state, for every segment cited: the value (% or mean), n in parentheses, and the gap (pp or score difference).** Format: "Segment A: X% (n=Y) vs. Segment B: A2% (n=B2) — a Cpp gap." Never name a segment without its value and n. Do not collapse distinct segments into one claim if their patterns differ — report each separately.
 
 ### 5g — Longitudinal Analysis *(only if data spans multiple distinct periods)*
 
-If the dataset covers multiple years or clearly distinct time periods:
-- Split entries by **year and month** (or the finest granularity the date field supports).
-- Track the Positive/Negative split per period, and frequency per theme per period.
-- Identify directional trends: is a theme growing, declining, or stable? Only call out a trend if it is consistent — not a single-period spike.
-- If per-period sample sizes are too small to support a trend claim, flag the limitation explicitly.
+If the dataset covers multiple years or clearly distinct time periods, extend the Step 4b script to compute per-period counts and add to `feedback-stats.json`:
+- Split entries by **year and month** (or the finest granularity the date field supports)
+- Add `period_<YYYY_MM>_negative_n`, `period_<YYYY_MM>_positive_n`, and `period_<YYYY_MM>_theme_<name>_n` fields for each period
+
+Read all period values from `feedback-stats.json`. Identify directional trends from these counts: growing, declining, or stable? Only call out a trend if it is consistent across periods — not a single-period spike. If per-period sample sizes are too small to support a trend claim, flag the limitation explicitly.
 
 If the dataset is a single snapshot, skip this step entirely.
 
@@ -310,6 +366,7 @@ Location: projects/[company-name]/04- analysis/
 ## Rules
 
 - Every finding must be grounded in the feedback data — no unsupported claims. Every segment comparison must include the value (% or mean), n, and gap for every segment cited. Directional claims without data are not permitted.
+- All counts, percentages, means, and gaps in both the markdown and HTML must come from `feedback-stats.json` — never from model arithmetic. If a value is not yet in the JSON, extend the Step 4b script and rerun it before writing the report.
 - **Themes:** prefer the standard theme set; only create a new theme if a significant pattern has no home in the standard set. When adding a new theme, name it by the type of fix required — not the product feature or symptom.
 - **Never paraphrase or edit verbatim quotes** — copy the exact words from the source.
 - **Score analysis is conditional** — only include score sections if a score field is present and populated.

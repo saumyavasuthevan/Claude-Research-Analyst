@@ -13,18 +13,18 @@ Follow CLAUDE.md active project resolution to identify the company and set paths
 
 ## Step 2 — Find the Survey File
 
-List all files in `projects/[company-name]/03- research/Surveys/`. Look for a file whose name contains the company name (case-insensitive).
+List all **`.csv`** files in `projects/[company-name]/03- research/Surveys/`.
 
-- If exactly one file matches, use it.
-- If multiple files match, list them and ask the user to confirm which one to use.
-- If no file is found, stop and report:
+- If exactly one `.csv` file is found, use it.
+- If multiple `.csv` files are found, list them and ask the user to confirm which one to use.
+- If no `.csv` file is found, stop and report:
 
 ```
-Error: No survey file found at projects/[company-name]/03- research/Surveys/
-Please check the company name and ensure a survey file is present in that folder.
+Error: No CSV survey file found at projects/[company-name]/03- research/Surveys/
+Survey files must be in CSV format. If you have a .xlsx or .md file, convert it to CSV first before running analysis.
 ```
 
-Do not proceed.
+Do not proceed. The Python script in Step 4b uses `pd.read_csv()` — only CSV files are supported.
 
 ## Step 3 — Read Company Context
 
@@ -40,16 +40,94 @@ Before running the analysis, summarise your approach to the user:
 
 Wait for the user to confirm or provide clarifications before proceeding.
 
-**Statistical baseline (calculate before proceeding):**
-- N = total responses.
-- MoE = 1/√N × 100 — express as a percentage rounded to one decimal place.
-- Reporting Threshold = 2 × MoE. Only report demographic skews where the difference between segments exceeds this threshold.
-- Rule of 30: Do not report on any sub-segment where n < 30. If a segment is under n=30 but shows a notable pattern, attempt to merge with a logically adjacent segment (e.g. combine "70+" with "60–69") and re-check n before reporting.
-- If MoE ≤ 5%: no caveat needed — results can be treated as statistically reliable. If MoE > 5%: flag as a limitation in the Methodology section and add a directional-use caveat.
+## Step 4b — Compute Stats via Code (do this before writing the report)
+
+Write and execute a Python script against the survey CSV. **Treat the script output as authoritative — never override it with your own arithmetic.** If the script output conflicts with your mental arithmetic, trust the script.
+
+The script must compute and output a JSON block (`stats.json`) containing:
+
+```python
+import pandas as pd, json, math, sys
+
+df = pd.read_csv("<survey_file_path>")
+N = len(df)
+moe = round(100 / math.sqrt(N), 1)
+threshold = round(2 * moe, 1)
+
+stats = {
+    "N": N,
+    "moe_pct": moe,
+    "reporting_threshold_pct": threshold,
+    "segment_minimum": 30,
+}
+
+# For each single-select / multi-select column:
+#   stats["q_<col>"] = {"counts": {...}, "pcts": {...}}
+# For each numeric scale column:
+#   stats["q_<col>_mean"] = round(df[col].mean(), 2)
+# For each bipolar scale column (mean already computed above):
+#   stats["q_<col>_dot_position_pct"] = round((mean - 1) / (max_val - 1) * 100, 1)
+# For each Likert matrix row:
+#   net = pct_agree + pct_strongly_agree - pct_disagree - pct_strongly_disagree
+#   stats["q_<col>_net_score_pp"] = round(net, 1)
+# For each ranking column:
+#   stats["q_<col>_mean_rank"] = round(df[col].mean(), 2)
+# For each demographic column:
+#   cross-tab counts and %s for every sub-segment; flag sub-segments where n < 30
+# For every demographic skew candidate:
+#   pp_gap = round(pct_group_a - pct_group_b, 1)
+#   stats["skew_<q>_<demo>"] = {"group_a": ..., "pct_a": ..., "n_a": ...,
+#                                "group_b": ..., "pct_b": ..., "n_b": ...,
+#                                "pp_gap": pp_gap, "reportable": pp_gap > threshold}
+
+print(json.dumps(stats, indent=2))
+```
+
+**Validation — Cross-tab zero-sum consistency (embed in script, before `print(json.dumps(...))`):**
+
+After computing all cross-tab breakdowns, add this guard block to catch silent parsing failures before writing `stats.json`:
+
+```python
+# Validation: cross-tab zero-sum guard
+for key, val in stats.items():
+    if isinstance(val, dict) and all(isinstance(v, dict) and 'n_word' in v for v in val.values()):
+        crosstab_total = sum(v['n_word'] for v in val.values())
+        # Derive the parent word from the key (e.g. "q12_encouraging_by_age" → "Encouraging")
+        word = key.split('_')[1].capitalize() if '_by_' in key else None
+        if word and crosstab_total == 0:
+            parent_total = stats.get('q12_brand_words', {}).get('counts', {}).get(word, None)
+            if parent_total and parent_total > 0:
+                raise ValueError(
+                    f"Cross-tab '{key}' sums to 0 but overall count for '{word}' = {parent_total}. "
+                    f"Likely a string matching bug — check for whitespace or encoding differences in the source data."
+                )
+```
+
+If the script raises, fix the parsing bug and rerun — do not report zeros as valid data. Only proceed once the script exits cleanly and `stats.json` is written.
+
+Save the output as `stats.json` alongside the survey file. Load it at the start of Step 5 and reference its values throughout the report — do not recompute any of these figures in prose.
+
+**Rule of 30:** use the `n` values from `stats.json` to enforce segment minimums. If a sub-segment has n < 30 but shows a notable pattern, merge it with a logically adjacent segment in the script and recheck n before reporting.
+
+**MoE threshold:** if `moe_pct` ≤ 5, omit the Methodology limitation block. If > 5, include it.
+
+## Step 4c — Validate stats.json Before Proceeding
+
+After `stats.json` is written, run the following manual checks against it. **Do not proceed to Step 5 if any check fails — fix the script, rerun it, and re-check.**
+
+**Check 1 — Skew reportability vs. cross-tab data**
+
+For every `skew_*` entry where `reportable: true`, verify the referenced groups have non-zero `pct` values in the corresponding cross-tab. If a skew is marked `reportable: true` but the underlying percentages are 0.0, the skew calculation is based on bad data — fix the script.
+
+**Check 2 — Demographic totals**
+
+For each `demo_*` key, verify that the sum of all `n` values equals the total `N`. Flag any demographic where the total is off by more than 1 (rounding tolerance).
+
+If all checks pass, proceed to Step 5. If any check fails, diagnose the root cause in the script (do not patch the JSON by hand), fix it, rerun the script, overwrite `stats.json`, and re-run all checks.
 
 ## Step 5 — Analyse and Produce Report
 
-Read the survey file and produce the following structured report:
+Load `stats.json` first. Use its values verbatim for all counts, percentages, means, MoE, threshold, dot positions, net scores, and pp gaps throughout the report. Do not recompute any figure — read it from the JSON.
 
 ---
 
@@ -98,7 +176,7 @@ For each survey question (or logical question group):
 - [Second finding if notable, e.g. "Only 4% found it difficult"]
 - [Demographic skew if present, e.g. "Older respondents (55+) were more likely to find it difficult — 12% vs 2% among 18–34s"]
 
-Only include bullet points that add meaningful insight — omit filler observations. Include a demographic skew bullet only where the difference between segments exceeds the Reporting Threshold and each segment has n ≥ 30. Skip if no qualifying skew is found. Prioritise linear trends (e.g. satisfaction declining with age) over single-segment spikes.
+Only include bullet points that add meaningful insight — omit filler observations. Include a demographic skew bullet only where `stats.json` shows `reportable: true` for that skew (meaning the pp gap exceeds the reporting threshold and each segment has n ≥ 30). Skip all others. Prioritise linear trends (e.g. satisfaction declining with age) over single-segment spikes.
 
 **Every demographic skew bullet must include, for every segment cited: the % and n in parentheses, plus the pp gap.** Format: "Group A selected X at Y% (n=Z) vs. A2% (n=B2) among Group B — a Cpp gap." Never name a group without its % and n — unsupported directional claims (e.g. "younger respondents favour X") are not permitted. Do not aggregate two distinct age groups (e.g. 18–24 and 25–29) into a single claim if their patterns differ — report each group separately.
 
@@ -129,13 +207,13 @@ For scale/rating questions (e.g. 1–5 bipolar scales), combine % and n into one
 | Unipolar satisfaction/quality | Degree of satisfaction or quality | Very Dissatisfied ↔ Very Satisfied; Poor ↔ Excellent |
 | Frequency | How often something occurs | Never ↔ Always; Rarely ↔ Frequently |
 
-**Step 2 — Map the mean to the correct anchor.** For all scale types: 1 = left/low anchor; the maximum (e.g. 5) = right/high anchor. A high mean always indicates lean toward the high/right anchor — it never indicates strength of the left/first label.
+**Step 2 — Map the mean to the correct anchor.** Read the mean from `stats.json` (`q_<col>_mean`). For bipolar scales, read the dot position from `stats.json` (`q_<col>_dot_position_pct`) — do not recompute it. For all scale types: 1 = left/low anchor; the maximum (e.g. 5) = right/high anchor. A high mean always indicates lean toward the high/right anchor — it never indicates strength of the left/first label.
 
 - Mean > midpoint → lean toward the **right/high anchor**. Name that anchor in the summary.
 - Mean < midpoint → lean toward the **left/low anchor**. Name that anchor in the summary.
 - Mean ≈ midpoint → write "rated near the midpoint between [left anchor] and [right anchor]."
 
-For bipolar scales, use the dot-position formula as a cross-check: position = (mean − 1) / (max − 1) × 100%. Position > 50% confirms the right pole; < 50% confirms the left pole.
+For bipolar scales, use `dot_position_pct` from `stats.json` to confirm the pole: > 50% = right pole; < 50% = left pole.
 
 **Correct examples:**
 - Bipolar "Traditional → Modern", mean 3.8 on a 1–5 scale → position 70% → write "perceived as more **Modern** (mean 3.8)"
@@ -155,7 +233,7 @@ For ranking questions, use this format:
 | … | … | … | … | … |
 | **Total** | | | | **n=[total]** |
 
-Sort rows ascending by mean rank (lower = ranked higher). Lead with: "X was the top-ranked option (mean rank Y.Y); Z% placed it first and Z% placed it in their top 3."
+Read mean ranks from `stats.json` (`q_<col>_mean_rank`). Sort rows ascending by mean rank (lower = ranked higher). Lead with: "X was the top-ranked option (mean rank Y.Y); Z% placed it first and Z% placed it in their top 3."
 
 For matrix questions, use this format:
 
@@ -166,7 +244,7 @@ For matrix questions, use this format:
 
 **Matrix type rules:**
 - **Categorical matrix** (unordered options e.g. Yes / No / Not sure): sort columns by overall frequency descending; sort rows by the most-selected option descending.
-- **Likert/ordered matrix** (e.g. Strongly Disagree → Strongly Agree): preserve natural scale order in columns. Compute a net score per row: (% Agree + % Strongly Agree) − (% Disagree + % Strongly Disagree). Sort rows by net score descending. Lead bullet: "[Statement] had the highest net positive score (+X pp); [Statement] was the most contested (net −X pp)."
+- **Likert/ordered matrix** (e.g. Strongly Disagree → Strongly Agree): preserve natural scale order in columns. Read net scores from `stats.json` (`q_<col>_net_score_pp`). Sort rows by net score descending. Lead bullet: "[Statement] had the highest net positive score (+X pp); [Statement] was the most contested (net −X pp)."
 
 **Follow-up / conditional questions:**
 When a question is only shown to a subset of respondents (e.g. "If you answered No above, why?"), state the filter condition and base at the top of that question section:
@@ -278,7 +356,7 @@ Style: track is a thin horizontal line (2px, dark); dot is a filled circle (16px
 - White background, clean sans-serif font (system-ui or Arial)
 - Chart.js default colour palette is acceptable — do not over-style
 - Every chart must have a title matching the question text and labelled axes
-- All counts and percentages must match the markdown report exactly — no rounding or approximation
+- All counts and percentages must match `stats.json` exactly — both the markdown and HTML draw from the same JSON, guaranteeing consistency
 - Include a visible header with: company name, source filename, sample size, and date of analysis
 - The file must render correctly when opened directly in a browser
 
@@ -299,5 +377,4 @@ Location: projects/[company-name]/04- analysis/
 
 - Every finding must be grounded in the survey data — no unsupported claims.
 - State assumptions clearly, especially around population size and MOE.
-- Never overwrite an existing file — check first and ask the user if one already exists.
-- All counts and percentages in the HTML must match the markdown exactly.
+- All counts, percentages, means, and gaps in both the markdown and HTML must come from `stats.json` — never from model arithmetic.
