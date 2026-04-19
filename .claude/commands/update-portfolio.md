@@ -80,7 +80,8 @@ flowchart LR
 
 **Accuracy / Quality:** [one sentence]
 
-**Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification), run ~X times/month (based on €70K PM salary)
+**Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification)
+*Assumptions: run ~X times/[period] · [frequency rationale] · pegged to PM salary*
 
 ---
 
@@ -192,7 +193,8 @@ annual_value   = (time_saved_min / 60) × runs_per_year × hourly_rate
 
 Round to the nearest €50. Format as:
 
-> `~€X,XXX/year — task reduced from X hrs to X mins (incl. verification), run ~X times/month (based on €70K PM salary)`
+> **Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification)
+> *Assumptions: run ~X times/[period] · [frequency rationale] · pegged to PM salary*
 
 If the user did not supply frequency, leave the placeholder unchanged.
 

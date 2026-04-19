@@ -53,7 +53,8 @@ flowchart LR
 
 **Accuracy / Quality:** Reduced competitive landscape error rate. Every claim is grounded in an independently sourced, date-stamped, auditable citation.
 
-**Value saved:** ~€750/year — task reduced from 6 hrs to 75 mins (incl. verification), run ~4 times/year assuming ~4 new companies per year (based on €70K PM salary)
+**Value saved:** ~€750/year — task reduced from 6 hrs to 75 mins (incl. verification)
+*Assumptions: run ~4 times/year · ~4 new companies/year · pegged to PM salary*
 
 ---
 
