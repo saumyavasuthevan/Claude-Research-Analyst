@@ -113,26 +113,91 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 
 ---
 
-## Customer & Press Sentiment
+## Customer Sentiment
 
-### Customer Reviews
+<!-- METHODOLOGY: Reflexive thematic analysis (Braun & Clarke 2021) — deductive codebook + inductive open coding
+     DATA SOURCES: Bright Data MCP (Reddit, Twitter/X, Instagram, Facebook) + search_engine → scrape_as_markdown (G2, Trustpilot)
+     TOKEN BUDGET: Collect ≤100 verbatims; single extraction pass; suppress themes with <2 verbatims -->
 
-<!-- Search: "[Company Name] G2 reviews Capterra Trustpilot"
-Note the review platform, rating, review count, and date. -->
+### Data Collection
 
-| Platform | Rating | Review count | Date | Top themes |
-|---|---|---|---|---|
-| [G2 / Capterra / Trustpilot] | [X.X / 5] | [N reviews] | [Month YYYY] | [Praise] / [Complaints] |
+<!-- Bright Data MCP tools:
+     Reddit:    web_data_reddit_posts — query: "[Company Name]"
+     Twitter/X: web_data_x_posts — query: "[Company Name]"
+     Instagram: web_data_instagram_posts + web_data_instagram_comments — query: "[Company Name]"
+     Facebook:  web_data_facebook_posts + web_data_facebook_company_reviews — query: "[Company Name]"
+     Reviews:   search_engine — "[Company Name] reviews site:g2.com OR site:trustpilot.com" → scrape_as_markdown
 
-*(Label [DATA UNAVAILABLE — as of date] if no reviews found)*
+     Collect: post text + platform + date. Filter to brand/product mentions only. Cap: 100 items total. Only include items published within the past 2 years.
 
-### Press Sentiment
+     ANTI-HALLUCINATION — verbatim registry:
+     Before any analysis, write ALL collected quotes to:
+       03- research/quotes_registry.json   ← distinct from fact_registry.json (which stores URLs only)
 
-<!-- Search: "[Company Name] news 2024 2025 2026" — note tone and recurring narratives. -->
+     Format:
+       { "id": "Q001", "text": "exact quote copied verbatim", "platform": "Reddit", "date": "YYYY-MM-DD" }
 
-**Overall tone:** [Positive / Mixed / Negative]
-**Key narratives:**
-- [Narrative 1] [SRC:id]
-- [Narrative 2] [SRC:id]
+     IDs: Q001, Q002, ... (Q-prefix distinguishes from fact registry F-IDs)
+     Rule: never write quote text directly in analysis. Reference IDs only. Resolve IDs to text at render time. -->
+
+**If B2B:**
+
+| Platform | Items collected | Date range |
+|---|---|---|
+| Reddit | [N] | [range] |
+| LinkedIn | [N] | [range] |
+| G2 / Trustpilot | [N] | [range] |
+
+**If B2C:**
+
+| Platform | Items collected | Date range |
+|---|---|---|
+| Reddit | [N] | [range] |
+| Twitter/X | [N] | [range] |
+| Instagram | [N] | [range] |
+| App Store / Play Store | [N] | [range] |
+
+*Minimum to proceed with thematic analysis: **15 items** (B2B) / **20 items** (B2C) across all platforms. If below threshold, replace Thematic Analysis section with: `[INSUFFICIENT DATA — fewer than [N] verbatims collected as of [date]. Thematic analysis not conducted.]`*
+
+### Thematic Analysis
+
+<!-- STEP 1 — Sentiment classification (before deriving themes):
+     Classify each Q-ID as Positive or Negative from text signal.
+     Record split: negative_n, negative_pct, positive_n, positive_pct.
+
+     STEP 2 — Theme derivation within each sentiment group separately:
+     Deductive pass: assign each Q-ID to nearest codebook theme.
+     Inductive pass: code residuals that don't fit → candidate new themes.
+     Suppress themes with <2 verbatims.
+
+     STEP 3 — Sub-theme derivation within each theme (2–4 sub-themes):
+     Name sub-themes as specific problem/praise descriptions, not restatements of the theme.
+     A sub-theme = one distinct user pain or praise that maps to a distinct fix/action.
+     Do NOT force sub-themes — if all verbatims in a theme point to the same issue, leave it as a single theme with no sub-themes.
+
+     Output format: separate tables for Negative and Positive.
+     Quote column: list Q-IDs only (e.g. Q003, Q017). Text and platform resolve from quotes_registry.json at render time.
+     NEVER write quote text directly in this file. -->
+
+**Codebook:** Usability · Value · Reliability · Support · Brand · Open (novel patterns)
+
+**Sentiment split:** Negative: [n] ([%]%) / Positive: [n] ([%]%)
+
+#### Negative Feedback (n=[X])
+
+| Theme (n) | Sub-theme (n) | Quote IDs |
+|---|---|---|
+| **[Theme]** (n=[X]) | [Sub-theme] (n=[X]) | Q001, Q008 |
+| **[Theme]** (n=[X]) | [Sub-theme] (n=[X]) | Q014, Q022, Q031 |
+
+*(Repeat theme name on each sub-theme row. 2–3 Q-IDs per sub-theme row. List themes descending by n. Quote text + platform resolved from quotes_registry.json.)*
+
+#### Positive Feedback (n=[X])
+
+| Theme (n) | Sub-theme (n) | Quote IDs |
+|---|---|---|
+| **[Theme]** (n=[X]) | [Sub-theme] (n=[X]) | Q005, Q019 |
+
+*(Same rules as Negative table above.)*
 
 <!-- Last verified: [YYYY-MM-DD] -->
