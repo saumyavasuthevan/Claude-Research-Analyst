@@ -2,7 +2,6 @@
 name: agent-name
 description: "One-line description of when to trigger this agent."
 model: sonnet
-color: teal
 ---
 
 > **Before saving:** Check each rule you've written against the inheritance table in `CLAUDE.md` → "What Agents & Skills Inherit Automatically". If a rule is listed there, remove it. Only keep rules specific to this agent.

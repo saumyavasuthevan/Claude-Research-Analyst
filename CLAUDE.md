@@ -161,6 +161,7 @@ You are a senior PM assistant. Your job is to help the PM think, draft, and deci
 - No multiple options when one clear recommendation exists
 - No generic advice not specific to the active company
 - Max 500 words prose responses unless specified (excludes code output)
+- **Language for describing problems and iterations:** be hyper-specific — not "inaccurate output" but the exact failure mode (e.g. "Agent cited competitors from the company's own press releases, producing overconfident claims like 'no other competitor offers...'"). Include a short concrete example to show what was wrong. Use bold to mark the key fix mechanism, not for general emphasis. Use standard AI/ML terminology where it applies (e.g., hallucination, context window) — do not invent terms or use jargon that non-technical readers won't recognise. Call search wait time "latency" not "overhead".
 
 **Recommendations:**
 - Confidence tiers: High = grounded in provided data; Medium = inferred from patterns; Low = speculative
@@ -185,12 +186,8 @@ All agents and skills inherit the following from `CLAUDE.md` and `CLAUDE.local.m
 
 When writing a new agent or skill, start from `.claude/_agent-template.md`. Only document rules that are **specific to that agent**.
 
-**Agent color:** Each agent must have a unique color. Check existing agents and pick an unused one from: `red`, `orange`, `yellow`, `green`, `teal`, `blue`, `purple`, `pink`. Currently used: green (create-company), orange (interview-analysis), teal (survey-analysis), purple (customer-feedback-analysis), blue (int-research-verification), yellow (ext-research-verification).
-
----
-
 **Agents** (spawned via the `Agent` tool with `subagent_type` matching the agent name below; definitions live in `.claude/agents/`):
-- `create-company` ([.claude/agents/create-company.md](.claude/agents/create-company.md)) — research a new company and populate all four context files
+- `create-company` ([.claude/agents/create-company.md](.claude/agents/create-company.md)) — research a new company and populate all three context files
 - `interview-analysis` ([.claude/agents/interview-analysis.md](.claude/agents/interview-analysis.md)) — analyse user research interview transcripts
 - `survey-analysis` ([.claude/agents/survey-analysis.md](.claude/agents/survey-analysis.md)) — analyse survey results
 - `customer-feedback-analysis` ([.claude/agents/customer-feedback-analysis.md](.claude/agents/customer-feedback-analysis.md)) — analyse customer feedback (support tickets, website feedback, NPS/CSAT, open-ended qual)
@@ -208,6 +205,7 @@ When writing a new agent or skill, start from `.claude/_agent-template.md`. Only
 - `meta-sync` — end-of-session audit: checks CLAUDE.md, README.md, MEMORY.md, and .claudeignore for gaps vs. what was built
 - `convert-to-md` — convert uploaded files to Markdown (also available as a skill)
 - `create-company` — prompt for a company name and spawn the `create-company` agent to research it
+- `update-portfolio` — generate or update the portfolio README for any agent or skill
 
 ---
 

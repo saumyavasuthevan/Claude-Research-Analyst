@@ -37,6 +37,7 @@ A growing collection of PM workflows automated by AI. Outputs are verified and c
 
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
+| **Claude Code** | [Update Portfolio Command](.claude/commands/update-portfolio.md) | Generates or updates a portfolio README for any agent or skill. Reads the agent file and git history to draft an Iterations list, asks four questions, then writes a complete portfolio file with Mermaid workflow diagram and annual value-saved calculation. |
 | **Claude Code** | [Meta Sync Command](.claude/commands/meta-sync.md) | Keeps CLAUDE.md, README.md, MEMORY.md, and .claudeignore up-to-date based on recent changes. |
 | **Claude Code** | [Agent Template](.claude/_agent-template.md) | Template for building new Claude Code agents — forces agents to inherit conventions from CLAUDE.md to reuse instructions and prevent drift. |
 

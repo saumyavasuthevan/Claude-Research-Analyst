@@ -1,12 +1,10 @@
 # [Agent / Skill Name]
 
-> One-sentence summary of what it does and for whom.
-
 ---
 
 ## Purpose
 
-[Lead with what the agent does and the object it acts on. Follow with the mechanism or constraint that makes it work. End with the outcome or metric it produces. 1–3 sentences — no labels, no bullet points. Example: "Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis."]
+[Copy the description from the README.md row for this agent — no rewriting. Example: "Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis."]
 
 ---
 
@@ -28,10 +26,11 @@ flowchart LR
 
 ## Iterations
 
-| Challenge | Fix | Result |
-|---|---|---|
-| [e.g., 64% error rate on qualitative claims] | [e.g., Banned company's own domain for competitor descriptions] | [e.g., Error rate dropped to ~20%] |
-| [e.g., Stale figures presented as current] | [e.g., Figures >12 months tagged `[UNVERIFIED]`] | [e.g., All outputs now fully auditable by date] |
+Ordered highest impact → lowest. Bold marks the key fix mechanism.
+
+1. **[Hyper-specific problem statement — e.g., "Agent cited competitors using the company's own press releases, producing overconfident claims like 'no other competitor offers...'"](Short concrete example of the failure)** — **[Bold the exact fix mechanism]**. [Result: metric or outcome if known.]
+
+2. **[...]** — **[...]**.
 
 ---
 

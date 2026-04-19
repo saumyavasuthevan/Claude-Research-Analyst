@@ -35,9 +35,7 @@ Pre-fill the following without asking the user:
 
 **Title** — agent/skill display name from the `name` frontmatter or first heading.
 
-**Tagline** — one sentence derived from the agent `description` frontmatter. Verb-led, no filler.
-
-**Purpose** — 1–3 sentences in README row style: object → mechanism → outcome. Derive from the agent description and opening paragraph. No labels, no bullets. Example: *"Analyses user research interviews for pain points, bright spots, and project-specific dimensions — one file per participant, with verbatim quotes. No synthesis."*
+**Purpose** — copy the description verbatim from the README.md row for this agent. Do not rewrite or summarise — the README row is already the canonical description.
 
 **Links — agent instructions** — always `.claude/agents/[agent-name].md` (or the correct subfolder).
 
@@ -55,13 +53,20 @@ git log --follow -p .claude/agents/[agent-name].md
 
 Read the diff output. For each commit that changed the agent file, identify what was added, removed, or restructured. Map changes to probable challenges and fixes — e.g. a new rule being added implies a problem that rule was solving.
 
-Draft an Iterations table:
+Draft a numbered Iterations list — ordered highest impact → lowest:
 
-| Challenge | Fix | Result |
-|---|---|---|
-| [inferred from diff] | [inferred from diff] | [leave blank — user will fill] |
+1. **[Hyper-specific problem statement — not "inaccurate output" but the exact failure mode, e.g. "Agent cited competitors from the company's own press releases, producing overconfident claims like 'no other competitor offers...'".]** — **[Bold the fix mechanism.]** [Infer the qualitative result from the fix. Use outcome-focused language grounded in what the fix achieves — e.g. "Reduced error rate on qualitative claims", "All claims now grounded in independently sourced evidence", "Every figure is now auditable by source and date", "Outputs are fully reproducible across runs." Do not invent metrics. If a number exists in the diff or file, use it.]
 
-If the git log shows no meaningful changes (single commit or no history), leave the table with one placeholder row.
+**Language rules for drafting iterations:**
+- Be hyper-specific about what went wrong — not "inaccurate" or "skewed" but the exact failure and what it produced
+- Include a short concrete example showing the failure (e.g., a hallucinated claim, a broken link, a wrong figure)
+- Bold the fix mechanism — not headers or general emphasis
+- Use standard AI/ML terminology where it applies (e.g., hallucination, context window) — do not invent terms or use jargon HR won't recognise (e.g., avoid "coverage gate", "full query status map")
+- When describing a shift from model-generated to source-logged data (e.g., URL citations, fact retrieval), frame it as moving from a **stochastic** to a **deterministic** approach — this communicates systematic thinking to technical hiring managers without requiring AI expertise to understand
+- Order by impact: item 1 should be the most significant improvement
+- Call search latency "latency" not "overhead"
+
+If the git log shows no meaningful changes (single commit or no history), leave one placeholder item.
 
 ### Step 5 — Ask the user four questions
 
@@ -73,11 +78,10 @@ Present all questions in one message — do not ask sequentially:
 >
 > **2. Iterations** — here's what I inferred from git history:
 >
-> | Challenge | Fix | Result |
-> |---|---|---|
-> | [drafted row] | [drafted row] | — |
+> 1. **[drafted problem — hyper-specific with concrete example]** — **[drafted fix]**. [drafted result]
+> 2. **[...]** — **[...]**.
 >
-> Correct, add to, or replace this. Fill in the Result column where you know the outcome. Reply 'looks right' to keep as-is.
+> Correct, add to, or replace any item. Reply 'looks right' to keep as-is.
 >
 > **3. Evals** — did you run a formal eval on this agent? If yes, describe the method briefly and I'll link to the report. Reply 'skip' to leave this section blank.
 >
