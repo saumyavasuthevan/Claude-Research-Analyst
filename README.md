@@ -22,8 +22,8 @@ A growing collection of PM workflows automated by AI. Outputs are verified and c
 
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
-| **Claude Code** | [Int Research Verification Agent](.claude/agents/int-research-verification.md) | Evaluates internal user research outputs. Combines human and machine evaluations to verify qual claims and quant calculations. Benchmarks Precision and Recall. |
-| **Claude Code** | [Ext Research Verification Agent](.claude/agents/ext-research-verification.md) | Evaluates external web-based research outputs. Aggregates human's subjective assessment of Helpfulness, Honesty, and Harmlessness scores across reports to benchmark HHH scores over time. Machine evaluates objective criteria in each report (e.g., link validity, template adherence). |
+| **Claude Code** | [Int Research Eval Agent](.claude/agents/int-research-eval.md) | Evaluates internal user research outputs. Combines human and machine evaluations to verify qual claims and quant calculations. Benchmarks Precision and Recall. |
+| **Claude Code** | [Ext Research Eval Agent](.claude/agents/ext-research-eval.md) | Evaluates external web-based research outputs. Aggregates human's subjective assessment of Helpfulness, Honesty, and Harmlessness scores across reports to benchmark HHH scores over time. Machine evaluates objective criteria in each report (e.g., link validity, template adherence). |
 | **Claude Code** | [Eval Feedback Command](.claude/commands/eval-feedback.md) | Updates the relevant agent or skill based on user's evaluation feedback. |
 | **Claude Code** | [Check Agent Command](.claude/commands/check-agent.md) | Reviews and updates agent, skill, and command files to resolve conflicts, avoid template drift, and ensure consistency across files. |
 

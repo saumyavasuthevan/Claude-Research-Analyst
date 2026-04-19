@@ -44,9 +44,17 @@ This prevents burst rate limiting on the Brave Search API.
 
 ### Fact Registry — build as you search
 
-Every source you retrieve must be registered in `projects/[CompanyName]/01- company context/fact_registry.json` **at the moment it is retrieved** — not after writing.
+Maintain **three separate registry files**, one per output report:
 
-**Create the file with `{}` before the first search. After each source, append its entry and write the file to disk immediately.**
+| File | Sources registered here |
+|---|---|
+| `projects/[CompanyName]/01- company context/fact_registry_company-overview.json` | Sources cited in `company-overview.md` |
+| `projects/[CompanyName]/01- company context/fact_registry_competitive-intelligence.json` | Sources cited in `competitive-intelligence.md` |
+| `projects/[CompanyName]/01- company context/fact_registry_product-description.json` | Sources cited in `product-description.md` |
+
+If the same URL is cited in two reports, register it in both registries with the same Fact ID.
+
+**Create all three files with `{}` before the first search. After each source is retrieved, append its entry to the appropriate registry and write the file to disk immediately — never batch at the end.**
 
 ```json
 {
@@ -61,7 +69,7 @@ Every source you retrieve must be registered in `projects/[CompanyName]/01- comp
 
 **Fact ID format:** `SRC:[short_snake_case_description]` — e.g. `SRC:asos_fy25_revenue`, `SRC:mordor_eu_ecommerce_cagr`. Never use `SRC:1`, `SRC:2`, or other numeric IDs.
 
-**Before adding a new entry, check whether the URL already exists in the registry.** If it does, reuse the existing ID — never create a duplicate entry for the same URL.
+**Before adding a new entry, check whether the URL already exists in the target registry.** If it does, reuse the existing ID — never create a duplicate entry for the same URL.
 
 **Hard rule: Never write a raw URL (`https://...`) anywhere in any output file.** Register the URL in the fact registry, then cite by ID only. This applies at every stage — drafts, notes, and final files.
 
@@ -143,7 +151,8 @@ The goal is to find specific named actions competitors have taken in response to
 
 **Rules for trend-response cells:**
 - Each trend table must include at least 2 competitors with a confirmed named action (sourced from a news article or press release). If fewer than 2 confirmed actions are found after searching, either run an additional broader search or replace the trend with one that has sufficient evidence — do not include a trend supported by only 1 or 0 confirmed examples.
-- Each cell must cite a specific named news article or press release [SRC:id].
+- Trend source: cite `[SRC:id]` at the end of the body sentence — **not in the heading**.
+- Response cell: embed `[SRC:id]` inline at the end of the named action — **no separate Source column**. Example: `"Launched "Styled By You" AI stylist in November 2025 — 100,000 curated outfits; AI suggests complementary items for loyalty members [SRC:guardian_asos_ai_stylist]"`
 - "No public signal as of [date]" is valid for additional rows beyond the 2 required confirmed examples — never as a substitute for them.
 - Never infer a competitor response from their general product description or market positioning.
 - If the search returns no relevant result for a competitor on a trend, write `[DATA UNAVAILABLE — no public signal retrieved as of date]`.
@@ -201,7 +210,7 @@ Add this block at the very top of every file, before any other content:
 
 Every factual claim must include an inline citation at the moment it is written. **Never write a raw URL (`https://...`) anywhere in any file — cite by Fact ID only.**
 
-**Format:** `[Source Name, Month Year, SRC:id]` immediately after the claim, where `SRC:id` is the descriptive snake_case Fact ID registered in `fact_registry.json` during Step 2.
+**Format:** `[Source Name, Month Year, SRC:id]` immediately after the claim, where `SRC:id` is the descriptive snake_case Fact ID registered in the appropriate `fact_registry_*.json` during Step 2.
 
 **Do not write a field's content and then search for a citation.** Write only what you have a source for at the moment of writing. If you have no source, write `[DATA UNAVAILABLE]` or the appropriate label — never fill a field then retroactively hunt for a citation.
 
@@ -210,11 +219,13 @@ Every factual claim must include an inline citation at the moment it is written.
 Before writing any statistic (user counts, market size, pricing, growth rates):
 1. Check **all** retrieved sources for that figure — not just the first one found
 2. Use the most recently dated source
-3. If sources conflict across dates, list all versions — do not silently pick one:
-   ```
-   User count: ~135M [Strava Year in Sport, Dec 2024, SRC:strava_2024]
-            vs ~180M [Strava Year in Sport, Dec 2025, SRC:strava_2025]
-   ```
+3. If sources conflict across dates:
+   - **Same source, different editions** (e.g. two Mordor Intelligence reports on the same market): use the most recently retrieved figure only. Do not list the older edition.
+   - **Different sources** (e.g. Mordor vs Grand View Research): list both with dates and source IDs — do not silently pick one:
+     ```
+     User count: ~135M [Strava Year in Sport, Dec 2024, SRC:strava_2024]
+              vs ~180M [Strava Year in Sport, Dec 2025, SRC:strava_2025]
+     ```
 
 If your most recent source for a figure is older than 12 months from today, tag it:
 `[UNVERIFIED — last confirmed [date], SRC:id]`
@@ -247,7 +258,8 @@ Do not generate any of the following without quoting a specific named source tha
 
 ### Conflicting figures
 
-If two sources report different figures for the same fact, list both with dates and source IDs — do not silently pick one.
+- **Same source, different editions:** use the most recently retrieved figure only. Drop the older edition silently.
+- **Different sources:** list both with dates and source IDs — do not silently pick one.
 
 ### Files to write:
 
@@ -279,7 +291,7 @@ Before saving each file, verify every item below. Fix any that fail before writi
 - [ ] Every `[ASSUMPTION]` tag includes a reasoning note
 - [ ] No section has been filled with inferred content where data was unavailable
 - [ ] Sections whose primary search failed are marked `[SEARCH FAILED]`, not filled from adjacent searches
-- [ ] `fact_registry.json` exists and contains one entry per source used
+- [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report
 - [ ] No raw URLs (`https://...`) appear anywhere in any output file — all sources cited by SRC:id only
 - [ ] **competitive-intelligence.md specific:** Every row in every competitor profile table has a SRC:id. Every competitor response cell in trend tables cites a news article. No cell value was inferred from general knowledge — unconfirmed cells use [DATA UNAVAILABLE].
 - [ ] **competitive-intelligence.md specific:** Competitor profiles contain no price range, weaknesses, target market, differentiation, or sentiment rows.
@@ -296,7 +308,9 @@ Files saved to projects/[CompanyName]/01- company context/
   - company-overview.md
   - competitive-intelligence.md
   - product-description.md
-  - fact_registry.json ([N] sources registered)
+  - fact_registry_company-overview.json ([N] sources)
+  - fact_registry_competitive-intelligence.json ([N] sources)
+  - fact_registry_product-description.json ([N] sources)
 
 Search coverage: [X]/7 queries successful
 Trend-response searches: [X]/[total trends] — [X] with named competitor actions found

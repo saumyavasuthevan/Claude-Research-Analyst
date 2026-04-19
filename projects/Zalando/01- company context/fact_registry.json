@@ -11,6 +11,12 @@
     "fetched_at": "2026-04-18",
     "quote": "~5.98% CAGR from 2025 to 2030 for European ecommerce apparel marketplaces"
   },
+  "SRC:mordor_eu_ecommerce_cagr_2025": {
+    "url": "https://www.mordorintelligence.com/industry-reports/europe-e-commerce-apparel-market",
+    "title": "Mordor Intelligence — Europe E-Commerce Apparel Market (2025 edition)",
+    "fetched_at": "2026-04-19",
+    "quote": "The Europe E-Commerce Apparel Market is expected to reach USD 125.68 billion in 2025 and grow at a CAGR of 4.25% to reach USD 154.78 billion by 2030"
+  },
   "SRC:zalando_fy25_results": {
     "url": "https://corporate.zalando.com/en/investor-relations/zalando-full-year-2025-results",
     "title": "Zalando Full Year 2025 Results — official press release",
@@ -128,8 +134,8 @@
   "SRC:sacra_shein": {
     "url": "https://sacra.com/c/shein/",
     "title": "Sacra — SHEIN Revenue and Valuation",
-    "fetched_at": "2026-04-18",
-    "quote": "Most items priced between $8-$30; Sacra estimates $9.9B in revenue in Q1 2025; $38B in 2024"
+    "fetched_at": "2026-04-19",
+    "quote": "Sacra estimates $9.9B in revenue in Q1 2025; $38B in 2024; European logistics hub in Wroclaw, Poland opened December 2025"
   },
   "SRC:coupang_ir_farfetch_acquisition": {
     "url": "https://ir.aboutcoupang.com/news-events/news/news-details/2024/Coupang-Completes-Acquisition-of-Farfetch/default.aspx",
@@ -261,25 +267,25 @@
     "url": "https://www.trustpilot.com/review/www.asos.com",
     "title": "Trustpilot — ASOS Reviews",
     "fetched_at": "2026-04-18",
-    "quote": "ASOS is rated 'Poor' with 1.8/5 on Trustpilot; 'The customer service at ASOS which used to be great is now DIABOLICAL'"
+    "quote": "ASOS is rated 'Poor' with 1.8/5 on Trustpilot"
   },
   "SRC:trustpilot_shein_2025": {
     "url": "https://www.trustpilot.com/review/www.shein.com",
     "title": "Trustpilot — SHEIN Reviews (main site)",
     "fetched_at": "2026-04-18",
-    "quote": "3.9/5 from 350,503 reviews on shein.com; regional sites (e.g. shein.com.au) show 1.8/5; main-site aggregate likely skewed by review volume or incentivisation patterns; review content dominated by CS complaints and size/quality issues"
+    "quote": "3.9/5 from 350,503 reviews on shein.com"
   },
   "SRC:simoosourcing_farfetch_review": {
     "url": "https://www.simoosourcing.com/is-farfetch-legit-review/",
     "title": "SimooSourcing — Is Farfetch Legit? Review 2025 (cites Trustpilot)",
     "fetched_at": "2026-04-18",
-    "quote": "Trustpilot rating: 4.1/5 based on over 40,000 reviews; while many customers praise the wide selection and fast delivery, others express frustration over returns and customer service"
+    "quote": "Trustpilot rating: 4.1/5 based on over 40,000 reviews"
   },
   "SRC:sitejabber_farfetch": {
     "url": "https://www.sitejabber.com/reviews/farfetch.com",
     "title": "Sitejabber — Farfetch Reviews",
     "fetched_at": "2026-04-18",
-    "quote": "Farfetch has a rating of 2.2 stars from 1,822 reviews; most frequently mention customer service, credit card and wrong size"
+    "quote": "Farfetch has a rating of 2.2 stars from 1,822 reviews"
   },
   "SRC:reviews_io_farfetch": {
     "url": "https://www.reviews.io/company-reviews/store/www-farfetch-com",
@@ -291,13 +297,13 @@
     "url": "https://www.trustpilot.com/review/hm.co.uk",
     "title": "Trustpilot — H&M UK Reviews",
     "fetched_at": "2026-04-18",
-    "quote": "HM is rated 'Bad' with 1.5/5 on Trustpilot; 'nobody wants to talk to AI chat bot'"
+    "quote": "HM is rated 'Bad' with 1.5/5 on Trustpilot"
   },
   "SRC:trustpilot_hm_2026": {
     "url": "https://www.trustpilot.com/review/hm.com",
     "title": "Trustpilot — H&M Reviews (hm.com)",
     "fetched_at": "2026-04-18",
-    "quote": "Most reviewers were let down by their experience overall; recurring complaints: missing items, incorrect orders, slow processing; isolated praise: 'Superb customer service, prompt efficient and very helpful'"
+    "quote": "Most reviewers were let down by their experience overall"
   },
   "SRC:trustpilot_vinted_uk_2025": {
     "url": "https://www.trustpilot.com/review/vinted.co.uk",
@@ -309,12 +315,156 @@
     "url": "https://www.trustpilot.com/review/vinted.com",
     "title": "Trustpilot — Vinted.com Reviews",
     "fetched_at": "2026-04-18",
-    "quote": "Vinted COM is rated 'Bad' with 1.3/5 on Trustpilot; 'Vinted takes zero action in protecting buyers'"
+    "quote": "Vinted COM is rated 'Bad' with 1.3/5 on Trustpilot"
   },
   "SRC:trustpilot_vinted_fr_2025": {
     "url": "https://www.trustpilot.com/review/vinted.fr",
     "title": "Trustpilot — Vinted FR Reviews",
     "fetched_at": "2026-04-18",
-    "quote": "Vinted FR is rated 'Average' with 3.1/5; 'The platform is easy to use, the community is friendly, and buying and selling pre-loved items feels safe and simple'"
+    "quote": "Vinted FR is rated 'Average' with 3.1/5"
+  },
+  "SRC:pitchbook_zalando_2026": {
+    "url": "https://pitchbook.com/profiles/company/53796-70",
+    "title": "PitchBook — Zalando 2026 Company Profile",
+    "fetched_at": "2026-04-19",
+    "quote": "Zalando has 16,582 total employees; Public company; founded 2008; HQ Berlin Germany"
+  },
+  "SRC:zalando_q3_2025_results": {
+    "url": "https://corporate.zalando.com/en/financials/zalando-q3-2025-results",
+    "title": "Zalando Corporate — Q3 2025 Results",
+    "fetched_at": "2026-04-19",
+    "quote": "Customer base surpassing 61 million; full-year 2025 guidance confirmed: pro-forma GMV and revenue growth 4–7%, adjusted EBIT 550–600 million euros"
+  },
+  "SRC:fashionnetwork_zalando_ai_2026": {
+    "url": "https://ww.fashionnetwork.com/news/Zalando-has-buoyant-2025-more-to-come-in-2026-as-it-highlights-ai-being-key-to-growth,1815151.html",
+    "title": "FashionNetwork — Zalando buoyant 2025, AI key to 2026 growth",
+    "fetched_at": "2026-04-19",
+    "quote": "AI will be used in personal matchmaking; Size & Fit AI helps shoppers pick right size, avoiding size-related returns by more than 8%; Zalando partnered with Qutwo"
+  },
+  "SRC:retaildetail_zalando_us_b2b": {
+    "url": "https://www.retaildetail.eu/news/fashion/zalando-close-to-entering-the-us-market/",
+    "title": "RetailDetail — Zalando close to entering US market",
+    "fetched_at": "2026-04-19",
+    "quote": "Approaching closure of first deals in US B2B; Scayle software platform from About You acquisition supports inventory and brand management"
+  },
+  "SRC:retailtechhub_zalando_google_ucp": {
+    "url": "https://retailtechinnovationhub.com/home/2026/1/12/zalando-taps-googles-universal-commerce-protocol-with-new-checkout-feature-first-up",
+    "title": "Retail Technology Innovation Hub — Zalando taps Google Universal Commerce Protocol, Jan 2026",
+    "fetched_at": "2026-04-19",
+    "quote": "Zalando getting onboard with Google's Universal Commerce Protocol (UCP), open source standard for agentic commerce"
+  },
+  "SRC:fashionbi_zalando_deepar": {
+    "url": "https://www.fashionbi.com/insights/zalando-inside-the-15-billion-platform-s-innovation-and-growth-strategy",
+    "title": "FashionBI — Zalando Inside the €15 Billion Platform's Innovation and Growth",
+    "fetched_at": "2026-04-19",
+    "quote": "Zalando GmbH acquired DeepAR, a UK-based augmented reality startup, in April 2025"
+  },
+  "SRC:juststyle_zalando_deepar": {
+    "url": "https://www.just-style.com/news/zalando-deepar-acquisition-tech/",
+    "title": "Just Style — Zalando buys DeepAR to boost tech capabilities",
+    "fetched_at": "2026-04-19",
+    "quote": "Zalando acquired DeepAR; DeepAR to build Europe's largest 3D Digital Twin catalogue and AR try-on products"
+  },
+  "SRC:asos_topshop_heartland_jv": {
+    "url": "https://www.retailtouchpoints.com/topics/market-news/asos-sells-majority-stake-in-topshop-topman-as-it-continues-turnaround-efforts",
+    "title": "Retail TouchPoints — ASOS Sells Majority Stake in Topshop/Topman to Heartland",
+    "fetched_at": "2026-04-19",
+    "quote": "ASOS agreed to sell 75% stake in Topshop and Topman brands to Heartland for £135 million (~$180M)"
+  },
+  "SRC:asos_marketplace_migration": {
+    "url": "https://www.retailgazette.co.uk/blog/2025/01/asos-marketplace-sellers/",
+    "title": "Retail Gazette — ASOS migrates marketplace sellers to main site, Jan 2025",
+    "fetched_at": "2026-04-19",
+    "quote": "Migration of vintage and independent boutique sellers from ASOS marketplace to main site complete by April 2025"
+  },
+  "SRC:guardian_asos_ai_stylist": {
+    "url": "https://www.theguardian.com/business/2025/nov/21/asos-ai-stylists-sales-discounts-serial-returners",
+    "title": "The Guardian — ASOS turns to AI stylists, Nov 2025",
+    "fetched_at": "2026-04-19",
+    "quote": "ASOS launches Styled By You, AI stylist feature with database of 100,000 curated outfits"
+  },
+  "SRC:shein_exchange_europe_prnewswire": {
+    "url": "https://www.prnewswire.com/news-releases/shein-launches-shein-exchange-resale-platform-in-europe-and-the-united-kingdom-302161822.html",
+    "title": "PRNewswire — SHEIN Launches SHEIN Exchange Resale Platform in Europe and UK, Jun 2024",
+    "fetched_at": "2026-04-19",
+    "quote": "SHEIN extends SHEIN Exchange resale platform in Europe and UK; France first, then UK and Germany"
+  },
+  "SRC:shein_wroclaw_hub": {
+    "url": "https://sacra.com/c/shein/",
+    "title": "Sacra — SHEIN European logistics hub Wroclaw",
+    "fetched_at": "2026-04-19",
+    "quote": "Shein operates a logistics hub in Wroclaw, Poland as its primary European distribution center (opened December 2025)"
+  },
+  "SRC:shein_xcelerator_pimkie": {
+    "url": "https://wwd.com/business-news/financial/shein-xcelerator-launches-france-pimkie-partnership-1238165976/",
+    "title": "WWD — SHEIN Xcelerator launches in France with Pimkie partnership",
+    "fetched_at": "2026-04-19",
+    "quote": "Shein Xcelerator launches in France; joint venture with Pimkie for dedicated Pimkie collections on SHEIN platform"
+  },
+  "SRC:ec_shein_dsa_investigation": {
+    "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_420",
+    "title": "European Commission — Commission launches investigation into SHEIN under Digital Services Act",
+    "fetched_at": "2026-04-19",
+    "quote": "European Commission opened formal proceedings against SHEIN under the Digital Services Act"
+  },
+  "SRC:vinted_trendsales_acquisition": {
+    "url": "https://en.wikipedia.org/wiki/Vinted",
+    "title": "Wikipedia — Vinted (Trendsales acquisition)",
+    "fetched_at": "2026-04-19",
+    "quote": "In 2024 Vinted acquired Trendsales, a Danish resale platform"
+  },
+  "SRC:vinted_go_spain_portugal": {
+    "url": "https://company.vinted.com/newsroom/financial-results-2025",
+    "title": "Vinted Official Newsroom — Vinted Go launches Spain and Portugal, 2025",
+    "fetched_at": "2026-04-19",
+    "quote": "Vinted Go launched in Spain and Portugal and opened a new sortation centre in France; now operational in five markets"
+  },
+  "SRC:vinted_sacra_2026": {
+    "url": "https://sacra.com/c/vinted/",
+    "title": "Sacra — Vinted Revenue and Valuation",
+    "fetched_at": "2026-04-19",
+    "quote": "2024 acquisition of Denmark's Trendsales established dominance in Nordic region; exploring IPO at $8bn valuation"
+  },
+  "SRC:pymnts_mytheresa_ynap": {
+    "url": "https://www.pymnts.com/news/ecommerce/2024/richemont-hands-off-ynap-to-mytheresa-for-608-million/",
+    "title": "PYMNTS — Richemont hands off YNAP to Mytheresa for $608M, Oct 2024",
+    "fetched_at": "2026-04-19",
+    "quote": "Richemont selling luxury ecommerce platform Yoox Net-a-Porter to Mytheresa; $608 million deal announced Oct 2024"
+  },
+  "SRC:asos_annual_report_2025": {
+    "url": "https://www.asosplc.com/media/buijobcn/49775_asos_ar25_text_int_031225-final.pdf",
+    "title": "ASOS Plc Annual Report and Accounts 2025",
+    "fetched_at": "2026-04-19",
+    "quote": "In FY26, ASOS will continue to scale Fashion Suite models to more than 15% of third-party GMV"
+  },
+  "SRC:reuters_shein_dsa_vlop": {
+    "url": "https://techcrunch.com/2024/04/26/shein-dsa-vlop/",
+    "title": "TechCrunch — SHEIN designated Very Large Online Platform under EU DSA, Apr 2024",
+    "fetched_at": "2026-04-19",
+    "quote": "SHEIN designated as VLOP under EU DSA as of April 2024, subject to most stringent obligations"
+  },
+  "SRC:ecdb_zalando_2025": {
+    "url": "https://ecdb.com/resources/sample-data/retailer/zalando",
+    "title": "ECDB — Zalando Revenue 2025",
+    "fetched_at": "2026-04-19",
+    "quote": "Zalando annual sales US$16,249m in 2025; growth rate 10-15% from previous year"
+  },
+  "SRC:sheingroup_wroclaw": {
+    "url": "https://www.sheingroup.com/corporate-news/company-updates/shein-opens-state-of-the-art-european-logistics-hub-in-wroclaw-poland-lifting-total-jobs-created-in-poland-to-5000/",
+    "title": "SHEIN Group — SHEIN Opens European Logistics Hub in Wroclaw, Poland",
+    "fetched_at": "2026-04-19",
+    "quote": "New facility already in operation; expected to reach full operations by end of 2025; 740,000m2 at full capacity; 5,000 jobs in Poland"
+  },
+  "SRC:ec_temu_dsa_breach": {
+    "url": "https://digital-strategy.ec.europa.eu/en/news/commission-preliminarily-finds-temu-breach-digital-services-act-relation-illegal-products-its",
+    "title": "European Commission — Commission preliminarily finds Temu in breach of the DSA, Jul 2025",
+    "fetched_at": "2026-04-19",
+    "quote": "Commission preliminarily found Temu in breach of DSA obligation to properly assess risks of illegal products; formal proceedings opened Oct 2024"
+  },
+  "SRC:gap_gemini_checkout": {
+    "url": "https://www.retailtouchpoints.com/news/gap-dives-into-ai-commerce-with-checkout-on-google-gemini-and-new-fit-guidance-tech/618130/",
+    "title": "Retail TouchPoints — Gap Dives into AI Commerce with Checkout on Google Gemini, Mar 2026",
+    "fetched_at": "2026-04-19",
+    "quote": "Gap is launching checkout on Google Gemini and new agentic fit guidance; first major fashion brand to enable purchases without leaving AI chat interface"
   }
 }

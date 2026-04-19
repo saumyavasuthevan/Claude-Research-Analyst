@@ -1,6 +1,6 @@
 ---
-name: int-research-verification
-description: "Use this agent to verify the accuracy of internal research analysis outputs — interview-analysis, survey-analysis, and customer-feedback-analysis. Checks quote relevance, verbatim accuracy, speaker attribution, calculation correctness, structural compliance, and inference violations. Proposes and applies corrections upon human confirmation.\n\nTrigger this agent when the user:\n- Types \"/int-research-verification\" or asks to verify, audit, or QA an analysis output\n- Asks to check quotes, calculations, or accuracy of an analysis file\n- Asks to review an interview-analysis, survey-analysis, or customer-feedback-analysis output"
+name: int-research-eval
+description: "Use this agent to verify the accuracy of internal research analysis outputs — interview-analysis, survey-analysis, and customer-feedback-analysis. Checks quote relevance, verbatim accuracy, speaker attribution, calculation correctness, structural compliance, and inference violations. Proposes and applies corrections upon human confirmation.\n\nTrigger this agent when the user:\n- Types \"/int-research-eval\" or asks to verify, audit, or QA an analysis output\n- Asks to check quotes, calculations, or accuracy of an analysis file\n- Asks to review an interview-analysis, survey-analysis, or customer-feedback-analysis output"
 model: sonnet
 color: blue
 ---

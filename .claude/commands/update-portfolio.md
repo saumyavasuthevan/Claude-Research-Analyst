@@ -80,7 +80,7 @@ flowchart LR
 
 **Accuracy / Quality:** [one sentence]
 
-**Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification)
+**Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification)<br/>
 *Assumptions: run ~X times/[period] · [frequency rationale] · pegged to PM salary*
 
 ---
@@ -119,13 +119,7 @@ Draft the Iterations as a markdown table with three columns — ordered highest 
 |---|---|---|
 | [Hyper-specific failure mode with a concrete example of the bad output, e.g. "Agent attempted competitive SWOT analysis, but search snippets unable to substantiate qual claims — producing hallucinations like 'ASOS has weaker EU logistics than Zalando.'"] | **[Bold the fix mechanism.]** [One sentence describing the mechanism — e.g. "Banned the subject company's domain from all competitor searches; every competitor now requires an independent third-party source."] | [Outcome-focused result — e.g. "Reduced error rate on competitive claims from 64% to ~0–25%." Do not invent metrics; use numbers from the diff or file if they exist.] |
 
-**Language rules for drafting iterations:**
-- **Challenge column:** Be hyper-specific — include a short concrete example of the failure (e.g. a hallucinated claim, a broken link, a wrong figure). No vague terms like "inaccurate" or "skewed". **Bold the key failure term or phrase** (e.g. the failure mode name, the specific broken behaviour, or the exact bad output type).
-- **Fix column:** Bold the fix mechanism. One clear sentence on what changed. When describing a shift from model-generated to source-logged data, frame it as moving from a **stochastic** to a **deterministic** approach.
-- **Result column:** Outcome-focused, grounded in what the fix achieves. Use numbers from the diff if they exist; do not invent metrics.
-- Use standard AI/ML terminology (e.g. hallucination, context window) — avoid jargon non-technical readers won't recognise (e.g. "coverage gate", "full query status map").
-- Call search wait time "latency" not "overhead".
-- Order by impact: row 1 should be the most significant improvement.
+Follow the language rules from `CLAUDE.md → Working Style → Language` for all three columns. Order rows highest impact → lowest. Do not invent metrics; use numbers from the diff if they exist.
 
 If the git log shows no meaningful changes (single commit or no history), leave one placeholder row.
 
@@ -135,7 +129,7 @@ Present all questions in one message — do not ask sequentially:
 
 > "I've pre-filled what I can from the agent file and git history. Four questions before I write the file:
 >
-> **1. Workflow** — describe the inputs, outputs, and any agents that feed into or receive from this one. I'll build the Mermaid diagram from your description. (e.g. 'Takes interview transcripts + company context files → produces 1 analysis file per transcript → consumed by int-research-verification and research-synthesis')
+> **1. Workflow** — describe the inputs, outputs, and any agents that feed into or receive from this one. I'll build the Mermaid diagram from your description. (e.g. 'Takes interview transcripts + company context files → produces 1 analysis file per transcript → consumed by int-research-eval and research-synthesis')
 >
 > **2. Iterations** — here's what I inferred from git history:
 >
@@ -193,7 +187,7 @@ annual_value   = (time_saved_min / 60) × runs_per_year × hourly_rate
 
 Round to the nearest €50. Format as:
 
-> **Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification)
+> *Cost savings:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification)
 > *Assumptions: run ~X times/[period] · [frequency rationale] · pegged to PM salary*
 
 If the user did not supply frequency, leave the placeholder unchanged.

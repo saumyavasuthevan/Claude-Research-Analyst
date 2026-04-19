@@ -35,7 +35,7 @@ flowchart LR
 
 ## Evals
 
-- **Method:** [`ext-research-verification`](../.claude/agents/ext-research-verification.md) — checks outputs for quantitative claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator label compliance, banned claim patterns, and stale untagged sources. Includes a human HHH (Honesty, Helpfulness, Harmlessness) scoring component.
+- **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — checks outputs for quantitative claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator label compliance, banned claim patterns, and stale untagged sources. Includes a human HHH (Honesty, Helpfulness, Harmlessness) scoring component.
 - **Coverage:** Run on Zalando competitive landscape output — company-overview.md and product-description.md evals pending.
 - **Report:** [2026-04-18 — Zalando competitive landscape verification](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md)
 
@@ -53,7 +53,7 @@ flowchart LR
 
 **Accuracy / Quality:** Reduced competitive landscape error rate. Every claim is grounded in an independently sourced, date-stamped, auditable citation.
 
-**Value saved:** ~€750/year — task reduced from 6 hrs to 75 mins (incl. verification)
+**Cost savings:** ~€750/year — task reduced from 6 hrs to 75 mins (incl. verification)<br/>
 *Assumptions: run ~4 times/year · ~4 new companies/year · pegged to PM salary*
 
 ---

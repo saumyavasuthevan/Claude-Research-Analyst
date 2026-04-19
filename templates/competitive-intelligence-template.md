@@ -46,62 +46,63 @@ Verify the exact CAGR figure against the source page — do not use a cached or 
 For each trend, run: "[trend keyword] [Competitor1] OR [Competitor2] 2024 2025" to find named competitor actions.
 Each trend table must include at least 2 competitors with a confirmed named action (sourced from a news article or press release). If fewer than 2 confirmed actions are found, keep searching before writing the trend — or drop the trend and replace it with one that has sufficient evidence.
 Competitors in each trend table are not limited to the 3 closest competitors in the summary matrix — include any named competitor for whom a relevant action was found.
-Each competitor response cell must cite a specific news article or press release.
+Trend source: cite [SRC:id] at the end of the body sentence — not in the heading.
+Response cell: embed [SRC:id] inline at the end of the named action — no separate Source column.
 "No public signal as of [date]" is a valid cell value for additional rows beyond the 2 required confirmed examples. -->
 
-### Trend 1: [Trend name] [SRC:id for trend claim]
+### Trend 1: [Trend name]
 
-[One sentence: what is happening in the market — sourced from analyst report or trade press.]
+[One sentence: what is happening in the market — sourced from analyst report or trade press. [SRC:id]]
 
-| Competitor | Response | Source |
-|---|---|---|
-| [Name] | [Specific named action — e.g., "Launched X feature, Month YYYY"] | SRC:id |
-| [Name] | [No public signal as of YYYY-MM-DD] | — |
-| [Name] | [DATA UNAVAILABLE] | — |
-
----
-
-### Trend 2: [Trend name] [SRC:id]
-
-[One sentence.]
-
-| Competitor | Response | Source |
-|---|---|---|
-| [Name] | [Action] | SRC:id |
-| [Name] | [No public signal as of YYYY-MM-DD] | — |
+| Competitor | Response |
+|---|---|
+| [Name] | [Specific named action — e.g., "Launched X feature, Month YYYY [SRC:id]"] |
+| [Name] | [No public signal as of YYYY-MM-DD] |
+| [Name] | [DATA UNAVAILABLE] |
 
 ---
 
-### Trend 3: [Trend name] [SRC:id]
+### Trend 2: [Trend name]
 
-[One sentence.]
+[One sentence. [SRC:id]]
 
-| Competitor | Response | Source |
-|---|---|---|
-| [Name] | [Action] | SRC:id |
-| [Name] | [No public signal as of YYYY-MM-DD] | — |
-
----
-
-### Trend 4: [Trend name] [SRC:id]
-
-[One sentence.]
-
-| Competitor | Response | Source |
-|---|---|---|
-| [Name] | [Action] | SRC:id |
-| [Name] | [No public signal as of YYYY-MM-DD] | — |
+| Competitor | Response |
+|---|---|
+| [Name] | [Action [SRC:id]] |
+| [Name] | [No public signal as of YYYY-MM-DD] |
 
 ---
 
-### Trend 5: [Trend name] [SRC:id]
+### Trend 3: [Trend name]
 
-[One sentence.]
+[One sentence. [SRC:id]]
 
-| Competitor | Response | Source |
-|---|---|---|
-| [Name] | [Action] | SRC:id |
-| [Name] | [No public signal as of YYYY-MM-DD] | — |
+| Competitor | Response |
+|---|---|
+| [Name] | [Action [SRC:id]] |
+| [Name] | [No public signal as of YYYY-MM-DD] |
+
+---
+
+### Trend 4: [Trend name]
+
+[One sentence. [SRC:id]]
+
+| Competitor | Response |
+|---|---|
+| [Name] | [Action [SRC:id]] |
+| [Name] | [No public signal as of YYYY-MM-DD] |
+
+---
+
+### Trend 5: [Trend name]
+
+[One sentence. [SRC:id]]
+
+| Competitor | Response |
+|---|---|
+| [Name] | [Action [SRC:id]] |
+| [Name] | [No public signal as of YYYY-MM-DD] |
 
 ---
 

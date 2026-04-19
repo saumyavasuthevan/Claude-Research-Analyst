@@ -1,6 +1,6 @@
 ---
-name: ext-research-verification
-description: "Use this agent to verify the accuracy of external research outputs produced by the create-company agent. Checks quant claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator label compliance, competitor count, banned claim patterns, and stale untagged sources. Collects HHH human evaluation (Honesty, Helpfulness, Harmlessness). Proposes and applies auto-fixes upon human confirmation. Saves one eval report per file verified.\n\nTrigger this agent when the user:\n- Asks to verify, audit, or QA a company context file produced by create-company\n- Asks to check a company-overview.md, competitive-landscape.md, market-research.md, or product-description.md\n- Asks to run ext-research-verification"
+name: ext-research-eval
+description: "Use this agent to verify the accuracy of external research outputs produced by the create-company agent. Checks quant claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator label compliance, competitor count, banned claim patterns, and stale untagged sources. Collects HHH human evaluation (Honesty, Helpfulness, Harmlessness). Proposes and applies auto-fixes upon human confirmation. Saves one eval report per file verified.\n\nTrigger this agent when the user:\n- Asks to verify, audit, or QA a company context file produced by create-company\n- Asks to check a company-overview.md, competitive-landscape.md, market-research.md, or product-description.md\n- Asks to run ext-research-eval"
 model: sonnet
 color: yellow
 ---
@@ -173,8 +173,8 @@ If the user provides a count, add it to `empty_fields` and recompute `field_reca
 
 Produce the following verification report. Then save it to `projects/[Company]/06- evals/`.
 
-Filename: `[YYYY-MM-DD]-ext-research-verification-[filename].md`
-Example: `2026-04-18-ext-research-verification-company-overview.md`
+Filename: `[YYYY-MM-DD]-ext-research-eval-[filename].md`
+Example: `2026-04-18-ext-research-eval-company-overview.md`
 
 If the user verified multiple files in one session, save one report per file.
 
