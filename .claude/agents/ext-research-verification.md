@@ -43,7 +43,7 @@ Wait for user confirmation.
 
 ### Step 5a — Compute Field Metrics via Script
 
-Write and execute a Python script to compute field-level metrics for the selected file. Treat script output as authoritative — never use model arithmetic to determine these values.
+Write the Python script to `/tmp/ext_research_verification_metrics.py` and execute it. Treat script output as authoritative — never use model arithmetic to determine these values.
 
 ```python
 import re, json, os
@@ -53,6 +53,7 @@ today = datetime.today()
 cutoff = today - timedelta(days=365)
 
 file_path = "<selected_file_path>"
+evals_dir = "<projects/[Company]/06- evals/>"
 text = open(file_path).read()
 
 # Field inventory
@@ -91,21 +92,21 @@ results = {
     "labeled_fields": labeled_fields,
     "empty_fields": empty_fields,
     "fields_with_citation": fields_with_citation,
-    "field_recall_rate_pct": round(filled_fields / total_fields * 100, 1) if total_fields else 0,
+    "field_recall_rate_pct": round(filled_fields / (total_fields - labeled_fields) * 100, 1) if (total_fields - labeled_fields) else 0,
     "citation_coverage_rate_pct": round(fields_with_citation / filled_fields * 100, 1) if filled_fields else 0,
     "placeholder_violations": placeholder_violations,
     "stale_untagged_violations": stale_untagged,
 }
 
-out_path = os.path.join(
-    os.path.dirname(file_path),
-    f"{os.path.basename(file_path).replace('.md','')}-verification-computed.json"
-)
+date_prefix = today.strftime("%Y-%m-%d")
+filename_stem = os.path.basename(file_path).replace('.md', '')
+out_path = os.path.join(evals_dir, f"{date_prefix}-{filename_stem}-verification-computed.json")
+os.makedirs(evals_dir, exist_ok=True)
 json.dump(results, open(out_path, "w"), indent=2)
 print(json.dumps(results, indent=2))
 ```
 
-Save output as `[filename]-verification-computed.json` in `projects/[Company]/01- company context/`.
+Save the computed JSON as `[YYYY-MM-DD]-[filename]-verification-computed.json` in `projects/[Company]/06- evals/`. Do not save the `.py` script file — write it to `/tmp/` only.
 
 ### Step 5b — Machine Verification Checks
 
@@ -113,8 +114,8 @@ For each issue found, record: ID, section/field location, what was found, what i
 
 | ID | Check | How |
 |---|---|---|
-| M-1 | **Quant Claims Accuracy** — extract ALL objective factual claims (CEO name, founding year, ARR, user count, funding amount, market size, CAGR, pricing, headcount, G2 scores). For each, fetch the cited URL from `fact_registry.json` and verify the stated value. Contradictions where correct value is readable from source → Auto-fix. Paywalled or inaccessible → Inconclusive (excluded from rate denominator). | Fetch + LLM verify |
-| M-2 | **Link Validity** — for every URL in `fact_registry.json`, fetch and check HTTP status. Flag broken (4xx/5xx) or unresolved redirects (3xx). Skip entirely if no fact registry. | HTTP fetch |
+| M-1 | **Quant Claims Accuracy** — extract ALL objective factual claims (CEO name, founding year, ARR, user count, funding amount, market size, CAGR, pricing, headcount, G2 scores). For each, fetch the cited URL from `fact_registry.json` and verify the stated value. **Fetch URLs sequentially — do not parallelise. Run `sleep 2` between each fetch. If a rate limit error occurs, run `sleep 5` and retry once. If retry also fails, mark that claim Inconclusive.** Contradictions where correct value is readable from source → Auto-fix. Paywalled or inaccessible → Inconclusive (excluded from rate denominator). | Fetch + LLM verify |
+| M-2 | **Link Validity** — for every URL in `fact_registry.json`, check HTTP status. **Reuse fetch results already retrieved during M-1 — do not re-fetch URLs already visited.** For any URLs not yet fetched in M-1, fetch sequentially with `sleep 2` between each. If a rate limit error occurs, run `sleep 5` and retry once. If retry also fails, mark that URL as Inconclusive (excluded from rate denominator). **4xx responses must be flagged as "Potentially bot-blocked — requires human verification", NOT as definitively broken.** Many sites (e.g. Business of Fashion, MarketScreener, FashionNetwork) return 4xx to automated fetches while remaining fully accessible in a browser. Only 5xx (server errors) and unresolved 3xx redirects should be flagged as broken. Present all 4xx URLs to the user for manual confirmation before recording them as broken. Skip entirely if no fact registry. | HTTP fetch |
 | M-3 | **Citation Coverage** — for every filled factual field, verify a `[SRC:id]` is present. Flag uncited fields. | Regex |
 | M-4 | **Field Recall Rate** — use script: `field_recall_rate_pct`. Flag if below 90%. Labeled gaps count as intentional. | Script |
 | M-5 | **Placeholder Text** — use script: `placeholder_violations`. Flag residual template tokens (`[Year]`, `[X]M`, `[Source]`, `[Company Name]`, etc.). Auto-fix: replace with `[DATA UNAVAILABLE — not populated]`. | Script + Regex |
@@ -122,6 +123,7 @@ For each issue found, record: ID, section/field location, what was found, what i
 | M-7 | **Minimum Competitor Count** — `competitive-landscape.md` only. The Detailed Competitor Analysis section must contain ≥3 named direct competitors. Flag if fewer. Skip for all other files. | Count |
 | M-8 | **Banned Claim Patterns** — scan for "only", "leading", "largest", "fastest", "no competitor offers", "uniquely", "the only [X] that" without an adjacent `[SRC:id]`. Flag each instance. | Regex |
 | M-9 | **Stale Untagged Sources** — use script: `stale_untagged_violations`. Sources with a parseable date >12 months old NOT tagged `[UNVERIFIED]` are violations. Stale + tagged is allowed. | Script |
+| M-10 | **Uncited Quoted Strings** — scan User Sentiment sections for any content inside `"..."` (consumer praise, complaints, testimonials) that lacks an adjacent `[SRC:id]`. Each instance is a violation — the agent must have sourced or fabricated the quote from general knowledge. Flag all instances for human review. Auto-fix: replace bare quoted string with `[DATA UNAVAILABLE — quoted phrase has no citation; remove or source from review platform]`. | Regex |
 
 ### Step 5c — Collect FN Count (Recall Adjustment)
 
@@ -205,6 +207,7 @@ If the user verified multiple files in one session, save one report per file.
 | Aggregator Label Violations | [n] | 0 |
 | Banned Claim Pattern Instances | [n] | 0 |
 | Stale Untagged Source Violations | [n] | 0 |
+| Uncited Quoted String Violations | [n] | 0 |
 | Competitor Count | [n] direct competitors | ≥ 3 |
 
 **Score legend:**
@@ -219,6 +222,7 @@ If the user verified multiple files in one session, save one report per file.
 | Aggregator Label Violations | Crunchbase/PitchBook/Getlatka/SimilarWeb figures without [UNVERIFIED ESTIMATE] | Count. Target: 0. |
 | Banned Claim Pattern Instances | Unsupported superlatives without [SRC:id] — high hallucination risk | Count. Target: 0. |
 | Stale Untagged Source Violations | Sources >12 months old not tagged [UNVERIFIED]. Stale + tagged is fine. | Count. Target: 0. |
+| Uncited Quoted String Violations | Quoted consumer phrases in User Sentiment fields with no [SRC:id] — likely hallucinated from general knowledge | Count. Target: 0. |
 | Competitor Count | Named direct competitors with a dedicated block in competitive-landscape.md | Raw count. Target: ≥3. |
 
 **Quant Claims Accuracy detail (M-1):**

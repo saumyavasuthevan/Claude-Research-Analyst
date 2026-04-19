@@ -1,4 +1,8 @@
 # Market Research: [Topic]
+
+> ⚠️ **Deprecated.** Use `templates/competitive-intelligence-template.md` instead.
+> That template merges competitive landscape + market research into one fact-first, LLM-sourceable format.
+
 **Date**: [Date]
 **Researcher**: [Name]
 

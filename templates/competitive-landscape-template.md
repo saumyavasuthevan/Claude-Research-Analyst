@@ -1,5 +1,9 @@
 # [Company Name] Competitive Landscape
 
+> ⚠️ **Deprecated.** Use `templates/competitive-intelligence-template.md` instead.
+> That template merges competitive landscape + market research into one fact-first, LLM-sourceable format.
+
+
 <!-- CLAUDE CODE INSTRUCTIONS
 This template mirrors the LegalGraph competitive landscape structure.
 When filling this out for a new company:
@@ -92,13 +96,6 @@ Aim for 3–5 competitors. Copy-paste and fill one block per competitor. -->
 - **[Weakness 2]** — [Brief explanation]
 - **[Weakness 3]** — [Brief explanation]
 
-**User Sentiment:**
-<!-- Source: G2, Capterra, Trustpilot, App Store. Include score, review count, and access date. -->
-- G2: [X]/5 ([X]+ reviews) [date accessed — or DATA UNAVAILABLE]
-- [Other platform]: [X]/5 ([X]+ reviews) [date accessed — or DATA UNAVAILABLE]
-- Common complaints: "[Quote theme 1]," "[Quote theme 2]"
-- Common praise: "[Quote theme 1]," "[Quote theme 2]"
-
 **[Company Name]'s Differentiation:**
 - **[Differentiator 1]:** [Specific claim — e.g., "60% cheaper: $45k vs $150k average"]
 - **[Differentiator 2]:** [Specific claim]
@@ -135,11 +132,6 @@ Aim for 3–5 competitors. Copy-paste and fill one block per competitor. -->
 - **[Weakness 2]** — [Brief explanation]
 - **[Weakness 3]** — [Brief explanation]
 
-**User Sentiment:**
-- G2: [X]/5 ([X]+ reviews) [date accessed — or DATA UNAVAILABLE]
-- Common complaints: "[Theme 1]," "[Theme 2]"
-- Common praise: "[Theme 1]," "[Theme 2]"
-
 **[Company Name]'s Differentiation:**
 - **[Differentiator 1]:** [Specific claim]
 - **[Differentiator 2]:** [Specific claim]
@@ -171,11 +163,6 @@ Aim for 3–5 competitors. Copy-paste and fill one block per competitor. -->
 **Weaknesses:**
 - **[Weakness 1]** — [Brief explanation]
 - **[Weakness 2]** — [Brief explanation]
-
-**User Sentiment:**
-- G2: [X]/5 ([X]+ reviews) [date accessed — or DATA UNAVAILABLE]
-- Common complaints: "[Theme 1]," "[Theme 2]"
-- Common praise: "[Theme 1]," "[Theme 2]"
 
 **[Company Name]'s Differentiation:**
 - **[Differentiator 1]:** [Specific claim]

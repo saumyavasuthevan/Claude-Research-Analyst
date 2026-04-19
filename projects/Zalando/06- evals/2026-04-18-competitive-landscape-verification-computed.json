@@ -1,0 +1,11 @@
+{
+  "total_fields": 79,
+  "filled_fields": 59,
+  "labeled_fields": 20,
+  "empty_fields": 0,
+  "fields_with_citation": 34,
+  "field_recall_rate_pct": 100.0,
+  "citation_coverage_rate_pct": 57.6,
+  "placeholder_violations": 0,
+  "stale_untagged_violations": 0
+}

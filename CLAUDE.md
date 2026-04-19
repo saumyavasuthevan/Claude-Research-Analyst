@@ -47,26 +47,23 @@ For multi-project companies, paths are nested one level deeper:
 **Core Context (Read First):**
 - `projects/[ActiveCompany]/01- company context/company-overview.md` - Company background, team, metrics, strategy, OKRs
 - `projects/[ActiveCompany]/01- company context/product-description.md` - Current product features, roadmap, tech stack
-- `projects/[ActiveCompany]/01- company context/competitive-landscape.md` - Competitors and market positioning
-- `projects/[ActiveCompany]/01- company context/market-research.md` - Market size, growth rates, trends, opportunities
+- `projects/[ActiveCompany]/01- company context/competitive-intelligence.md` - Competitors, market overview, trends, market signals
 
 If `PRD.md` exists inside `projects/[ActiveCompany]/02- project context/`, read it. Ignore all other files in that folder.
 
-**If a context file is missing:** note it explicitly (e.g., "competitive-landscape.md not found — proceeding without it") and continue. Do not halt the task.
+**If a context file is missing:** note it explicitly (e.g., "competitive-intelligence.md not found — proceeding without it") and continue. Do not halt the task.
 
 If `projects/[ActiveCompany]/07- memory/` exists, read all `.md` files inside it before starting.
 
 **Templates (Use for Output Structure):**
 - `templates/company-overview-template.md` - Structure for company overview context files
-- `templates/competitive-landscape-template.md` - Structure for competitive landscape context files
+- `templates/competitive-intelligence-template.md` - Structure for competitive intelligence files (competitors + market research combined)
 - `templates/product-description-template.md` - Structure for product description context files
-- `templates/market-research-template.md` - Structure for market research deliverables
 - `templates/prd-template.md` - Structure for Product Requirements Documents
 
 **Template selection rules — apply automatically without waiting for the user to specify:**
 - Use `prd-template.md` for any feature spec, requirements doc, or user story task
-- Use `market-research-template.md` for any market sizing, trend analysis, or opportunity sizing task
-- Use `competitive-landscape-template.md` for any competitor analysis or positioning task
+- Use `competitive-intelligence-template.md` for any competitor analysis, market sizing, trend analysis, or opportunity sizing task
 - Use `company-overview-template.md` when creating or updating a company overview context file
 - Use `product-description-template.md` when creating or updating a product description context file
 

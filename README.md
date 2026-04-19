@@ -1,6 +1,6 @@
-# 🔬 AI Experiments Index
+# 🔬 PM Operating System Index
 
-A growing collection of my experiments with AI / agentic workflows 
+A growing collection of PM workflows automated by AI. Outputs are verified and continuously improved using structured evals.  
 
 ### 🔍 Product Discovery
 
@@ -40,7 +40,7 @@ A growing collection of my experiments with AI / agentic workflows
 | **Claude Code** | [Meta Sync Command](.claude/commands/meta-sync.md) | Keeps CLAUDE.md, README.md, MEMORY.md, and .claudeignore up-to-date based on recent changes. |
 | **Claude Code** | [Agent Template](.claude/_agent-template.md) | Template for building new Claude Code agents — forces agents to inherit conventions from CLAUDE.md to reuse instructions and prevent drift. |
 
-### 🗂️ RAG
+### 🗂️ Misc. Experiments
 
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
