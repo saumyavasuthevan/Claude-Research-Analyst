@@ -10,17 +10,17 @@ Conducts automated deep-dives into a company, its competitors, market landscape,
 
 ## Workflow
 
+Input a company name → agent researches and generates three context files used by downstream agents.
+
 ```mermaid
 flowchart LR
     A["Input company name"] --> B["<i>create-company-agent</i>"]
-    B --> C["Generate 3 context files<br/><small>company-overview.md · competitive-landscape.md · product-description.md</small>"]
+    B --> C["Generate <i>3 context files</i><br/><small>company-overview.md<br/>competitive-landscape.md<br/>product-description.md</small>"]
 ```
 
 ---
 
 ## Iterations
-
-Ordered highest impact → lowest.
 
 | Challenge | Fix | Result |
 |---|---|---|

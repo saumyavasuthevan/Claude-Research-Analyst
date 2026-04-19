@@ -29,7 +29,66 @@ Do not run both paths. Stop after the path you take.
 
 ### Step 3 — Pre-fill from agent file
 
-Read `templates/portfolio-readme-template.md`.
+The output file must follow this exact structure — every section in this order, no additions or omissions:
+
+```markdown
+# [Agent / Skill Name]
+
+---
+
+## Purpose
+
+[One sentence copied verbatim from the README.md row for this agent.]
+
+---
+
+## Workflow
+
+[One-sentence plain-text caption explaining the flow.]
+
+```mermaid
+flowchart LR
+    A["Input [x]"] --> B["<i>agent-name</i>"]
+    B --> C["Generate <i>[n] outputs</i><br/><small>file-a.md<br/>file-b.md</small>"]
+```
+
+---
+
+## Iterations
+
+| Challenge | Fix | Result |
+|---|---|---|
+| [row] | [row] | [row] |
+
+---
+
+## Evals
+
+- **Method:** [description]
+- **Coverage:** [which outputs were evaluated and which are pending]
+- **Report:** [link]
+
+---
+
+## Sample Output
+
+- [Output title](path)
+
+---
+
+## Outcome
+
+**Accuracy / Quality:** [one sentence]
+
+**Value saved:** ~€X,XXX/year — task reduced from X hrs to X mins (incl. verification), run ~X times/month (based on €70K PM salary)
+
+---
+
+## Links
+
+- [Agent instructions](path) — prompt Claude uses at runtime
+- [Eval report](path) — latest verification run
+```
 
 Pre-fill the following without asking the user:
 
@@ -110,13 +169,14 @@ Build a `flowchart LR` diagram from the user's workflow description:
 - One node per distinct input, this agent, and its direct output — omit downstream consumers
 - Node labels are action-oriented (verb-led): "Input company name", "Generate 3 context files" — not display names
 - Agent node: wrap the agent filename in `<i>` tags (e.g. `<i>create-company-agent</i>`) — no second line needed
-- Output node: put the action description first, then file names in `<small>` tags on a second line using `<br/>` (e.g. `"Generate 3 context files<br/><small>file-a.md · file-b.md · file-c.md</small>"`)
+- Output node: italicise the output count/type using `<i>` tags, then list file names in `<small>` tags with each file on its own line using `<br/>` — no dot separators (e.g. `"Generate <i>3 context files</i><br/><small>file-a.md<br/>file-b.md<br/>file-c.md</small>"`)
 - Input nodes with multiple items: use `<br/>` between items inside the label
+- Add a one-sentence plain-text caption above the diagram (before the code fence) explaining the flow in plain language
 
 ```mermaid
 flowchart LR
     A["Input company name"] --> B["<i>agent-name</i>"]
-    B --> C["Generate outputs<br/><small>output-a.md · output-b.md</small>"]
+    B --> C["Generate <i>3 outputs</i><br/><small>output-a.md<br/>output-b.md</small>"]
 ```
 
 **Value saved calculation**
