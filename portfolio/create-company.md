@@ -14,8 +14,8 @@ Input a company name → agent researches and generates three context files used
 
 ```mermaid
 flowchart LR
-    A["Input company name"] --> B["<i>create-company-agent</i>"]
-    B --> C["Generate <i>3 context files</i><br/><small>company-overview.md<br/>competitive-landscape.md<br/>product-description.md</small>"]
+    A["Input company name"] --> B["create-company-agent"]
+    B --> C["Generate 3 context files<br/><small>company-overview.md<br/>competitive-landscape.md<br/>product-description.md</small>"]
 ```
 
 ---
@@ -24,12 +24,12 @@ flowchart LR
 
 | Challenge | Fix | Result |
 |---|---|---|
-| Agent performed competitive SWOT analysis, but web search snippets lack depth to substantiate strategic claims — producing hallucinations like "Company X has a weaker engineering culture." | **Shifted scope to facts only.** Agent now searches exclusively for data extractable from snippets (founding year, funding, revenue, headcount, named news events). No SWOT, no differentiation, no sentiment. | Every claim is traceable to a specific source. |
-| Citations relied on the model generating URLs from memory — a stochastic process that produced broken or hallucinated links. | **Shifted to a deterministic citation system.** Every source is logged to a Fact Registry (`fact_registry.json`) at retrieval (URL, title, date, key quote). All output citations use `SRC:id` keys (e.g. `SRC:zalando_fy25_results`) — no raw URLs in any output file. | Every claim is auditable by source, date, and exact quote. |
-| Agent wrote overconfident competitive claims — e.g. "no other competitor offers X" — sourced only from the subject company's own press releases. | **Banned the subject company's domain from all competitor searches.** Every competitor now requires an independent third-party source. | Reduced error rate on competitive claims. |
-| Parallel Brave Search calls hit rate limits mid-run, causing the agent to skip queries and hallucinate data to fill the gaps. | **Forced sequential searches with `sleep 2` latency between every call.** | 100% data retrieval; 14-second added latency is a negligible trade-off. |
-| Outdated figures (revenue, headcount) were presented as current — e.g. a 2022 headcount cited without any date flag. | **Added a staleness rule.** Any figure older than 12 months is auto-tagged `[UNVERIFIED — last confirmed date]`. | All outputs are fully auditable by date. |
-| Native web search had high token consumption (~95K tokens per run). | **Switched to Brave Search API**, which returns compact structured JSON snippets. | ~50% reduction in search-related token consumption, reducing cost and overcoming context window limits. |
+| Agent attempted **competitive SWOT analysis**, but search snippets unable to substantiate qual claims — producing hallucinations like "ASOS has weaker EU logistics than Zalando." | **Shifted scope to facts only.** Agent now searches exclusively for data extractable from snippets (founding year, funding, revenue, headcount, named news events). No SWOT, no differentiation, no sentiment. | Every claim is traceable to a specific source. |
+| Citations relied on the model generating URLs from memory — a **stochastic process** that produced broken or hallucinated links. | **Shifted to a deterministic citation system.** Every source is logged to a Fact Registry (`fact_registry.json`) at retrieval (URL, title, date, key quote). All output citations use `SRC:id` keys (e.g. `SRC:zalando_fy25_results`) — no raw URLs in any output file. | Every claim is auditable by source, date, and exact quote. |
+| Agent wrote **overconfident competitive claims** — e.g. "no other competitor offers X" — sourced only from the subject company's own press releases. | **Banned the subject company's domain from all competitor searches.** Every competitor now requires an independent third-party source. | Reduced error rate on competitive claims. |
+| Parallel Brave Search calls hit **rate limits** mid-run, causing the agent to skip queries and hallucinate data to fill the gaps. | **Forced sequential searches with `sleep 2` latency between every call.** | 100% data retrieval; 14-second added latency is a negligible trade-off. |
+| **Outdated figures** (revenue, headcount) were presented as current — e.g. a 2022 headcount cited without any date flag. | **Added a staleness rule.** Any figure older than 12 months is auto-tagged `[UNVERIFIED — last confirmed date]`. | All outputs are fully auditable by date. |
+| Native web search had **high token consumption** (~95K tokens per run). | **Switched to Brave Search API**, which returns compact structured JSON snippets. | ~50% reduction in search-related token consumption, reducing cost and overcoming context window limits. |
 
 ---
 

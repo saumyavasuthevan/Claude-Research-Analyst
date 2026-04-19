@@ -48,8 +48,8 @@ The output file must follow this exact structure — every section in this order
 
 ```mermaid
 flowchart LR
-    A["Input [x]"] --> B["<i>agent-name</i>"]
-    B --> C["Generate <i>[n] outputs</i><br/><small>file-a.md<br/>file-b.md</small>"]
+    A["Input [x]"] --> B["agent-name"]
+    B --> C["Generate [n] outputs<br/><small>file-a.md<br/>file-b.md</small>"]
 ```
 
 ---
@@ -116,10 +116,10 @@ Draft the Iterations as a markdown table with three columns — ordered highest 
 
 | Challenge | Fix | Result |
 |---|---|---|
-| [Hyper-specific failure mode — not "inaccurate output" but the exact problem and what it produced, e.g. "Agent cited competitors from the subject company's own press releases, producing overconfident claims like 'no other competitor offers X'."] | **[Bold the fix mechanism.]** [One sentence describing the mechanism — e.g. "Banned the subject company's domain from all competitor searches; every competitor now requires an independent third-party source."] | [Outcome-focused result — e.g. "Reduced error rate on competitive claims from 64% to ~0–25%." Do not invent metrics; use numbers from the diff or file if they exist.] |
+| [Hyper-specific failure mode with a concrete example of the bad output, e.g. "Agent attempted competitive SWOT analysis, but search snippets unable to substantiate qual claims — producing hallucinations like 'ASOS has weaker EU logistics than Zalando.'"] | **[Bold the fix mechanism.]** [One sentence describing the mechanism — e.g. "Banned the subject company's domain from all competitor searches; every competitor now requires an independent third-party source."] | [Outcome-focused result — e.g. "Reduced error rate on competitive claims from 64% to ~0–25%." Do not invent metrics; use numbers from the diff or file if they exist.] |
 
 **Language rules for drafting iterations:**
-- **Challenge column:** Be hyper-specific — include a short concrete example of the failure (e.g. a hallucinated claim, a broken link, a wrong figure). No vague terms like "inaccurate" or "skewed".
+- **Challenge column:** Be hyper-specific — include a short concrete example of the failure (e.g. a hallucinated claim, a broken link, a wrong figure). No vague terms like "inaccurate" or "skewed". **Bold the key failure term or phrase** (e.g. the failure mode name, the specific broken behaviour, or the exact bad output type).
 - **Fix column:** Bold the fix mechanism. One clear sentence on what changed. When describing a shift from model-generated to source-logged data, frame it as moving from a **stochastic** to a **deterministic** approach.
 - **Result column:** Outcome-focused, grounded in what the fix achieves. Use numbers from the diff if they exist; do not invent metrics.
 - Use standard AI/ML terminology (e.g. hallucination, context window) — avoid jargon non-technical readers won't recognise (e.g. "coverage gate", "full query status map").
@@ -168,15 +168,15 @@ Assemble the complete file using:
 Build a `flowchart LR` diagram from the user's workflow description:
 - One node per distinct input, this agent, and its direct output — omit downstream consumers
 - Node labels are action-oriented (verb-led): "Input company name", "Generate 3 context files" — not display names
-- Agent node: wrap the agent filename in `<i>` tags (e.g. `<i>create-company-agent</i>`) — no second line needed
-- Output node: italicise the output count/type using `<i>` tags, then list file names in `<small>` tags with each file on its own line using `<br/>` — no dot separators (e.g. `"Generate <i>3 context files</i><br/><small>file-a.md<br/>file-b.md<br/>file-c.md</small>"`)
+- Agent node: use the agent filename as the label (e.g. `create-company-agent`) — no second line needed
+- Output node: put the action description first, then list file names in `<small>` tags with each file on its own line using `<br/>` — no dot separators (e.g. `"Generate 3 context files<br/><small>file-a.md<br/>file-b.md<br/>file-c.md</small>"`)
 - Input nodes with multiple items: use `<br/>` between items inside the label
 - Add a one-sentence plain-text caption above the diagram (before the code fence) explaining the flow in plain language
 
 ```mermaid
 flowchart LR
-    A["Input company name"] --> B["<i>agent-name</i>"]
-    B --> C["Generate <i>3 outputs</i><br/><small>output-a.md<br/>output-b.md</small>"]
+    A["Input company name"] --> B["agent-name"]
+    B --> C["Generate 3 outputs<br/><small>output-a.md<br/>output-b.md</small>"]
 ```
 
 **Value saved calculation**
