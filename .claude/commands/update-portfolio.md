@@ -53,20 +53,21 @@ git log --follow -p .claude/agents/[agent-name].md
 
 Read the diff output. For each commit that changed the agent file, identify what was added, removed, or restructured. Map changes to probable challenges and fixes — e.g. a new rule being added implies a problem that rule was solving.
 
-Draft a numbered Iterations list — ordered highest impact → lowest:
+Draft the Iterations as a markdown table with three columns — ordered highest impact → lowest:
 
-1. **[Hyper-specific problem statement — not "inaccurate output" but the exact failure mode, e.g. "Agent cited competitors from the company's own press releases, producing overconfident claims like 'no other competitor offers...'".]** — **[Bold the fix mechanism.]** [Infer the qualitative result from the fix. Use outcome-focused language grounded in what the fix achieves — e.g. "Reduced error rate on qualitative claims", "All claims now grounded in independently sourced evidence", "Every figure is now auditable by source and date", "Outputs are fully reproducible across runs." Do not invent metrics. If a number exists in the diff or file, use it.]
+| Challenge | Fix | Result |
+|---|---|---|
+| [Hyper-specific failure mode — not "inaccurate output" but the exact problem and what it produced, e.g. "Agent cited competitors from the subject company's own press releases, producing overconfident claims like 'no other competitor offers X'."] | **[Bold the fix mechanism.]** [One sentence describing the mechanism — e.g. "Banned the subject company's domain from all competitor searches; every competitor now requires an independent third-party source."] | [Outcome-focused result — e.g. "Reduced error rate on competitive claims from 64% to ~0–25%." Do not invent metrics; use numbers from the diff or file if they exist.] |
 
 **Language rules for drafting iterations:**
-- Be hyper-specific about what went wrong — not "inaccurate" or "skewed" but the exact failure and what it produced
-- Include a short concrete example showing the failure (e.g., a hallucinated claim, a broken link, a wrong figure)
-- Bold the fix mechanism — not headers or general emphasis
-- Use standard AI/ML terminology where it applies (e.g., hallucination, context window) — do not invent terms or use jargon HR won't recognise (e.g., avoid "coverage gate", "full query status map")
-- When describing a shift from model-generated to source-logged data (e.g., URL citations, fact retrieval), frame it as moving from a **stochastic** to a **deterministic** approach — this communicates systematic thinking to technical hiring managers without requiring AI expertise to understand
-- Order by impact: item 1 should be the most significant improvement
-- Call search latency "latency" not "overhead"
+- **Challenge column:** Be hyper-specific — include a short concrete example of the failure (e.g. a hallucinated claim, a broken link, a wrong figure). No vague terms like "inaccurate" or "skewed".
+- **Fix column:** Bold the fix mechanism. One clear sentence on what changed. When describing a shift from model-generated to source-logged data, frame it as moving from a **stochastic** to a **deterministic** approach.
+- **Result column:** Outcome-focused, grounded in what the fix achieves. Use numbers from the diff if they exist; do not invent metrics.
+- Use standard AI/ML terminology (e.g. hallucination, context window) — avoid jargon non-technical readers won't recognise (e.g. "coverage gate", "full query status map").
+- Call search wait time "latency" not "overhead".
+- Order by impact: row 1 should be the most significant improvement.
 
-If the git log shows no meaningful changes (single commit or no history), leave one placeholder item.
+If the git log shows no meaningful changes (single commit or no history), leave one placeholder row.
 
 ### Step 5 — Ask the user four questions
 
@@ -78,8 +79,10 @@ Present all questions in one message — do not ask sequentially:
 >
 > **2. Iterations** — here's what I inferred from git history:
 >
-> 1. **[drafted problem — hyper-specific with concrete example]** — **[drafted fix]**. [drafted result]
-> 2. **[...]** — **[...]**.
+> | Challenge | Fix | Result |
+> |---|---|---|
+> | [drafted challenge — hyper-specific with concrete example] | **[drafted fix mechanism.]** [one sentence on what changed] | [drafted result] |
+> | [...] | **[...]** | [...] |
 >
 > Correct, add to, or replace any item. Reply 'looks right' to keep as-is.
 >
@@ -104,16 +107,16 @@ Assemble the complete file using:
 **Mermaid diagram rules**
 
 Build a `flowchart LR` diagram from the user's workflow description:
-- One node per distinct input, this agent, output, and connected agent
-- Label nodes with a display name and a brief descriptor on a second line using `\n`
-- Keep it to direct connections only — no transitive hops
+- One node per distinct input, this agent, and its direct output — omit downstream consumers
+- Node labels are action-oriented (verb-led): "Input company name", "Generate 3 context files" — not display names
+- Agent node: wrap the agent filename in `<i>` tags (e.g. `<i>create-company-agent</i>`) — no second line needed
+- Output node: put the action description first, then file names in `<small>` tags on a second line using `<br/>` (e.g. `"Generate 3 context files<br/><small>file-a.md · file-b.md · file-c.md</small>"`)
+- Input nodes with multiple items: use `<br/>` between items inside the label
 
 ```mermaid
 flowchart LR
-    A["Input\nDescription"] --> B["This Agent\nagent-name"]
-    C["Another Input\nDescription"] --> B
-    B --> D["Output\nDescription"]
-    D --> E["Downstream Agent\nagent-name"]
+    A["Input company name"] --> B["<i>agent-name</i>"]
+    B --> C["Generate outputs<br/><small>output-a.md · output-b.md</small>"]
 ```
 
 **Value saved calculation**
