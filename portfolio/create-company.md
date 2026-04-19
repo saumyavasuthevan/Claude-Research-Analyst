@@ -29,7 +29,7 @@ flowchart LR
 | Agent wrote overconfident competitive claims — e.g. "no other competitor offers X" — sourced only from the subject company's own press releases. | **Banned the subject company's domain from all competitor searches.** Every competitor now requires an independent third-party source. | Reduced error rate on competitive claims. |
 | Parallel Brave Search calls hit rate limits mid-run, causing the agent to skip queries and hallucinate data to fill the gaps. | **Forced sequential searches with `sleep 2` latency between every call.** | 100% data retrieval; 14-second added latency is a negligible trade-off. |
 | Outdated figures (revenue, headcount) were presented as current — e.g. a 2022 headcount cited without any date flag. | **Added a staleness rule.** Any figure older than 12 months is auto-tagged `[UNVERIFIED — last confirmed date]`. | All outputs are fully auditable by date. |
-| Native web search returned verbose, unstructured results — consuming ~3,000–5,000 tokens per query across ~19 searches per run. | **Switched to Brave Search API**, which returns compact structured JSON snippets. | ~50% reduction in search-related token consumption (~30,000–50,000 tokens saved per run), reducing cost and context window pressure. |
+| Native web search had high token consumption (~95K tokens per run). | **Switched to Brave Search API**, which returns compact structured JSON snippets. | ~50% reduction in search-related token consumption, reducing cost and overcoming context window limits. |
 
 ---
 
