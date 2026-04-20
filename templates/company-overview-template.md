@@ -23,11 +23,13 @@ RULES:
 <!-- Search: "[Company Name] founded year headquarters employees countries operates"
 Source from LinkedIn, Crunchbase, company website, or press releases. -->
 
-**Founded:** [Year] [SRC:id]
-**Headquarters:** [City, Country] [SRC:id]
-**Operates in:** [Country 1, Country 2, ...] [SRC:id]
-**Stage:** [Pre-seed / Seed / Series A / Public — include total raised, e.g., "Series B ($45M raised)"] [SRC:id]
-**Employees:** [~X] [SRC:id]
+| Field | Value |
+|---|---|
+| Founded | [Year] [SRC:id] |
+| Headquarters | [City, Country] [SRC:id] |
+| Operates in | [Country 1, Country 2, ... OR N markets] [SRC:id] |
+| Stage | [Pre-seed / Seed / Series A / Public — include total raised, e.g., "Series B ($45M raised)"] [SRC:id] |
+| Employees | [~X] [SRC:id] |
 
 ### Leadership Team
 
@@ -176,7 +178,10 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
      STEP 3 — Sub-theme derivation within each theme (2–4 sub-themes):
      Name sub-themes as specific problem/praise descriptions, not restatements of the theme.
      A sub-theme = one distinct user pain or praise that maps to a distinct fix/action.
-     Do NOT force sub-themes — if all verbatims in a theme point to the same issue, leave it as a single theme with no sub-themes.
+     MERGE RULE: if two candidate sub-themes require the same operational fix, merge them into one sub-theme — even if the failure modes look different on the surface.
+     SPLIT RULE: only split if the two patterns require genuinely different fixes (e.g. courier-caused non-delivery → fix courier SLA; Zalando dispatch failure → fix warehouse process — these are distinct).
+     Do NOT force sub-themes — if all verbatims in a theme point to the same issue, leave it as a single sub-theme or no sub-themes.
+     Naming: anchor the sub-theme label on the causal layer (who caused it, what system failed) — not just the symptom. "Courier marks delivery as attempted without attempting" is more actionable than "delivery not received".
 
      Output format: separate tables for Negative and Positive.
      Quote column: list Q-IDs only (e.g. Q003, Q017). Text and platform resolve from quotes_registry.json at render time.

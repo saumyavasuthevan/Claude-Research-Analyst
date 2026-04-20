@@ -12,11 +12,13 @@
 
 ## Company Background
 
-**Founded:** 2008 [Zalando FY2025 Results Press Release, March 2026, SRC:zalando_fy25_results_press_release]
-**Headquarters:** Valeska-Gert-Straße 5, 10243 Berlin, Germany [Zalando FY2025 Results Press Release, March 2026, SRC:zalando_fy25_results_press_release]
-**Operates in:** 29 markets across Europe [Zalando FY2025 Results Press Release, March 2026, SRC:zalando_fy25_results_press_release]
-**Stage:** Public — listed on Frankfurt Stock Exchange (DAX, ISIN: DE000ZAL1111) since October 2014; IPO raised approximately $668M [UNVERIFIED ESTIMATE — Seedtable, SRC:zalando_seedtable] at a ~$7.9B valuation [UNVERIFIED ESTIMATE — Wellfound, SRC:zalando_ipo_wellfound]
-**Employees:** ~15,309 average headcount for FY2024 [Zalando Key Figures 2024, March 2025, SRC:zalando_key_figures_2024] — FY2025 average headcount [DATA UNAVAILABLE — not published in FY2025 press release as of 2026-04-20]
+| Field | Value |
+|---|---|
+| Founded | 2008 [SRC:zalando_fy25_results_press_release] |
+| Headquarters | Valeska-Gert-Straße 5, 10243 Berlin, Germany [SRC:zalando_fy25_results_press_release] |
+| Operates in | 29 markets across Europe [SRC:zalando_fy25_results_press_release] |
+| Stage | Public — Frankfurt Stock Exchange (DAX, ISIN: DE000ZAL1111) since October 2014; IPO raised ~$668M [UNVERIFIED ESTIMATE — Seedtable, SRC:zalando_seedtable] at ~$7.9B valuation [UNVERIFIED ESTIMATE — Wellfound, SRC:zalando_ipo_wellfound] |
+| Employees | ~15,309 FY2024 average [SRC:zalando_key_figures_2024]; FY2025 [DATA UNAVAILABLE — not published in FY2025 press release as of 2026-04-20] |
 
 ### Leadership Team
 
@@ -138,12 +140,11 @@ Zalando has been publicly listed since October 2014. Pre-IPO rounds are summaris
 
 | Theme (n) | Sub-theme (n) | Quote IDs |
 |---|---|---|
-| **Reliability** — Courier & delivery failures (n=9) | Lost or undelivered parcels via Evri (n=5) | Q001, Q006, Q028, Q027, Q030 |
-| **Reliability** — Courier & delivery failures (n=9) | Failed dispatch or false delivery attempts (n=4) | Q008, Q010, Q018, Q022 |
-| **Support** — Refund & returns failures (n=5) | Return rejected or refund refused (n=3) | Q003, Q009, Q025 |
-| **Support** — Refund & returns failures (n=5) | Refund delayed, withheld as vouchers, or requires PayPal dispute (n=2) | Q016, Q017 |
-| **Support** — Unresponsive customer service (n=6) | Agents rude, scripted, or disconnect chats (n=3) | Q002, Q020, Q024 |
-| **Support** — Unresponsive customer service (n=6) | No escalation path; chatbot/email unresponsive (n=3) | Q012, Q019, Q023 |
+| **Reliability** — Courier & delivery failures (n=9) | Courier (Evri/SEUR) loses, steals, or fraudulently marks parcel as delivered or attempted (n=7) | Q001, Q006, Q018, Q022, Q027, Q028, Q030 |
+| **Reliability** — Courier & delivery failures (n=9) | Order never dispatched by Zalando, or parcel returned to sender before delivery (n=2) | Q008, Q010 |
+| **Support** — Unresponsive customer service (n=6) | Agents terminate chats or calls; rude or scripted responses (n=3) | Q002, Q020, Q024 |
+| **Support** — Unresponsive customer service (n=6) | No escalation path; chatbot and email loop without resolution (n=3) | Q012, Q019, Q023 |
+| **Support** — Refund & returns failures (n=5) | Zalando refuses or stalls return; customers forced into PayPal disputes, legal action, or trapped with store vouchers (n=5) | Q003, Q009, Q016, Q017, Q025 |
 
 #### Positive Feedback (n=10)
 
