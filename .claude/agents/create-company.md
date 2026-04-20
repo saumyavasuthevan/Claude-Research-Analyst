@@ -157,6 +157,60 @@ The goal is to find specific named actions competitors have taken in response to
 - Never infer a competitor response from their general product description or market positioning.
 - If the search returns no relevant result for a competitor on a trend, write `[DATA UNAVAILABLE — no public signal retrieved as of date]`.
 
+## Step 2f — Customer Sentiment Collection (Bright Data)
+
+Determine the company's business model from your Step 1 research: **B2C** (direct-to-consumer product or marketplace) or **B2B** (sells primarily to businesses).
+
+### Platform priority by model
+
+**B2C** — collect in this order, stop once 30 items total:
+
+| Priority | Platform | Bright Data tool |
+|---|---|---|
+| 1 | App Store | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:apps.apple.com"` → `scrape_as_markdown` on top result |
+| 2 | Play Store | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:play.google.com"` → `scrape_as_markdown` on top result |
+| 3 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
+| 4 | Twitter/X | `mcp__Bright_Data__web_data_x_posts` — query: `"[Company Name]"` |
+| 5 | Instagram | `mcp__Bright_Data__web_data_instagram_posts` — query: `"[Company Name]"` |
+| 6 | Trustpilot | `mcp__Bright_Data__search_engine` → `"[Company Name] site:trustpilot.com"` → `scrape_as_markdown` on top result |
+
+**B2B** — collect in this order, stop once 30 items total:
+
+| Priority | Platform | Bright Data tool |
+|---|---|---|
+| 1 | G2 | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:g2.com"` → `scrape_as_markdown` on top result |
+| 2 | Trustpilot | `mcp__Bright_Data__search_engine` → `"[Company Name] site:trustpilot.com"` → `scrape_as_markdown` on top result |
+| 3 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
+| 4 | Twitter/X | `mcp__Bright_Data__web_data_x_posts` — query: `"[Company Name]"` |
+
+### Collection rules
+
+- Filter to brand/product mentions only — discard posts that don't reference the company's product or service experience
+- Only include items published within the past 2 years
+- Cap: 30 items per platform; stop collection once 30 items total are collected across all platforms
+- Run platforms sequentially; do not call multiple Bright Data tools in parallel
+
+### Verbatim registry — write before analysis
+
+Before any analysis, write all collected quotes to `projects/[CompanyName]/03- research/quotes_registry.json`:
+
+```json
+[
+  { "id": "Q001", "text": "exact quote copied verbatim", "platform": "Reddit", "date": "YYYY-MM-DD" },
+  { "id": "Q002", "text": "exact quote copied verbatim", "platform": "Trustpilot", "date": "YYYY-MM-DD" }
+]
+```
+
+- IDs: Q001, Q002, … (Q-prefix distinguishes from SRC: fact IDs)
+- Never truncate or paraphrase quote text — copy verbatim
+- Write the file to disk immediately after collection, before analysis
+
+### Failure handling
+
+- If a Bright Data call returns an error or empty result, skip that platform and move to the next
+- If fewer than 10 items are collected across all platforms, write `[INSUFFICIENT DATA — fewer than 10 verbatims collected as of [date]. Thematic analysis not conducted.]` in the Customer Sentiment section and skip thematic analysis
+- If 10–29 items are collected, proceed with thematic analysis but note the count: `[NOTE — [N] verbatims collected; below 30-item threshold. Themes may not be fully representative.]`
+
 ## Step 2e — Coverage Check Before Writing
 
 Before creating any files, produce this coverage map:
@@ -178,6 +232,12 @@ Competitor direct searches:
 Trend-response searches:
 - Trend 1 ([name]): ✅ competitor responses found / ⚠️ no public signals
 - Trend 2 ([name]): ✅ / ⚠️
+
+Sentiment collection:
+- Business model: B2C / B2B
+- Platforms attempted: [list]
+- Verbatims collected: [N]
+- Outcome: ready for thematic analysis / INSUFFICIENT DATA
 
 Sections with full coverage:    [list]
 Sections with partial coverage: [list + reason]
@@ -292,6 +352,8 @@ Before saving each file, verify every item below. Fix any that fail before writi
 - [ ] No section has been filled with inferred content where data was unavailable
 - [ ] Sections whose primary search failed are marked `[SEARCH FAILED]`, not filled from adjacent searches
 - [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report
+- [ ] `projects/[CompanyName]/03- research/quotes_registry.json` exists if sentiment collection ran — all quotes written verbatim before thematic analysis
+- [ ] Customer Sentiment section in `company-overview.md` contains either thematic analysis tables (with Q-IDs only, no raw quote text) or the appropriate `[INSUFFICIENT DATA]` label — never `[DATA UNAVAILABLE — sentiment collection not in scope]`
 - [ ] No raw URLs (`https://...`) appear anywhere in any output file — all sources cited by SRC:id only
 - [ ] **competitive-intelligence.md specific:** Every row in every competitor profile table has a SRC:id. Every competitor response cell in trend tables cites a news article. No cell value was inferred from general knowledge — unconfirmed cells use [DATA UNAVAILABLE].
 - [ ] **competitive-intelligence.md specific:** Competitor profiles contain no price range, weaknesses, target market, differentiation, or sentiment rows.
@@ -316,6 +378,10 @@ Search coverage: [X]/7 queries successful
 Trend-response searches: [X]/[total trends] — [X] with named competitor actions found
 Failed/retried queries: [list, or "none"]
 Fallback tool used: [web_search for queries X, Y — or "none"]
+
+Sentiment collection: [N] verbatims across [platforms used]
+Sentiment outcome: [thematic analysis completed / INSUFFICIENT DATA / skipped — reason]
+quotes_registry.json: [N] entries written / not created (if skipped)
 
 Competitors independently verified: [list]
 Competitors NOT independently verified: [list, or "none"]

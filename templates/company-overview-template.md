@@ -14,15 +14,18 @@ RULES:
 
 **Welcome to [Company Name]!** This is the company context overview.
 
+*Last verified: [YYYY-MM-DD]*
+
 ---
 
 ## Company Background
 
-<!-- Search: "[Company Name] founded year headquarters employees"
+<!-- Search: "[Company Name] founded year headquarters employees countries operates"
 Source from LinkedIn, Crunchbase, company website, or press releases. -->
 
 **Founded:** [Year] [SRC:id]
 **Headquarters:** [City, Country] [SRC:id]
+**Operates in:** [Country 1, Country 2, ...] [SRC:id]
 **Stage:** [Pre-seed / Seed / Series A / Public — include total raised, e.g., "Series B ($45M raised)"] [SRC:id]
 **Employees:** [~X] [SRC:id]
 
@@ -46,9 +49,6 @@ Source directly from company website. Quote verbatim where possible. -->
 
 **Mission:** [Quote verbatim from company website] [SRC:id]
 **Vision:** [Quote verbatim — or DATA UNAVAILABLE] [SRC:id]
-
-**Values:**
-- **[Value 1]:** [Brief description] [SRC:id]
 
 *(Label [DATA UNAVAILABLE — as of date] if values aren't publicly stated)*
 
@@ -117,7 +117,7 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 
 <!-- METHODOLOGY: Reflexive thematic analysis (Braun & Clarke 2021) — deductive codebook + inductive open coding
      DATA SOURCES: Bright Data MCP (Reddit, Twitter/X, Instagram, Facebook) + search_engine → scrape_as_markdown (G2, Trustpilot)
-     TOKEN BUDGET: Collect ≤100 verbatims; single extraction pass; suppress themes with <2 verbatims -->
+     TOKEN BUDGET: Collect ≤30 verbatims; single extraction pass; suppress themes with <2 verbatims -->
 
 ### Data Collection
 
@@ -128,7 +128,7 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
      Facebook:  web_data_facebook_posts + web_data_facebook_company_reviews — query: "[Company Name]"
      Reviews:   search_engine — "[Company Name] reviews site:g2.com OR site:trustpilot.com" → scrape_as_markdown
 
-     Collect: post text + platform + date. Filter to brand/product mentions only. Cap: 100 items total. Only include items published within the past 2 years.
+     Collect: post text + platform + date. Filter to brand/product mentions only. Only include items published within the past 2 years.
 
      ANTI-HALLUCINATION — verbatim registry:
      Before any analysis, write ALL collected quotes to:
@@ -140,24 +140,27 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
      IDs: Q001, Q002, ... (Q-prefix distinguishes from fact registry F-IDs)
      Rule: never write quote text directly in analysis. Reference IDs only. Resolve IDs to text at render time. -->
 
-**If B2B:**
+**If B2B:** Collect in priority order. Stop once 30 items collected. Cap: 30 items per platform.
 
-| Platform | Items collected | Date range |
-|---|---|---|
-| Reddit | [N] | [range] |
-| LinkedIn | [N] | [range] |
-| G2 / Trustpilot | [N] | [range] |
+| Priority | Platform | Items collected | Date range |
+|---|---|---|---|
+| 1 | G2 | [N] | [range] |
+| 2 | Trustpilot | [N] | [range] |
+| 3 | LinkedIn | [N] | [range] |
+| 4 | Reddit | [N] | [range] |
 
-**If B2C:**
 
-| Platform | Items collected | Date range |
-|---|---|---|
-| Reddit | [N] | [range] |
-| Twitter/X | [N] | [range] |
-| Instagram | [N] | [range] |
-| App Store / Play Store | [N] | [range] |
+**If B2C:** Collect in priority order. Stop once 20 items collected. Cap: 30 items per platform.
 
-*Minimum to proceed with thematic analysis: **15 items** (B2B) / **20 items** (B2C) across all platforms. If below threshold, replace Thematic Analysis section with: `[INSUFFICIENT DATA — fewer than [N] verbatims collected as of [date]. Thematic analysis not conducted.]`*
+| Priority | Platform | Items collected | Date range |
+|---|---|---|---|
+| 1 | App Store | [N] | [range] |
+| 2 | Play Store | [N] | [range] |
+| 3 | Reddit | [N] | [range] |
+| 4 | Twitter/X | [N] | [range] |
+| 5 | Instagram | [N] | [range] |
+
+*Minimum to proceed with thematic analysis: **30 items** (B2B) / **30 items** (B2C) across all platforms. If below threshold, replace Thematic Analysis section with: `[INSUFFICIENT DATA — fewer than [N] verbatims collected as of [date]. Thematic analysis not conducted.]`*
 
 ### Thematic Analysis
 
@@ -200,4 +203,13 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 
 *(Same rules as Negative table above.)*
 
-<!-- Last verified: [YYYY-MM-DD] -->
+---
+
+## Label Legend
+
+| Label | Meaning |
+|---|---|
+| `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
+| `[UNVERIFIED ESTIMATE — source name]` | Figure from a data aggregator that does not disclose its methodology. Treat as directional only. |
+| `[INSUFFICIENT DATA]` | Not enough customer verbatims collected to conduct thematic analysis. |
+| `⚠️ Last disclosed funding is >24 months old` | Most recent funding round is older than 24 months — activity since then is unconfirmed. |

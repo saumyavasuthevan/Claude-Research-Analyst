@@ -1,0 +1,12 @@
+{
+  "total_fields": 19,
+  "filled_fields": 18,
+  "labeled_fields": 1,
+  "empty_fields": 0,
+  "fields_with_citation": 18,
+  "field_recall_rate_pct": 94.7,
+  "citation_coverage_rate_pct": 100.0,
+  "placeholder_violations": 0,
+  "stale_untagged_violations": 3,
+  "note": "Citation format is inline [Source, Date, SRC:id] \u2014 standalone [SRC:id] regex returns 0; corrected count from line-level analysis = 18/18 filled fields cited"
+}
