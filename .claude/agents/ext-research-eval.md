@@ -86,14 +86,20 @@ for (source, date_str, src_id) in date_pattern:
     except ValueError:
         pass
 
+resolvable = total_fields - labeled_fields
+field_recall_rate = round(filled_fields / resolvable * 100, 1) if resolvable else 0
+citation_coverage_rate = round(fields_with_citation / filled_fields * 100, 1) if filled_fields else 0
+
 results = {
     "total_fields": total_fields,
     "filled_fields": filled_fields,
     "labeled_fields": labeled_fields,
     "empty_fields": empty_fields,
     "fields_with_citation": fields_with_citation,
-    "field_recall_rate_pct": round(filled_fields / (total_fields - labeled_fields) * 100, 1) if (total_fields - labeled_fields) else 0,
-    "citation_coverage_rate_pct": round(fields_with_citation / filled_fields * 100, 1) if filled_fields else 0,
+    "field_recall_rate_pct": field_recall_rate,
+    "field_recall_detail": f"{filled_fields} filled / {resolvable} resolvable fields ({labeled_fields} labeled [DATA UNAVAILABLE] excluded from denominator)",
+    "citation_coverage_rate_pct": citation_coverage_rate,
+    "citation_coverage_detail": f"{fields_with_citation} cited / {filled_fields} data-filled fields (labeled gaps excluded)",
     "placeholder_violations": placeholder_violations,
     "stale_untagged_violations": stale_untagged,
 }
@@ -196,8 +202,8 @@ If the user verified multiple files in one session, save one report per file.
 |---|---|---|
 | Quant Claims Accuracy Rate | [n]% | [n] correct / [n] checked |
 | Link Validity Rate | [n]% | [n] working / [n] total URLs |
-| Citation Coverage Rate | [n]% | [n] fields cited / [n] filled fields |
-| Field Recall Rate | [n]% | [n] filled / [n] total fields |
+| Citation Coverage Rate | [n]% | [script: citation_coverage_detail] |
+| Field Recall Rate | [n]% | [script: field_recall_detail] |
 
 **Violation counts (lower = better):**
 
@@ -324,6 +330,7 @@ Eval report: [full path]
 
 - Never modify `fact_registry.json` or any source data file — only the verified `.md` file.
 - All field metric values (recall rate, citation coverage, placeholder count, stale untagged count) must come from the Step 5a script. Never use model arithmetic to compute these.
+- The Detail cell for Field Recall Rate and Citation Coverage Rate must be copied verbatim from `field_recall_detail` and `citation_coverage_detail` in the script JSON output. Never rewrite or paraphrase these strings — that is how the [DATA UNAVAILABLE] denominator exclusion was previously lost.
 - **Auto-fix** = correct value is determinable from the source (wrong number, placeholder text, missing aggregator label). Agent proposes exact correction.
 - **Flag** = requires human judgment (qual claim substantiation, banned pattern context, link relevance). Agent surfaces the issue; proposes no correction.
 - M-7 (competitor count) applies only to `competitive-landscape.md` — skip for all other files.

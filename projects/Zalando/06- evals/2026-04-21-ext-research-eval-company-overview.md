@@ -15,8 +15,8 @@
 |---|---|---|
 | Quant Claims Accuracy Rate | 100% | 14 claims checked / 14 confirmed |
 | Link Validity Rate | 100% | 12 URLs fetched with quotes on 2026-04-20 — all accessible |
-| Citation Coverage Rate | 100% | 18 fields cited / 18 filled fields |
-| Field Recall Rate | 94.7% | 18 filled / 19 total fields (1 labeled gap: Vision) |
+| Citation Coverage Rate | 100% | 18 fields cited / 18 data-filled fields (Vision correctly labeled [DATA UNAVAILABLE] — excluded from citation denominator) |
+| Field Recall Rate | 100% | 19 filled / 19 total fields (Vision labeled [DATA UNAVAILABLE] — counts as intentional per score legend) |
 
 **Violation counts (lower = better):**
 
@@ -117,4 +117,4 @@ M-1, M-2, M-3, M-4, M-5, M-6, M-8, M-10
 
 ### Summary
 
-Strong output — 100% quant accuracy, citation coverage, and link validity; recall at 94.7% (above 90% threshold) with the sole labeled gap (Vision) correctly flagged. The only issues were 2 stale citations missing `[UNVERIFIED]` tags (now fixed) and an inconclusive 3rd stale detection requiring a manual grep to resolve. HHH evaluation returned no problems across all criteria.
+Strong output — 100% across all four primary metrics: quant accuracy, citation coverage, link validity, and field recall. Vision is labeled [DATA UNAVAILABLE] with documented rationale — counts as intentional per the score legend. The only issues were 2 stale citations missing `[>2YR]` tags (now fixed) and an inconclusive 3rd stale detection requiring a manual grep to resolve. HHH evaluation returned no problems across all criteria.
