@@ -50,7 +50,7 @@ import re, json, os
 from datetime import datetime, timedelta
 
 today = datetime.today()
-cutoff = today - timedelta(days=365)
+cutoff = today - timedelta(days=730)
 
 file_path = "<selected_file_path>"
 evals_dir = "<projects/[Company]/06- evals/>"
@@ -59,7 +59,7 @@ text = open(file_path).read()
 # Field inventory
 total_fields   = len(re.findall(r'\*\*[^*]+:\*\*', text))
 labeled_fields = len(re.findall(
-    r'\[(DATA UNAVAILABLE|ASSUMPTION|UNVERIFIED ESTIMATE|SEARCH FAILED|COMPETITOR NOT INDEPENDENTLY VERIFIED)[^\]]*\]',
+    r'\[(DATA UNAVAILABLE|ASSUMPTION|UNVERIFIED|>2YR|SEARCH FAILED)[^\]]*\]',
     text
 ))
 placeholder_pattern = re.compile(
@@ -81,7 +81,7 @@ for (source, date_str, src_id) in date_pattern:
         cite_date = datetime.strptime(date_str.strip(), "%B %Y")
         match_pos = text.find(f"[{source}, {date_str}, {src_id}]")
         window = text[max(0, match_pos-100):match_pos+200] if match_pos >= 0 else ""
-        if cite_date < cutoff and "[UNVERIFIED]" not in window:
+        if cite_date < cutoff and "[>2YR]" not in window:
             stale_untagged += 1
     except ValueError:
         pass
@@ -119,10 +119,10 @@ For each issue found, record: ID, section/field location, what was found, what i
 | M-3 | **Citation Coverage** — for every filled factual field, verify a `[SRC:id]` is present. Flag uncited fields. | Regex |
 | M-4 | **Field Recall Rate** — use script: `field_recall_rate_pct`. Flag if below 90%. Labeled gaps count as intentional. | Script |
 | M-5 | **Placeholder Text** — use script: `placeholder_violations`. Flag residual template tokens (`[Year]`, `[X]M`, `[Source]`, `[Company Name]`, etc.). Auto-fix: replace with `[DATA UNAVAILABLE — not populated]`. | Script + Regex |
-| M-6 | **Aggregator Label Compliance** — figures from Crunchbase, PitchBook, Getlatka, or SimilarWeb must carry `[UNVERIFIED ESTIMATE]`. Match source name near a figure. Flag violations. | Pattern match |
+| M-6 | **Aggregator Label Compliance** — figures from Crunchbase, PitchBook, Getlatka, or SimilarWeb must carry `[UNVERIFIED]`. Match source name near a figure. Flag violations. | Pattern match |
 | M-7 | **Minimum Competitor Count** — `competitive-landscape.md` only. The Detailed Competitor Analysis section must contain ≥3 named direct competitors. Flag if fewer. Skip for all other files. | Count |
 | M-8 | **Banned Claim Patterns** — scan for "only", "leading", "largest", "fastest", "no competitor offers", "uniquely", "the only [X] that" without an adjacent `[SRC:id]`. Flag each instance. | Regex |
-| M-9 | **Stale Untagged Sources** — use script: `stale_untagged_violations`. Sources with a parseable date >12 months old NOT tagged `[UNVERIFIED]` are violations. Stale + tagged is allowed. | Script |
+| M-9 | **Stale Untagged Sources** — use script: `stale_untagged_violations`. Sources with a parseable date >2 years old NOT tagged `[>2YR]` are violations. Stale + tagged is allowed. | Script |
 | M-10 | **Uncited Quoted Strings** — scan User Sentiment sections for any content inside `"..."` (consumer praise, complaints, testimonials) that lacks an adjacent `[SRC:id]`. Each instance is a violation — the agent must have sourced or fabricated the quote from general knowledge. Flag all instances for human review. Auto-fix: replace bare quoted string with `[DATA UNAVAILABLE — quoted phrase has no citation; remove or source from review platform]`. | Regex |
 
 ### Step 5c — Collect FN Count (Recall Adjustment)
@@ -204,7 +204,7 @@ If the user verified multiple files in one session, save one report per file.
 | Metric | Count | Target |
 |---|---|---|
 | Placeholder Text Violations | [n] | 0 |
-| Aggregator Label Violations | [n] | 0 |
+| Aggregator Label Violations (`[UNVERIFIED]` missing) | [n] | 0 |
 | Banned Claim Pattern Instances | [n] | 0 |
 | Stale Untagged Source Violations | [n] | 0 |
 | Uncited Quoted String Violations | [n] | 0 |
@@ -219,9 +219,9 @@ If the user verified multiple files in one session, save one report per file.
 | Citation Coverage Rate | % of filled fields with ≥1 [SRC:id] — presence only, not quality | Fields with citation ÷ filled fields. Source quality is H1/H2. |
 | Field Recall Rate | % of template fields filled with real data. Labeled gaps count as intentional. | Filled fields ÷ total fields. Target: ≥90%. |
 | Placeholder Text Violations | Template tokens still in the file — not filled or labeled as intentional gaps | Count. Target: 0. |
-| Aggregator Label Violations | Crunchbase/PitchBook/Getlatka/SimilarWeb figures without [UNVERIFIED ESTIMATE] | Count. Target: 0. |
+| Aggregator Label Violations | Crunchbase/PitchBook/Getlatka/SimilarWeb figures without [UNVERIFIED] | Count. Target: 0. |
 | Banned Claim Pattern Instances | Unsupported superlatives without [SRC:id] — high hallucination risk | Count. Target: 0. |
-| Stale Untagged Source Violations | Sources >12 months old not tagged [UNVERIFIED]. Stale + tagged is fine. | Count. Target: 0. |
+| Stale Untagged Source Violations | Sources >2 years old not tagged [>2YR]. Stale + tagged is fine. | Count. Target: 0. |
 | Uncited Quoted String Violations | Quoted consumer phrases in User Sentiment fields with no [SRC:id] — likely hallucinated from general knowledge | Count. Target: 0. |
 | Competitor Count | Named direct competitors with a dedicated block in competitive-landscape.md | Raw count. Target: ≥3. |
 

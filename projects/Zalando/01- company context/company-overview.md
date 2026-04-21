@@ -1,10 +1,9 @@
 > **Research date: 2026-04-20. All figures should be re-verified if this document
-> is used more than 90 days after this date. Figures tagged [UNVERIFIED]
+> is used more than 90 days after this date. Figures tagged [>2YR]
 > require immediate re-checking before use.**
 
 # Zalando Company Overview
 
-**Welcome to Zalando!** This is the company context overview.
 
 *Last verified: 2026-04-20*
 
@@ -72,7 +71,7 @@ Zalando has been publicly listed since October 2014. Pre-IPO rounds are summaris
 | Round | Year | Amount | Lead investor / notes |
 |---|---|---|---|
 | Early venture (Rocket Internet era) | 2008–2010 | [DATA UNAVAILABLE — amounts not independently confirmed] | Rocket Internet; HV Capital [UNVERIFIED ESTIMATE — Tracxn, SRC:zalando_funding_tracxn] |
-| Kinnevik investment begins | 2010 | SEK 5.5B total invested through to IPO | Kinnevik AB (largest pre-IPO shareholder at ~37% stake) [TechCrunch, Sep 2014, SRC:zalando_ipo_techcrunch_2014] |
+| Kinnevik investment begins | 2010 | SEK 5.5B total invested through to IPO | Kinnevik AB (largest pre-IPO shareholder at ~37% stake) [>2YR — TechCrunch, Sep 2014, SRC:zalando_ipo_techcrunch_2014] |
 | Series C | Oct 2013 | ~$191M [UNVERIFIED ESTIMATE — Tracxn, SRC:zalando_funding_tracxn] | [DATA UNAVAILABLE — lead investor not independently confirmed] |
 | IPO — Frankfurt Stock Exchange | Oct 2014 | ~$668M raised [UNVERIFIED ESTIMATE — Seedtable, SRC:zalando_seedtable]; ~$7.9B IPO valuation [UNVERIFIED ESTIMATE — Wellfound, SRC:zalando_ipo_wellfound] | Public market |
 
@@ -106,7 +105,7 @@ Zalando has been publicly listed since October 2014. Pre-IPO rounds are summaris
 
 ### Regulatory & Reputational Risks
 
-- **EU greenwashing enforcement:** In February 2024, the European Commission required Zalando to overhaul sustainability claims on its websites, having qualified them as "misleading." Zalando committed to removing sustainability flags and vague environmental icons by mid-April 2024. [Reuters, Feb 2024, SRC:zalando_eu_greenwashing_reuters]
+- **EU greenwashing enforcement:** In February 2024, the European Commission required Zalando to overhaul sustainability claims on its websites, having qualified them as "misleading." Zalando committed to removing sustainability flags and vague environmental icons by mid-April 2024. [>2YR — Reuters, Feb 2024, SRC:zalando_eu_greenwashing_reuters]
 - **Digital Services Act (DSA) litigation:** Zalando escalated its challenge against classification as a Very Large Online Platform (VLOP) under the EU Digital Services Act to the EU's highest court in November 2025, after a lower tribunal dismissed its initial challenge. Outcome pending as of research date. [Reuters, Nov 2025, SRC:zalando_dsa_reuters]
 
 ---
@@ -161,6 +160,7 @@ Zalando has been publicly listed since October 2014. Pre-IPO rounds are summaris
 | Label | Meaning |
 |---|---|
 | `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
-| `[UNVERIFIED ESTIMATE — source name]` | Figure from a data aggregator that does not disclose its methodology. Treat as directional only. |
+| `[UNVERIFIED — Source, date, SRC:id]` | Figure from a data aggregator (e.g. Crunchbase, PitchBook) that does not disclose its methodology, or sourced from subject-company materials only. Treat as directional only. |
+| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Verify before use. |
 | `[INSUFFICIENT DATA]` | Not enough customer verbatims collected to conduct thematic analysis. |
 | `⚠️ Last disclosed funding is >24 months old` | Most recent funding round is older than 24 months — activity since then is unconfirmed. |

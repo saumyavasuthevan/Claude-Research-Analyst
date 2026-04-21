@@ -79,18 +79,16 @@ If the same URL is cited in two reports, register it in both registries with the
 |---|---|---|
 | 1 | `"[Company]" founded headquarters funding stage employees` | company-overview.md §Background |
 | 2 | `"[Company]" ARR revenue customers growth metrics` | company-overview.md §Metrics |
-| 3 | `"[Company]" product features capabilities pricing plans` | product-description.md |
+| 3 | `"[Company]" product features capabilities` | product-description.md §Core Features |
 | 4 | `"[Company]" competitors alternatives market positioning` | competitive-intelligence.md §Competitor identification |
 | 5 | `"[Company]" market size TAM growth rate industry trends` | competitive-intelligence.md §Market Overview + §Trends |
-| 6 | `"[Company]" tech stack engineering infrastructure` | product-description.md §Tech Stack |
-| 7 | `"[Company]" roadmap upcoming features announcements 2025 2026` | product-description.md §Roadmap |
 
 Use the following source tiers to prioritise which results to trust:
 - Tier 1 (trust first): official company website, press releases, prnewswire.com, businesswire.com, and authoritative industry-specific publications relevant to the company's sector
 - Tier 2: TechCrunch, VentureBeat, Bloomberg, Forbes, Reuters
 - Tier 3 (reviews/pricing — B2B): G2, Capterra, Gartner Peer Insights
 - Tier 3 (reviews/pricing — B2C): Trustpilot, App Store/Play Store
-- Funding: Crunchbase, PitchBook, Tracxn (label as unverified estimates)
+- Funding: Crunchbase, PitchBook, Tracxn (label as `[UNVERIFIED]`)
 
 **Primary source wins.** If an official filing, press release, or company results page exists for a figure, it overrides any third-party aggregator (Statista, BusinessOfApps, electroiq, etc.). Always search for the primary source before accepting an aggregator figure. If sources conflict, list both — do not silently pick one.
 
@@ -107,14 +105,14 @@ sleep 5
 ```
 If the retry also fails, attempt the same query using the `web_search` tool as a fallback. Label those results `[web_search fallback, date]`. Only mark `[SEARCH FAILED]` if both tools fail for that query.
 
-**If 1–2 searches failed and all retries also failed:** Mark affected sections `[SEARCH FAILED — data not retrieved as of [date]]` and continue to the coverage check.
+**If 1 search failed and all retries also failed:** Mark affected sections `[SEARCH FAILED — data not retrieved as of [date]]` and continue to the coverage check.
 
-**If 3 or more searches failed:** Stop. Do not proceed to write files. Report to the user:
+**If 2 or more searches failed:** Stop. Do not proceed to write files. Report to the user:
 ```
 [X] searches failed: [list query numbers and queries]
 Retrying before writing. Please wait.
 ```
-Retry all failed queries with `sleep 5` before each attempt. Only proceed once at least 5 of 7 queries have returned results. If retries continue to fail, ask the user whether to proceed with partial coverage or try again.
+Retry all failed queries with `sleep 5` before each attempt. Only proceed once at least 4 of 5 queries have returned results. If retries continue to fail, ask the user whether to proceed with partial coverage or try again.
 
 **Never fill a section with inferred content because the search that would have sourced it failed.** Use `[SEARCH FAILED — data not retrieved as of [date]]` instead.
 
@@ -129,14 +127,14 @@ After the 7 main searches, identify every named competitor you plan to include i
 
 The first query finds current financial facts and scale. The second finds recent named events for the "Recent news" rows in competitor profile tables.
 
-**Scope:** You are looking for facts only — founding year, HQ, funding, revenue/GMV, customer count, product description (one sentence from their website), price range (product/item price from retailer site where applicable), pricing model (subscription tiers, per-seat, commission %, etc. — from company website or G2; [DATA UNAVAILABLE] if not public; N/A if no structured model exists), and 2–3 named news events from the last 12 months. Both price range and pricing model rows are always present in the competitor table — populate whichever apply and mark the rest N/A.
+**Scope:** You are looking for facts only — founding year, HQ, funding, revenue/GMV, customer count, product description (one sentence from their website), pricing model (subscription tiers, per-seat, commission %, etc. — from company website or G2; [DATA UNAVAILABLE] if not public; N/A if no structured model exists), and 2–3 named news events from the last 12 months. The pricing model row is always present in the competitor table — mark N/A only if the company has no structured model.
 
 **Do not search for or write:** strengths, weaknesses, target market descriptions, competitive differentiation, or user sentiment. These fields do not exist in `competitive-intelligence-template.md`.
 
 **Do not write comparative claims about a competitor based solely on what the subject company's sources say about them.** Sources like annual reports, investor decks, or industry overviews that describe competitors in passing do not count as independent verification.
 
 If a direct search on the competitor returns no usable results, tag every claim about them:
-`[COMPETITOR NOT INDEPENDENTLY VERIFIED — sourced from subject-company materials only]`
+`[UNVERIFIED — sourced from subject-company materials only]`
 
 ## Step 2d — Run Trend-Response Searches
 
@@ -180,8 +178,8 @@ Determine the company's business model from your Step 1 research: **B2C** (direc
 |---|---|---|
 | 1 | G2 | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:g2.com"` → `scrape_as_markdown` on top result |
 | 2 | Trustpilot | `mcp__Bright_Data__search_engine` → `"[Company Name] site:trustpilot.com"` → `scrape_as_markdown` on top result |
-| 3 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
-| 4 | Twitter/X | `mcp__Bright_Data__web_data_x_posts` — query: `"[Company Name]"` |
+| 3 | LinkedIn | `mcp__Bright_Data__web_data_linkedin_posts` — query: `"[Company Name]"` |
+| 4 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
 
 ### Collection rules
 
@@ -208,8 +206,7 @@ Before any analysis, write all collected quotes to `projects/[CompanyName]/03- r
 ### Failure handling
 
 - If a Bright Data call returns an error or empty result, skip that platform and move to the next
-- If fewer than 10 items are collected across all platforms, write `[INSUFFICIENT DATA — fewer than 10 verbatims collected as of [date]. Thematic analysis not conducted.]` in the Customer Sentiment section and skip thematic analysis
-- If 10–29 items are collected, proceed with thematic analysis but note the count: `[NOTE — [N] verbatims collected; below 30-item threshold. Themes may not be fully representative.]`
+- If fewer than 30 items are collected across all platforms, write `[INSUFFICIENT DATA — fewer than 30 verbatims collected as of [date]. Thematic analysis not conducted.]` in the Customer Sentiment section and skip thematic analysis
 
 ## Step 2e — Coverage Check Before Writing
 
@@ -222,8 +219,6 @@ Query 2 (metrics):          ✅ / ❌ FAILED
 Query 3 (product):          ✅ / ❌ FAILED
 Query 4 (competitors):      ✅ / ❌ FAILED
 Query 5 (market/trends):    ✅ / ❌ FAILED
-Query 6 (tech stack):       ✅ / ❌ FAILED
-Query 7 (roadmap):          ✅ / ❌ FAILED
 
 Competitor direct searches:
 - [Competitor A]: ✅ independently verified / ⚠️ not verified
@@ -262,8 +257,9 @@ Add this block at the very top of every file, before any other content:
 
 ```markdown
 > **Research date: [date]. All figures should be re-verified if this document
-> is used more than 90 days after this date. Figures tagged [UNVERIFIED]
-> require immediate re-checking before use.**
+> is used more than 90 days after this date. Figures tagged [UNVERIFIED] are
+> from aggregators or unverified sources. Figures tagged [>2YR] are older than
+> 2 years and require immediate re-verification before use.**
 ```
 
 ### Citation rule — inline at point of writing
@@ -287,8 +283,8 @@ Before writing any statistic (user counts, market size, pricing, growth rates):
               vs ~180M [Strava Year in Sport, Dec 2025, SRC:strava_2025]
      ```
 
-If your most recent source for a figure is older than 12 months from today, tag it:
-`[UNVERIFIED — last confirmed [date], SRC:id]`
+If your most recent source for a figure is older than 2 years from today, tag it:
+`[>2YR — last confirmed [date], SRC:id]`
 
 ### Labelling rules — classify before writing, not after
 
@@ -296,11 +292,11 @@ If your most recent source for a figure is older than 12 months from today, tag 
 |---|---|---|
 | Sourced fact | Directly stated in a named source | `[Source Name, Month Year, SRC:id]` |
 | Inference | Reasoned from multiple sources but not explicitly stated | `[ASSUMPTION — reasoning: ...]` |
-| Aggregator figure | From Crunchbase, PitchBook, Getlatka, G2, or similar | `[UNVERIFIED ESTIMATE — Source, date, SRC:id]` |
+| Aggregator figure | From Crunchbase, PitchBook, Getlatka, G2, or similar | `[UNVERIFIED — Source, date, SRC:id]` |
 | Missing data | Searched but could not find | `[DATA UNAVAILABLE — as of date]` |
 | Search failure | Primary search for this section failed or errored | `[SEARCH FAILED — data not retrieved as of date]` |
-| Unverified competitor claim | Competitor described only via subject-company sources | `[COMPETITOR NOT INDEPENDENTLY VERIFIED]` |
-| Stale figure | Most recent source older than 12 months | `[UNVERIFIED — last confirmed date, SRC:id]` |
+| Unverified competitor claim | Competitor described only via subject-company sources | `[UNVERIFIED — sourced from subject-company materials only]` |
+| Stale figure | Most recent source older than 2 years | `[>2YR — last confirmed date, SRC:id]` |
 | URL missing from results | Source retrieved but URL not returned by search | `[URL NOT RETRIEVED]` |
 
 **Never write plausible-sounding content to fill a gap.** If the data isn't there, use the label.
@@ -346,7 +342,7 @@ Before saving each file, verify every item below. Fix any that fail before writi
 - [ ] All figures use the most recently dated source available — not the first found
 - [ ] Conflicting figures across sources are listed with both versions, not silently resolved
 - [ ] No competitor comparison is sourced only from the subject company's own materials
-- [ ] No comparative claim is older than 12 months without an `[UNVERIFIED]` tag
+- [ ] No comparative claim is older than 2 years without a `[>2YR]` tag
 - [ ] No banned claim pattern appears without a direct citation
 - [ ] Every `[ASSUMPTION]` tag includes a reasoning note
 - [ ] No section has been filled with inferred content where data was unavailable
@@ -374,7 +370,7 @@ Files saved to projects/[CompanyName]/01- company context/
   - fact_registry_competitive-intelligence.json ([N] sources)
   - fact_registry_product-description.json ([N] sources)
 
-Search coverage: [X]/7 queries successful
+Search coverage: [X]/5 queries successful
 Trend-response searches: [X]/[total trends] — [X] with named competitor actions found
 Failed/retried queries: [list, or "none"]
 Fallback tool used: [web_search for queries X, Y — or "none"]
@@ -387,9 +383,8 @@ Competitors independently verified: [list]
 Competitors NOT independently verified: [list, or "none"]
 
 [DATA UNAVAILABLE] tags written: X
-[UNVERIFIED ESTIMATE] tags written: X
-[UNVERIFIED — stale figure] tags written: X
-[COMPETITOR NOT INDEPENDENTLY VERIFIED] tags written: X
+[UNVERIFIED] tags written: X (aggregator figures + unverified competitor claims)
+[>2YR] tags written: X
 [URL NOT RETRIEVED] tags written: X
 
 Flags for human review: [list any conflicting figures, stale claims,
@@ -404,6 +399,6 @@ Flags for human review: [list any conflicting figures, stale claims,
 - **No pricing data:** Label `[DATA UNAVAILABLE — as of date]`. Do not estimate or cite aggregator sites (Accio, PriceRunner, etc.) for pricing.
 - **3+ search failures:** Stop, retry with `sleep 5` between attempts, report to user before writing. See Step 2b.
 - **Rate limit persists after retry:** Attempt query with `web_search` fallback tool. Label results `[web_search fallback, date]`.
-- **Competitor data only available from subject-company sources:** Write the section with confirmed facts only, tag all claims `[COMPETITOR NOT INDEPENDENTLY VERIFIED]`, and list them in the Step 5 confirmation.
+- **Competitor data only available from subject-company sources:** Write the section with confirmed facts only, tag all claims `[UNVERIFIED — sourced from subject-company materials only]`, and list them in the Step 5 confirmation.
 - **URL not present in search results:** Write `[URL NOT RETRIEVED]` — never construct or guess a URL from memory.
 - **No named competitor actions found for a trend:** Write `[DATA UNAVAILABLE — no public signal retrieved as of date]` in each response cell. Do not infer actions.

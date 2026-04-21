@@ -96,4 +96,13 @@ Only capture publicly disclosed figures. Do not estimate. -->
 
 *(Label [DATA UNAVAILABLE — as of date] if no public figures exist. Do not add estimated rows.)*
 
+---
+
+## Label Legend
+
+| Label | Meaning |
+|---|---|
+| `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
+| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Verify before use. |
+
 <!-- Last verified: [YYYY-MM-DD] -->

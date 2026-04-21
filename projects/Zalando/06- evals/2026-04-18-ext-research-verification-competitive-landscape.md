@@ -26,6 +26,7 @@
 | Aggregator Label Violations | 0 | 0 |
 | Banned Claim Pattern Instances | 0 | 0 |
 | Stale Untagged Source Violations | 0 | 0 |
+| Uncited Quoted String Violations | N/A — no User Sentiment section | 0 |
 | Competitor Count | 5 direct competitors | ≥ 3 |
 
 **Score legend:**
@@ -37,9 +38,9 @@
 | Citation Coverage Rate | % of filled fields with ≥1 [SRC:id] — presence only, not quality | Fields with citation ÷ filled fields. Source quality is H1/H2. |
 | Field Recall Rate | % of non-labeled template fields filled with real data. Labeled gaps ([DATA UNAVAILABLE] etc.) count as intentional and are excluded from denominator. | Filled fields ÷ (total fields − labeled fields). Target: ≥90%. |
 | Placeholder Text Violations | Template tokens still in the file — not filled or labeled as intentional gaps | Count. Target: 0. |
-| Aggregator Label Violations | Crunchbase/PitchBook/Getlatka/SimilarWeb figures without [UNVERIFIED ESTIMATE] | Count. Target: 0. |
+| Aggregator Label Violations | Crunchbase/PitchBook/Getlatka/SimilarWeb figures without [UNVERIFIED] | Count. Target: 0. |
 | Banned Claim Pattern Instances | Unsupported superlatives without [SRC:id] — high hallucination risk | Count. Target: 0. |
-| Stale Untagged Source Violations | Sources >12 months old not tagged [UNVERIFIED]. Stale + tagged is fine. | Count. Target: 0. |
+| Stale Untagged Source Violations | Sources >2 years old not tagged [>2YR]. Stale + tagged is fine. | Count. Target: 0. |
 | Competitor Count | Named direct competitors with a dedicated block in competitive-landscape.md | Raw count. Target: ≥3. |
 
 **Quant Claims Accuracy detail (M-1):**
@@ -110,7 +111,7 @@
 |---|---|---|
 | M-1b | ASOS block — Overview, Competitive Matrix, Differentiation vs ASOS (lines 37, 53, 75, 85) | ASOS active customer figure of 6.5M (down 8%) appears throughout the document. Official ASOS results (Investegate) and Modern Retail both confirm 17.0M active customers, down 14% YoY. The cited electroiq source reports 6.5M but contradicts the primary ASOS filing. All four occurrences of this figure need correction. The "nearly 10x larger" Zalando vs ASOS comparison (line 85) would change to approximately 3.6x at 17.0M. |
 | M-1c | Market Overview / ASOS block | Revenue decline stated as "15%" in two places. Investegate primary source shows 14% decline (£2.46B, from £2.9B). Minor but technically incorrect. |
-| M-1d | Competitive Matrix / Farfetch Pricing / Differentiation vs Farfetch | Zalando seller commission 5–25% and Farfetch 25–33% are cited to eDesk (SRC:edesk_fashion_marketplace_commissions), but that page contains no commission rate data for either platform. These figures need a valid source or should be labeled [DATA UNAVAILABLE] or [UNVERIFIED ESTIMATE]. |
+| M-1d | Competitive Matrix / Farfetch Pricing / Differentiation vs Farfetch | Zalando seller commission 5–25% and Farfetch 25–33% are cited to eDesk (SRC:edesk_fashion_marketplace_commissions), but that page contains no commission rate data for either platform. These figures need a valid source or should be labeled [DATA UNAVAILABLE] or [UNVERIFIED]. |
 | M-1e | H&M Pricing — Strengths | H&M womenswear avg $22.55–$51.22 is cited to Accio (SRC:accio_hm_pricing), but the Accio page does not contain H&M-specific pricing data. Source does not support the claim. |
 | M-2 | Fact registry — 8 URLs initially 4xx (bot-blocked) | The following URLs returned 4xx during automated fetch but were confirmed accessible by human review (bot-blocking, not broken): SRC:marketing_week_asos_fy25, SRC:marketscreener_asos_fy25_loss, SRC:coupang_ir_farfetch_acquisition, SRC:fashionnetwork_eu_crossborder_ranking, SRC:internetretailing_vinted_europe, SRC:businessofapps_vinted, SRC:bof_hm_ai_strategy, SRC:bof_coupang_farfetch_mismanaging. Five additional URLs (Forbes x2, Reuters, The Independent x2) were tool-blocked and remain inconclusive. |
 | M-3 | Entire file | Citation coverage is 57.6% — 25 filled fields have no [SRC:id] tag. Fields lacking citations include: ASOS Target Market, ASOS founded/overview narrative, SHEIN Target Market, Farfetch Target Market, H&M Target Market, H&M Strengths (omnichannel scale claim), Vinted Target Market, Vinted Overview narrative. These fields contain factual assertions without machine-verifiable source links. |

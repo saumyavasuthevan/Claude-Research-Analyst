@@ -10,7 +10,7 @@ RULES:
 3. Pricing: pricing model label (e.g., "subscription tiers", "per seat", "commission %") from company website or G2 only. Never cite aggregator sites (Accio, PriceRunner, etc.).
 4. Trend response cells — must cite a specific news article. "No public signal" is valid. Never infer an action from general product knowledge.
 5. CAGR and market size figures must be verified against the source page, not taken from memory.
-6. No raw URLs anywhere. Register all sources in fact_registry.json and cite by SRC:id.
+6. No raw URLs anywhere. Register all sources in fact_registry_competitive-intelligence.json and cite by SRC:id.
 -->
 
 **Market:** [Market name]
@@ -184,5 +184,15 @@ Do not add rows for price range, weaknesses, target market, or differentiation. 
 | Recent news 3 | [Named event, Month YYYY] OR [DATA UNAVAILABLE — no news retrieved as of date] | SRC:id or — |
 
 ---
+
+---
+
+## Label Legend
+
+| Label | Meaning |
+|---|---|
+| `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
+| `[UNVERIFIED — Source, date, SRC:id]` | Figure from a data aggregator (e.g. Crunchbase, PitchBook) that does not disclose its methodology, or sourced from subject-company materials only. Treat as directional only. |
+| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Verify before use. |
 
 <!-- Last verified: [YYYY-MM-DD] -->

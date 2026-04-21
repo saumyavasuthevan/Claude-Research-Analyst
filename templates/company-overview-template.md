@@ -12,8 +12,6 @@ RULES:
 6. No raw URLs anywhere. Register all sources in fact_registry_company-overview.json and cite by SRC:id.
 -->
 
-**Welcome to [Company Name]!** This is the company context overview.
-
 *Last verified: [YYYY-MM-DD]*
 
 ---
@@ -33,9 +31,9 @@ Source from LinkedIn, Crunchbase, company website, or press releases. -->
 
 ### Leadership Team
 
-<!-- Search: "[Company Name] CEO CTO leadership team"
+<!-- Search: "[Company Name] CEO CPO leadership team"
 Source from LinkedIn or company About page.
-List named C-suite and VP-level leaders only. Do not estimate headcount per department. -->
+List named C-suite leaders only. Do not estimate headcount per department. -->
 
 - [Name] — [Title] [SRC:id]
 - [Name] — [Title] [SRC:id]
@@ -62,7 +60,6 @@ Source directly from company website. Quote verbatim where possible. -->
 
 <!-- Search: "[Company Name] ARR revenue customers users growth"
 Use press releases, earnings calls (if public), or credible news coverage.
-Unverified aggregator figures (Getlatka, SimilarWeb) must be labeled [UNVERIFIED ESTIMATE — source name].
 Label [DATA UNAVAILABLE — as of date] for any metric not publicly stated. -->
 
 **Customers:** [X active / registered — specify which] [SRC:id]
@@ -72,7 +69,7 @@ Label [DATA UNAVAILABLE — as of date] for any metric not publicly stated. -->
 ### Funding History
 
 <!-- Search: "[Company Name] funding rounds investors Crunchbase"
-List each round chronologically. Label aggregator-sourced figures as [UNVERIFIED ESTIMATE — Crunchbase/Pitchbook].
+List each round chronologically. Apply labelling rules per create-company.md for aggregator-sourced figures.
 If last round >24 months ago, flag: ⚠️ Last disclosed funding is >24 months old — treat as a material signal. -->
 
 | Round | Year | Amount | Lead investor |
@@ -152,7 +149,7 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 | 4 | Reddit | [N] | [range] |
 
 
-**If B2C:** Collect in priority order. Stop once 20 items collected. Cap: 30 items per platform.
+**If B2C:** Collect in priority order. Stop once 30 items collected. Cap: 30 items per platform.
 
 | Priority | Platform | Items collected | Date range |
 |---|---|---|---|
@@ -215,6 +212,7 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 | Label | Meaning |
 |---|---|
 | `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
-| `[UNVERIFIED ESTIMATE — source name]` | Figure from a data aggregator that does not disclose its methodology. Treat as directional only. |
+| `[UNVERIFIED — Source, date, SRC:id]` | Figure from a data aggregator that does not disclose its methodology, or sourced from subject-company materials only. Treat as directional only. |
+| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Verify before use. |
 | `[INSUFFICIENT DATA]` | Not enough customer verbatims collected to conduct thematic analysis. |
 | `⚠️ Last disclosed funding is >24 months old` | Most recent funding round is older than 24 months — activity since then is unconfirmed. |

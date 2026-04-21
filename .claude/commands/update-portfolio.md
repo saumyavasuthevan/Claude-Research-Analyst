@@ -117,7 +117,12 @@ Draft the Iterations as a markdown table with three columns — ordered highest 
 
 | Challenge | Fix | Result |
 |---|---|---|
-| [Hyper-specific failure mode with a concrete example of the bad output, e.g. "Agent attempted competitive SWOT analysis, but search snippets unable to substantiate qual claims — producing hallucinations like 'ASOS has weaker EU logistics than Zalando.'"] | **[Bold the fix mechanism.]** [One sentence describing the mechanism — e.g. "Banned the subject company's domain from all competitor searches; every competitor now requires an independent third-party source."] | [Outcome-focused result — e.g. "Reduced error rate on competitive claims from 64% to ~0–25%." Do not invent metrics; use numbers from the diff or file if they exist.] |
+| [Describe the agent's behavior or approach that caused the failure — then the consequence. Lead with what the agent did, not what the output looked like. e.g. "Customer sentiment analysis relied on Brave Search snippets — which surface page-level summaries, not individual user reviews — leaving platforms behind **authentication walls** (Reddit, App Store, Instagram) inaccessible."] | **[Bold the single mechanism word — the fix name, not the whole phrase.]** [One sentence describing what changed. e.g. "**Integrated Bright Data API** across B2C platforms (App Store, Play Store, Reddit, X, Instagram, Trustpilot) and B2B platforms (G2, Trustpilot, LinkedIn, Reddit)."] | [One crisp outcome sentence. e.g. "Sentiment section grounded in up to 30 platform-sourced verbatims per run."] |
+
+**Column rules:**
+- **Challenge:** Agent-behavior framing — "Agent attempted X", "Citations relied on Y", "Analysis depended entirely on Z." Never start with the output symptom ("Output contained..."). Always include a concrete example of the bad output or the gap it created. Bold only the single term that names the failure mode (e.g. `**SWOT analysis**` not `**competitive SWOT analysis**`).
+- **Fix:** Bold the mechanism word (one word or short fixed term — e.g. `**Introduced**`, `**Banned**`, `**Integrated**`, `**Forced**`). Then one sentence on what specifically changed — not why it was a problem.
+- **Result:** Outcome only — what is now true. One sentence, no hedging. Use numbers from the diff if they exist; do not invent metrics.
 
 Follow the language rules from `CLAUDE.md → Working Style → Language` for all three columns. Order rows highest impact → lowest. Do not invent metrics; use numbers from the diff if they exist.
 

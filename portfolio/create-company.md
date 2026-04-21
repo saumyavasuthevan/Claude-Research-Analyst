@@ -15,7 +15,8 @@ Input a company name → agent researches and generates three context files used
 ```mermaid
 flowchart LR
     A["Input company name"] --> B["create-company-agent"]
-    B --> C["Generate 3 context files<br/><small>company-overview.md<br/>competitive-landscape.md<br/>product-description.md</small>"]
+    T["Ingest templates<br/><small>company-overview-template.md<br/>competitive-intelligence-template.md<br/>product-description-template.md</small>"] --> B
+    B --> C["Generate 3 context files<br/><small>company-overview.md<br/>competitive-intelligence.md<br/>product-description.md</small>"]
 ```
 
 ---
@@ -24,27 +25,30 @@ flowchart LR
 
 | Challenge | Fix | Result |
 |---|---|---|
-| Agent attempted **competitive SWOT analysis**, but search snippets unable to substantiate qual claims — producing hallucinations like "ASOS has weaker EU logistics than Zalando." | **Shifted scope to facts only.** Agent now searches exclusively for data extractable from snippets (founding year, funding, revenue, headcount, named news events). No SWOT, no differentiation, no sentiment. | Every claim is traceable to a specific source. |
-| Citations relied on the model generating URLs from memory — a **stochastic process** that produced broken or hallucinated links. | **Shifted to a deterministic citation system.** Every source is logged to a Fact Registry (`fact_registry.json`) at retrieval (URL, title, date, key quote). All output citations use `SRC:id` keys (e.g. `SRC:zalando_fy25_results`) — no raw URLs in any output file. | Every claim is auditable by source, date, and exact quote. |
+| Agent attempted a SWOT analysis, but search snippets **unable to substantiate qual claims** — producing hallucinations like "ASOS has weaker EU logistics than Zalando." | Shifted approach to **restrict the model to verifiable data extraction**, while allowing qualitative claims only when explicitly attributed to external sources. | Every claim is traceable to a specific source. |
+| Citations relied on the model generating URLs from memory — a **stochastic** process that produced broken or hallucinated links. | **Introduced two deterministic registries.** `fact_registry.json` logs every source at retrieval (URL, title, date, key quote) — cited downstream as `SRC:id`. `quotes_registry.json` logs every verbatim user quote before analysis (exact text, platform, date) — cited as `Q-id`. | Every sourced claim and verbatim quote is auditable by source, date, and exact text. |
 | Agent wrote **overconfident competitive claims** — e.g. "no other competitor offers X" — sourced only from the subject company's own press releases. | **Banned the subject company's domain from all competitor searches.** Every competitor now requires an independent third-party source. | Reduced error rate on competitive claims. |
 | Parallel Brave Search calls hit **rate limits** mid-run, causing the agent to skip queries and hallucinate data to fill the gaps. | **Forced sequential searches with `sleep 2` latency between every call.** | 100% data retrieval; 14-second added latency is a negligible trade-off. |
-| **Outdated figures** (revenue, headcount) were presented as current — e.g. a 2022 headcount cited without any date flag. | **Added a staleness rule.** Any figure older than 12 months is auto-tagged `[UNVERIFIED — last confirmed date]`. | All outputs are fully auditable by date. |
+| Figures without provenance — stale statistics, aggregator estimates, inferences from adjacent sources, and search failures — were written into outputs without caveats, silently promoting **unverified data** into confident claims in downstream synthesis. | **Introduced a seven-label classification system**: `[UNVERIFIED]` for aggregator figures and unverified competitor claims, `[>2YR]` for stale data, `[ASSUMPTION: reasoning]` for inferences, `[DATA UNAVAILABLE]` for search gaps, `[SEARCH FAILED]` for tool failures, and `[URL NOT RETRIEVED]` for missing links. | Provenance caveats travel with each figure into downstream synthesis by agents and humans, without needing re-verification. |
 | Native web search had **high token consumption** (~95K tokens per run). | **Switched to Brave Search API**, which returns compact structured JSON snippets. | ~50% reduction in search-related token consumption, reducing cost and overcoming context window limits. |
+| Customer sentiment analysis relied on Brave Search snippets — which surface page-level summaries, not individual user reviews — leaving platforms behind **authentication walls** (Reddit, App Store, Instagram) inaccessible. | **Integrated Bright Data API** across B2C platforms (App Store, Play Store, Reddit, X, Instagram, Trustpilot) and B2B platforms (G2, Trustpilot, LinkedIn, Reddit). Thematic analysis uses pre-defined codes for common product feedback categories (deductive), combined with codes emergent from the data itself (inductive). | Sentiments analysis grounded in rich social data; Hybrid deductive and inductive coding framework minimised token consumption while ensuring we captured novel patterns. |
 
 ---
 
 ## Evals
 
 - **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — checks outputs for quantitative claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator label compliance, banned claim patterns, and stale untagged sources. Includes a human HHH (Honesty, Helpfulness, Harmlessness) scoring component.
-- **Coverage:** Run on Zalando competitive landscape output — company-overview.md and product-description.md evals pending.
-- **Report:** [2026-04-18 — Zalando competitive landscape verification](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md)
+- **Coverage:** Run on Zalando competitive-intelligence.md and company-overview.md — product-description.md eval pending.
+- **Reports:**
+  - [2026-04-18 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md)
+  - [2026-04-21 — Zalando company overview](../projects/Zalando/06-%20evals/2026-04-21-ext-research-eval-company-overview.md)
 
 ---
 
 ## Sample Output
 
 - [Zalando — company-overview.md](../projects/Zalando/01-%20company%20context/company-overview.md)
-- [Zalando — competitive-landscape.md](../projects/Zalando/01-%20company%20context/competitive-landscape.md)
+- [Zalando — competitive-intelligence.md](../projects/Zalando/01-%20company%20context/competitive-intelligence.md)
 - [Zalando — product-description.md](../projects/Zalando/01-%20company%20context/product-description.md)
 
 ---
@@ -53,12 +57,14 @@ flowchart LR
 
 **Accuracy / Quality:** Reduced competitive landscape error rate. Every claim is grounded in an independently sourced, date-stamped, auditable citation.
 
-**Cost savings:** ~€750/year — task reduced from 6 hrs to 75 mins (incl. verification)<br/>
-*Assumptions: run ~4 times/year · ~4 new companies/year · pegged to PM salary*
+**Cost savings:** ~€1,150/year — task reduced from 6 hrs to 75 mins (incl. verification)<br/>
+*Assumptions: run ~6 times/year · ~6 new companies/year · pegged to PM salary*
 
 ---
 
 ## Links
 
 - [Agent instructions](../.claude/agents/create-company.md) — prompt Claude uses at runtime
-- [Eval report](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md) — latest verification run
+- [Eval report — competitive intelligence](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md) — latest verification run
+- [Eval report — company overview](../projects/Zalando/06-%20evals/2026-04-21-ext-research-eval-company-overview.md) — latest verification run
+
