@@ -56,9 +56,9 @@ flowchart LR
 
 ## Outcome
 
-**Accuracy / Quality:** Reduced competitive landscape error rate. Every claim is grounded in an independently sourced, date-stamped, auditable citation.
+**Accuracy / Quality:** While still requiring spot checks in early stage of dev, now every claim is grounded in an independently sourced, date-stamped, auditable citation.
 
-**Cost savings:** ~€1,150/year — process time reduced from 6 hrs to 75 mins (incl. verification)<br/>
+**Cost savings:** **~€1,150/year** — process time reduced from 6 hrs to 75 mins (incl. verification)<br/>
 *Assumptions: run ~6 times/year · ~6 new companies/year · pegged to PM salary*
 
 ---
