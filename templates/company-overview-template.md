@@ -180,6 +180,7 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
      SPLIT RULE: only split if the two patterns require genuinely different fixes (e.g. courier-caused non-delivery → fix courier SLA; Zalando dispatch failure → fix warehouse process — these are distinct).
      Do NOT force sub-themes — if all verbatims in a theme point to the same issue, leave it as a single sub-theme or no sub-themes.
      Naming: anchor the sub-theme label on the causal layer (who caused it, what system failed) — not just the symptom. "Courier marks delivery as attempted without attempting" is more actionable than "delivery not received".
+     ATTRIBUTION RULE: only name a party as the cause if verbatims directly implicate them. If an outcome is reported (e.g. "parcel gone", "parcel missing") but the responsible party is unconfirmed (courier, third-party theft, porch piracy), name the verifiable system failure instead — e.g. "parcel not received; courier provides no resolution" — never "courier stole parcel".
 
      Output format: separate tables for Negative and Positive.
      Quote column: list Q-IDs only (e.g. Q003, Q017). Text and platform resolve from quotes_registry.json at render time.

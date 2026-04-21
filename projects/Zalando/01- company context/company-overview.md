@@ -139,7 +139,7 @@ Zalando has been publicly listed since October 2014. Pre-IPO rounds are summaris
 
 | Theme (n) | Sub-theme (n) | Quote IDs |
 |---|---|---|
-| **Reliability** — Courier & delivery failures (n=9) | Courier (Evri/SEUR) loses, steals, or fraudulently marks parcel as delivered or attempted (n=7) | Q001, Q006, Q018, Q022, Q027, Q028, Q030 |
+| **Reliability** — Courier & delivery failures (n=9) | Courier (Evri/SEUR) loses parcel or fraudulently marks as delivered/attempted; customer reports non-receipt with no resolution (n=7) | Q001, Q006, Q018, Q022, Q027, Q028, Q030 |
 | **Reliability** — Courier & delivery failures (n=9) | Order never dispatched by Zalando, or parcel returned to sender before delivery (n=2) | Q008, Q010 |
 | **Support** — Unresponsive customer service (n=6) | Agents terminate chats or calls; rude or scripted responses (n=3) | Q002, Q020, Q024 |
 | **Support** — Unresponsive customer service (n=6) | No escalation path; chatbot and email loop without resolution (n=3) | Q012, Q019, Q023 |
