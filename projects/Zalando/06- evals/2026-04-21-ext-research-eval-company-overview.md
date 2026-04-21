@@ -1,8 +1,11 @@
 ## Verification Report — Zalando / company-overview.md
 
 **Output type:** External Research (create-company)
+
 **File verified:** company-overview.md
+
 **Fact registry:** Found — M-2 run
+
 **Date verified:** 2026-04-21
 
 ---
@@ -109,7 +112,7 @@ None.
 
 ### Checks Passed
 
-M-1, M-2, M-3, M-4, M-5, M-6, M-8, M-9, M-10
+M-1, M-2, M-3, M-4, M-5, M-6, M-7, M-8, M-9, M-10
 
 ---
 

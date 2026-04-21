@@ -188,8 +188,11 @@ If the user verified multiple files in one session, save one report per file.
 ## Verification Report — [Company] / [filename]
 
 **Output type:** External Research (create-company)
+
 **File verified:** [filename]
+
 **Fact registry:** [Found / Not found — M-2 skipped]
+
 **Date verified:** [today]
 
 ---
