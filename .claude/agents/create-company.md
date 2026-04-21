@@ -165,12 +165,12 @@ Determine the company's business model from your Step 1 research: **B2C** (direc
 
 | Priority | Platform | Bright Data tool |
 |---|---|---|
-| 1 | App Store | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:apps.apple.com"` → `scrape_as_markdown` on top result |
-| 2 | Play Store | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:play.google.com"` → `scrape_as_markdown` on top result |
-| 3 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
-| 4 | Twitter/X | `mcp__Bright_Data__web_data_x_posts` — query: `"[Company Name]"` |
-| 5 | Instagram | `mcp__Bright_Data__web_data_instagram_posts` — query: `"[Company Name]"` |
-| 6 | Trustpilot | `mcp__Bright_Data__search_engine` → `"[Company Name] site:trustpilot.com"` → `scrape_as_markdown` on top result |
+| 1 | Trustpilot | `mcp__Bright_Data__search_engine` → `"[Company Name] site:trustpilot.com"` → `scrape_as_markdown` on top result |
+| 2 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
+| 3 | Play Store | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:play.google.com"` → `scrape_as_markdown` on top result |
+| 4 | App Store | `mcp__Bright_Data__search_engine` → `"[Company Name] reviews site:apps.apple.com"` → `scrape_as_markdown` on top result |
+| 5 | Twitter/X | `mcp__Bright_Data__web_data_x_posts` — query: `"[Company Name]"` |
+| 6 | Instagram | `mcp__Bright_Data__web_data_instagram_posts` — query: `"[Company Name]"` |
 
 **B2B** — collect in this order, stop once 30 items total:
 
@@ -181,12 +181,25 @@ Determine the company's business model from your Step 1 research: **B2C** (direc
 | 3 | LinkedIn | `mcp__Bright_Data__web_data_linkedin_posts` — query: `"[Company Name]"` |
 | 4 | Reddit | `mcp__Bright_Data__web_data_reddit_posts` — query: `"[Company Name]"` |
 
-### Collection rules
+### Collection algorithm — strict sequential loop
 
-- Filter to brand/product mentions only — discard posts that don't reference the company's product or service experience
+> **GATE RULE: Complete the full search → scrape → count cycle for one platform before issuing ANY tool call for the next — including `search_engine` queries. Do NOT pre-fetch or batch searches across platforms.**
+
+Execute each platform as a discrete unit in priority order:
+
+**Step A — Search** (platforms using `search_engine` only): run the search_engine query. Await result.
+**Step B — Scrape/fetch**: run `scrape_as_markdown` or the direct `web_data` tool. Await result.
+**Step C — Count**: count usable verbatims from this platform (brand/product mentions, within past 2 years). Add to running total.
+**Step D — Gate**:
+- Running total ≥ 30 → **STOP.** Do not search, scrape, or call any tool for the next platform.
+- Running total < 30 → proceed to Step A for the next platform.
+
+Failure: if the tool returns an error or empty result, count = 0 for this platform. Proceed to Step D.
+
+Additional filters:
+- Discard posts that don't reference the company's product or service experience
 - Only include items published within the past 2 years
-- Cap: 30 items per platform; stop collection once 30 items total are collected across all platforms
-- Run platforms sequentially; do not call multiple Bright Data tools in parallel
+- Cap: 30 items per platform
 
 ### Verbatim registry — write before analysis
 

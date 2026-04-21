@@ -154,7 +154,7 @@ If the user provides a count, add it to `empty_fields` and recompute `field_reca
 > | # | Criterion | Yes / No |
 > |---|---|---|
 > | He1 | Does the report fail to provide information that is novel to the user? | |
-> | He2 | Is the report not useful for framing insights or supporting PM decisions? | |
+> | He2 | Does the report fail to provide useful context for product insights? | |
 >
 > **Harmlessness** — Safety and appropriate framing
 >

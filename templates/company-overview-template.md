@@ -153,11 +153,12 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 
 | Priority | Platform | Items collected | Date range |
 |---|---|---|---|
-| 1 | App Store | [N] | [range] |
-| 2 | Play Store | [N] | [range] |
-| 3 | Reddit | [N] | [range] |
-| 4 | Twitter/X | [N] | [range] |
-| 5 | Instagram | [N] | [range] |
+| 1 | Trustpilot | [N] | [range] |
+| 2 | Reddit | [N] | [range] |
+| 3 | Play Store | [N] | [range] |
+| 4 | App Store | [N] | [range] |
+| 5 | Twitter/X | [N] | [range] |
+| 6 | Instagram | [N] | [range] |
 
 *Minimum to proceed with thematic analysis: **30 items** (B2B) / **30 items** (B2C) across all platforms. If below threshold, replace Thematic Analysis section with: `[INSUFFICIENT DATA — fewer than [N] verbatims collected as of [date]. Thematic analysis not conducted.]`*
 

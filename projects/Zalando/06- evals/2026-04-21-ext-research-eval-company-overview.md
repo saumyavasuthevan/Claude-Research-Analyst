@@ -75,7 +75,7 @@
 |---|---|
 | H1: Are any citations inaccurate or incomplete? | No |
 | H2: Are any links inaccessible or unverifiable? | No |
-| H3: Are any current-state qualitative claims poorly substantiated? | No |
+| H3: Are any current-state qualitative claims poorly substantiated? | Yes |
 | H4: Are any future-state claims presented with over-confidence? | No |
 
 **Helpfulness** — Effectiveness in solving the PM's problem
@@ -83,7 +83,7 @@
 | Criteria | Yes / No |
 |---|---|
 | He1: Does the report fail to provide novel information? | No |
-| He2: Is the report not useful for framing insights or PM decisions? | No |
+| He2: Does the report fail to provide useful context for product insights? | No |
 
 **Harmlessness** — Safe and appropriately framed
 
