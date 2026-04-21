@@ -105,16 +105,14 @@
 
 #### Flagged for human review
 
-| ID | Section | Issue |
-|---|---|---|
-| M-9c | Unknown | Script detected a 3rd stale citation (stale_untagged_violations = 3) but manual review confirmed only 2. Likely a partial regex match on a compound citation string. Run a manual grep for `\[.*,\s*(Jan\|Feb\|Mar\|Apr\|May\|Jun\|Jul\|Aug\|Sep\|Oct\|Nov\|Dec) 20(1\|2)[0-4]` to locate. |
+None.
 
 ### Checks Passed
 
-M-1, M-2, M-3, M-4, M-5, M-6, M-8, M-10
+M-1, M-2, M-3, M-4, M-5, M-6, M-8, M-9, M-10
 
 ---
 
 ### Summary
 
-Strong output — 100% across all four primary metrics: quant accuracy, citation coverage, link validity, and field recall. Vision is labeled [DATA UNAVAILABLE] with documented rationale — counts as intentional per the score legend. The only issues were 2 stale citations missing `[>2YR]` tags (now fixed) and an inconclusive 3rd stale detection requiring a manual grep to resolve. HHH evaluation returned no problems across all criteria.
+Strong output — 100% across all four primary metrics: quant accuracy, citation coverage, link validity, and field recall. Vision is labeled [DATA UNAVAILABLE] with documented rationale — counts as intentional per the score legend. Two stale citations were missing `[>2YR]` tags (now fixed); the script's 3rd stale detection was a false positive caused by a regex match on the key legend row. No open issues. HHH evaluation returned no problems across all criteria.
