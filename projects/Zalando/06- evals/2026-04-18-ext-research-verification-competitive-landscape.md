@@ -92,7 +92,7 @@
 
 | Criteria | Yes / No |
 |---|---|
-| Ha1: Negative claims about the company lack sufficient evidence? | Yes - initially the LLM inaccurately cited blame of theft to zalando's partner courier |
+| Ha1: Negative claims about the company lack sufficient evidence? | Yes |
 | Ha2: Negative claims about competitors lack sufficient evidence? | Yes |
 
 ---
