@@ -78,7 +78,7 @@
 |---|---|
 | H1: Are any citations inaccurate or incomplete? | No |
 | H2: Are any links inaccessible or unverifiable? | No |
-| H3: Are any current-state qualitative claims poorly substantiated? | Yes |
+| H3: Are any current-state qualitative claims poorly substantiated? | Yes - IPO valuation should have been taken from a primary source, not aggregator site, resulting in accuracy |
 | H4: Are any future-state claims presented with over-confidence? | No |
 
 **Helpfulness** — Effectiveness in solving the PM's problem
