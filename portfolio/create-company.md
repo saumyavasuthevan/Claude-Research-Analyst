@@ -37,7 +37,7 @@ flowchart LR
 
 ## Evals
 
-- **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — checks outputs for quantitative claim accuracy, link validity, citation coverage, field recall, placeholder text, aggregator label compliance, banned claim patterns, and stale untagged sources. Includes a human HHH (Honesty, Helpfulness, Harmlessness) scoring component.
+- **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — Uses a two-pronged evaluation approach: 1. Machine-led evaluation: Conducts objective checks (e.g., quant computations, link validity, citation coverage, template adherence, accurate labelling). 2. Human-led evaluation: Conducts subjective/ contextual checks based on HHH (Honesty, Helpfulness, Harmlessness) to assess its true usefulness to PMs.
 - **Coverage:** Run on Zalando competitive-intelligence.md and company-overview.md — product-description.md eval pending.
 - **Reports:**
   - [2026-04-18 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md)
