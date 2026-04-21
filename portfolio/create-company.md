@@ -32,13 +32,13 @@ flowchart LR
 | Figures without provenance — stale statistics, aggregator estimates, inferences from adjacent sources, and search failures — were written into outputs without caveats, silently promoting **unverified data** into confident claims in downstream synthesis. | **Introduced a seven-label classification system**: `[UNVERIFIED]` for aggregator figures and unverified competitor claims, `[>2YR]` for stale data, `[ASSUMPTION: reasoning]` for inferences, `[DATA UNAVAILABLE]` for search gaps, `[SEARCH FAILED]` for tool failures, and `[URL NOT RETRIEVED]` for missing links. | Provenance caveats travel with each figure into downstream synthesis by agents and humans, without needing re-verification. |
 | Native web search had **high token consumption** (~95K tokens per run). | **Switched to Brave Search API**, which returns compact structured JSON snippets. | **~50% reduction** in search-related token consumption, reducing cost and overcoming context window limits. |
 | Customer sentiment analysis relied on Brave Search snippets — which surface page-level summaries, not individual user reviews, resulting in findings that were too **surface-level** to be useful. | **Integrated Bright Data API** to access behind-the-wall social data across B2C platforms (e.g., App Store, Play Store, Reddit) and B2B platforms (e.g,. G2, Trustpilot, LinkedIn). Thematic analysis uses pre-defined codes for common product feedback categories (deductive reasoning), combined with emergent codes emergent (inductive reasoning). | Sentiments analysis **grounded in rich social data**; Hybrid deductive and inductive coding framework **minimised token consumption** while ensuring we **captured novel patterns.** |
-| Agent ignored rule about sequential searches, scraping all social media platforms **simultaneously**, leading to unnecessary API usage. | Replaced with a sequential loop (search → scrape → count → gate), ensuring only one platform is processed at a time before proceeding to the next. | **Reduced redundant API calls** |
+| Agent ignored rule about sequential searches, scraping all social media platforms **simultaneously**, leading to unnecessary API usage. | Replaced with a **sequential loop (search → scrape → count → gate)**, ensuring only one platform is processed at a time before proceeding to the next. | **Reduced redundant API calls** |
 
 ---
 
 ## Evals
 
-- **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — Uses a two-pronged evaluation approach: 1. Machine-led evaluation: Conducts objective checks (e.g., quant computations, link validity, citation coverage, template adherence, accurate labelling). 2. Human-led evaluation: Conducts subjective/ contextual checks based on HHH (Honesty, Helpfulness, Harmlessness) to assess its true usefulness to PMs.
+- **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — Uses a **two-pronged** evaluation approach: 1. **Machine-led evaluation**: Conducts **objective** checks (e.g., quant computations, link and citation coverage, template adherence). 2. **Human-led evaluation**: Conducts **subjective** checks based on HHH (Honesty, Helpfulness, Harmlessness) to assess its true usefulness to PMs. 
 - **Coverage:** Run on Zalando competitive-intelligence.md and company-overview.md — product-description.md eval pending.
 - **Reports:**
   - [2026-04-18 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md)
@@ -58,7 +58,7 @@ flowchart LR
 
 **Accuracy / Quality:** Reduced competitive landscape error rate. Every claim is grounded in an independently sourced, date-stamped, auditable citation.
 
-**Cost savings:** ~€1,150/year — task reduced from 6 hrs to 75 mins (incl. verification)<br/>
+**Cost savings:** ~€1,150/year — process time reduced from 6 hrs to 75 mins (incl. verification)<br/>
 *Assumptions: run ~6 times/year · ~6 new companies/year · pegged to PM salary*
 
 ---
