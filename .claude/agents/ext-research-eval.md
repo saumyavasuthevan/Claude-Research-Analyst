@@ -231,7 +231,7 @@ If the user verified multiple files in one session, save one report per file.
 |---|---|---|
 | Quant Claims Accuracy Rate | [n]% | [n] correct / [n] checked |
 | Link Validity Rate | [n]% | [n] working / [n] total URLs |
-| Citation Coverage Rate | [n]% | [script: citation_coverage_detail] |
+| Citation Coverage Rate | [n]% | [script: citation_coverage_detail]. **[n] uncited fields:** [list each uncited field by section/row name, one per item] |
 | Field Recall Rate | [n]% | [script: field_recall_detail] |
 
 **Violation counts (lower = better):**
@@ -242,7 +242,7 @@ If the user verified multiple files in one session, save one report per file.
 | Aggregator Label Violations (`[UNVERIFIED]` missing) | [n] | 0 |
 | Banned Claim Pattern Instances | [n] | 0 |
 | Stale Untagged Source Violations | [n] | 0 |
-| Uncited Quoted String Violations | [n] | 0 |
+| Uncited Quoted String Violations | [n or N/A — no User Sentiment section] | [0 or N/A] |
 | Competitor Count | [n] direct competitors | ≥ 3 |
 
 ### Score History
@@ -280,9 +280,9 @@ If the user verified multiple files in one session, save one report per file.
 
 **Quant Claims Accuracy detail (M-1):**
 
-| Claim | Section | Stated Value | Citation | Result |
+| Claim | Stated Value | Src | Result | Notes |
 |---|---|---|---|---|
-| [e.g., Founded year] | Company Background | 2019 | [SRC:1] | Confirmed / Contradicted / Inconclusive |
+| [e.g., Founded year] | 2019 | SRC:source_id | Confirmed / Contradicted / Inconclusive | |
 
 ---
 
@@ -324,8 +324,8 @@ If the user verified multiple files in one session, save one report per file.
 
 #### Flagged for human review
 
-| ID | Section | Issue |
-|---|---|---|
+| ID | Section | Issue | Response |
+|---|---|---|---|
 
 ### Checks Passed
 
@@ -374,3 +374,5 @@ Eval report: [full path]
 - M-7 (competitor count) applies only to `competitive-landscape.md` — skip for all other files.
 - Never apply any auto-fix without explicit user confirmation.
 - If `fact_registry.json` is not found, skip M-2 entirely and note this in the report header.
+- M-10 (Uncited Quoted Strings): if the file has no User Sentiment section, set Count to `N/A — no User Sentiment section` and Target to `N/A`. Do not write 0.
+- Citation Coverage Rate Detail cell: always append a named list of every uncited field after the script verbatim string, formatted as **[n] uncited fields:** followed by each field name. Never leave the detail as just the script output.

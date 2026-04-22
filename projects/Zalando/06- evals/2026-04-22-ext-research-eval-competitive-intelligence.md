@@ -18,7 +18,7 @@
 |---|---|---|
 | Quant Claims Accuracy Rate | 80% | 12 correct / 15 checked (3 contradicted, 5 inconclusive excluded) |
 | Link Validity Rate | 89% | 8 working confirmed / 9 checkable URLs fetched. 1 returned 404 (SRC:sheingroup_wroclaw — requires human confirmation). 4xx returned by: SRC:coupang_ir_farfetch_acquisition, SRC:asos_topshop_heartland_jv, SRC:businessofapps_vinted, SRC:pitchbook_zalando_2026, SRC:fashionnetwork_zalando_ai_2026, SRC:gap_gemini_checkout — flagged as potentially bot-blocked, requires human verification. SRC:guardian_asos_ai_stylist — tool-blocked (inconclusive, excluded from denominator). |
-| Citation Coverage Rate | 84.8% | 39 cited / 46 data-filled fields (labeled gaps excluded) |
+| Citation Coverage Rate | 84.8% | 39 cited / 46 data-filled fields (labeled gaps excluded). **7 uncited fields:** (1) Market Overview — industry outlook narrative sentence; (2–3) Trend 3 — H&M and SHEIN competitor response cells (proximity SRC only); (4–5) Trend 4 — SHEIN and Zalando response cells (proximity SRC only); (6) Competitive Summary Matrix — SHEIN "Latest signal" cell; (7) Vinted Profile — Recent news 3 source cell (auto-fix M-3 proposed) |
 | Field Recall Rate | 100.0% | 46 filled / 46 resolvable fields (19 labeled [DATA UNAVAILABLE] excluded from denominator) |
 
 **Violation counts (lower = better):**
@@ -29,7 +29,7 @@
 | Aggregator Label Violations (`[UNVERIFIED]` missing) | 0 | 0 |
 | Banned Claim Pattern Instances | 0 | 0 |
 | Stale Untagged Source Violations | 0 | 0 |
-| Uncited Quoted String Violations | N/A — no User Sentiment section | 0 |
+| Uncited Quoted String Violations | N/A — no User Sentiment section | N/A |
 | Competitor Count | 3 named direct competitor profiles (ASOS, SHEIN, Vinted) | ≥ 3 |
 
 ---
@@ -76,23 +76,23 @@
 
 **Quant Claims Accuracy detail (M-1):**
 
-| Claim | Section | Stated Value | Citation | Result |
+| Claim | Stated Value | Src | Result | Notes |
 |---|---|---|---|---|
-| TAM USD 125.68B (2025) | Market Overview | USD 125.68B | SRC:mordor_eu_ecommerce_cagr_2025 | Confirmed — source confirms this exact figure as the 2025 base year value |
-| CAGR 4.25% (2025–2030), reaching USD 154.78B by 2030 | Market Overview | 4.25% / USD 154.78B / period 2025–2030 | SRC:mordor_eu_ecommerce_cagr_2025 | **Contradicted** — Mordor Intelligence currently shows 4.20% CAGR for 2026–2031, reaching USD 160.89B by 2031. Both the CAGR figure (4.25% vs 4.20%) and the endpoint (USD 154.78B/2030 vs USD 160.89B/2031) are wrong. The document's note that it "may differ" is insufficient — the stated values do not match the current source. |
-| Zalando acquired About You, July 2025 | Market Overview / Trend 5 | July 2025 | SRC:retail_gazette_about_you_zalando | Confirmed |
-| Mytheresa acquired YNAP for $608M, October 2024 | Market Overview | $608M / Oct 2024 | SRC:pymnts_mytheresa_ynap | Confirmed |
-| Coupang completed Farfetch acquisition, January 2024 | Market Overview / Trend 5 | January 2024 | SRC:coupang_ir_farfetch_acquisition | Inconclusive — URL returned 403 (bot-blocked); excluded from rate denominator |
-| ASOS sold 75% stake Topshop/Topman to Heartland for £135M (~$180M), September 2024 | Market Overview / Trend 5 | 75% / £135M (~$180M) / Sep 2024 | SRC:asos_topshop_heartland_jv | Inconclusive — URL returned 403 (bot-blocked); excluded from rate denominator |
-| ASOS revenue £2.48B FY2025 (−15% YoY) | Competitive Summary Matrix / ASOS Profile | £2.48B / −15% | SRC:electroiq_asos_stats | **Contradicted (minor)** — source confirms £2,477.8M (~£2.48B). The −15% decline figure: source says down from £2,905.8M, which is a 14.7% decline. Rounding to "−15%" overstates the decline (same issue as v1). |
-| ASOS 6.5M active customers FY2025 (−8% YoY) | Competitive Summary Matrix / ASOS Profile | 6.5M / −8% | SRC:electroiq_asos_stats | **Contradicted** — electroiq source confirms the 6.5M figure as stated, so the claim is accurate as cited. However, the electroiq source itself contradicts ASOS primary filings (Investegate reports 17.0M). The stated figure is technically sourced correctly to electroiq but that source is inaccurate vs primary. Flagged for human review (same as v1). |
-| SHEIN 145.7M avg monthly EU users (Feb–Jul 2025, +15.2M YoY) | Competitive Summary Matrix / SHEIN Profile | 145.7M / +15.2M / "YoY" | SRC:cedcommerce_shein_europe_users | **Contradicted (label error)** — source confirms 145.7M and +15.2M, but the +15.2M is vs the prior 6-month period (Aug 2024–Jan 2025: 130.5M), NOT year-on-year. Labeling it "YoY" is inaccurate. |
-| Vinted GMV €10.8B (+47% YoY), Revenue €1.1B (+38% YoY) FY2025 | Competitive Summary Matrix / Vinted Profile | All stated values | SRC:vinted_newsroom_fy25 | Confirmed |
-| SHEIN Wrocław hub 740,000m² / 5,000 jobs | Trend 4 / SHEIN Profile | 740,000m² / 5,000 jobs | SRC:shein_wroclaw_hub, SRC:sheingroup_wroclaw | Confirmed (sacra.com confirms both figures). Note: SRC:sheingroup_wroclaw URL returned 404 — see M-2. |
-| Zalando GMV €17.6B (+14.7%), Revenue €12.3B (+16.8%), Adj. EBIT €591M (+15.6%), 62M active customers | Competitive Summary Matrix | All stated values | SRC:worldfootwear_zalando_fy25_growth, SRC:zalando_fy25_results | Confirmed — multiple primary sources consistent |
-| ASOS "Styled By You" AI stylist / 100,000 curated outfits / November 2025 | Trend 1 / ASOS Profile | Feature name, outfit count, date | SRC:guardian_asos_ai_stylist | Inconclusive — guardian.com tool-blocked; cannot verify; excluded from rate denominator |
-| Gap first major fashion brand checkout in Google Gemini, March 2026 | Trend 6 | "first major fashion retailer" / March 2026 | SRC:gap_gemini_checkout | Inconclusive — URL returned 403; excluded from rate denominator |
-| SHEIN Exchange resale platform in Europe (France first), June 2024 | Trend 2 / SHEIN Profile | France first / June 2024 | SRC:shein_exchange_europe_prnewswire | Confirmed |
+| TAM USD 125.68B (2025) | USD 125.68B | SRC:mordor_eu_ecommerce_cagr_2025 | Confirmed | |
+| CAGR 4.25% (2025–2030), reaching USD 154.78B by 2030 | 4.25% / USD 154.78B / 2025–2030 | SRC:mordor_eu_ecommerce_cagr_2025 | **Contradicted** — source shows 4.20% / USD 160.89B / 2026–2031 | |
+| Zalando acquired About You, July 2025 | July 2025 | SRC:retail_gazette_about_you_zalando | Confirmed | |
+| Mytheresa acquired YNAP for $608M, October 2024 | $608M / Oct 2024 | SRC:pymnts_mytheresa_ynap | Confirmed | |
+| Coupang completed Farfetch acquisition, January 2024 | January 2024 | SRC:coupang_ir_farfetch_acquisition | Inconclusive — 403 bot-blocked | |
+| ASOS sold 75% stake Topshop/Topman to Heartland for £135M (~$180M), September 2024 | 75% / £135M / Sep 2024 | SRC:asos_topshop_heartland_jv | Inconclusive — 403 bot-blocked | |
+| ASOS revenue £2.48B FY2025 (−15% YoY) | £2.48B / −15% | SRC:electroiq_asos_stats | **Contradicted (minor)** — calculated decline is 14.7%, not 15% | |
+| ASOS 6.5M active customers FY2025 (−8% YoY) | 6.5M / −8% | SRC:electroiq_asos_stats | **Contradicted** — electroiq confirms 6.5M but primary filing (Investegate) shows 17.0M | |
+| SHEIN 145.7M avg monthly EU users (Feb–Jul 2025, +15.2M YoY) | 145.7M / +15.2M / "YoY" | SRC:cedcommerce_shein_europe_users | **Contradicted** — +15.2M is vs prior 6-month period, not year-on-year | |
+| Vinted GMV €10.8B (+47% YoY), Revenue €1.1B (+38% YoY) FY2025 | All stated values | SRC:vinted_newsroom_fy25 | Confirmed | |
+| SHEIN Wrocław hub 740,000m² / 5,000 jobs | 740,000m² / 5,000 jobs | SRC:shein_wroclaw_hub, SRC:sheingroup_wroclaw | Confirmed — sacra.com confirms both. Note: SRC:sheingroup_wroclaw 404 | |
+| Zalando GMV €17.6B (+14.7%), Revenue €12.3B (+16.8%), Adj. EBIT €591M (+15.6%), 62M customers | All stated values | SRC:worldfootwear_zalando_fy25_growth, SRC:zalando_fy25_results | Confirmed | |
+| ASOS "Styled By You" AI stylist / 100,000 curated outfits / November 2025 | Feature name, outfit count, date | SRC:guardian_asos_ai_stylist | Inconclusive — guardian.com tool-blocked | |
+| Gap first major fashion brand checkout in Google Gemini, March 2026 | "first major" / March 2026 | SRC:gap_gemini_checkout | Inconclusive — 403 bot-blocked | |
+| SHEIN Exchange resale platform in Europe (France first), June 2024 | France first / June 2024 | SRC:shein_exchange_europe_prnewswire | Confirmed | |
 
 ---
 
@@ -114,13 +114,13 @@
 
 #### Flagged for human review
 
-| ID | Section | Issue |
-|---|---|---|
-| M-1c | Competitive Summary Matrix / ASOS Profile | ASOS 6.5M active customers: the electroiq source correctly states 6.5M but this contradicts ASOS's primary filing (Investegate: 17.0M, −14% YoY). The document cites electroiq faithfully but the underlying figure is wrong. Recommend either correcting to 17.0M with a primary source citation (SRC:asos_annual_report_2025 or SRC:investegate_asos_fy25_results), or adding [UNVERIFIED] flag. |
-| M-1d | ASOS Profile — Revenue | Revenue decline stated as −15% YoY. Calculated from source figures (£2,477.8M from £2,905.8M) = 14.7% decline. "−15%" is technically correct as a rounded figure but slightly overstates. Flag for PM judgment — not clearly a contradiction but same issue from v1 remains unresolved. |
-| M-2a | SRC:sheingroup_wroclaw | URL https://www.sheingroup.com/corporate-news/company-updates/shein-opens-state-of-the-art-european-logistics-hub-in-wroclaw-poland-lifting-total-jobs-created-in-poland-to-5000/ returned 404. Genuine break risk — not 403 bot-blocking. Claims supported by SRC:shein_wroclaw_hub (sacra.com) which is working, so underlying facts are covered. Recommend human verification and if confirmed broken, remove SRC:sheingroup_wroclaw from fact_registry or mark as inactive. |
-| M-2b | 4xx URLs (bot-blocked — requires human verification) | The following URLs returned 4xx during automated fetch: SRC:coupang_ir_farfetch_acquisition, SRC:asos_topshop_heartland_jv, SRC:businessofapps_vinted, SRC:pitchbook_zalando_2026, SRC:fashionnetwork_zalando_ai_2026, SRC:gap_gemini_checkout. These are likely bot-blocked (same pattern as v1). Requires human confirmation that pages are accessible in browser before recording as broken. |
-| M-3 | Entire file — citation coverage 84.8% | 7 filled fields lack [SRC:id]: (1) Market Overview — Industry outlook narrative uses no inline SRC tag, though SRC:mordor_eu_ecommerce_cagr_2025 is cited elsewhere in same section; (2) Trend section opening sentences cite SRC but individual competitor response cells in trend tables sometimes rely on proximity citation rather than cell-level SRC; (3) Competitive Summary Matrix — SHEIN "Latest signal" cell (Wrocław hub) — SRC:shein_wroclaw_hub appears but is in the same row's narrative, not adjacent inline. These are borderline — citation is present at section level but not cell level. |
+| ID | Section | Issue | Response |
+|---|---|---|---|
+| M-1c | Competitive Summary Matrix / ASOS Profile | ASOS 6.5M active customers: electroiq source states 6.5M but contradicts ASOS primary filing (Investegate: 17.0M, −14% YoY). Recommend correcting to 17.0M with primary source, or adding [UNVERIFIED] flag. | |
+| M-1d | ASOS Profile — Revenue | Decline stated as −15% YoY; calculated from source (£2,477.8M from £2,905.8M) = 14.7%. Rounded figure is defensible but same issue from v1 remains unresolved. | |
+| M-2a | SRC:sheingroup_wroclaw | URL returned 404 — genuine break risk (not 403 bot-blocking). Underlying facts covered by SRC:shein_wroclaw_hub (sacra.com). If confirmed broken in browser, remove SRC:sheingroup_wroclaw from fact_registry. | |
+| M-2b | 4xx URLs — bot-blocked | 6 URLs returned 4xx: SRC:coupang_ir_farfetch_acquisition, SRC:asos_topshop_heartland_jv, SRC:businessofapps_vinted, SRC:pitchbook_zalando_2026, SRC:fashionnetwork_zalando_ai_2026, SRC:gap_gemini_checkout. Verify each is accessible in browser before recording as broken. | |
+| M-3 | Citation coverage 84.8% | 7 fields lack inline [SRC:id] — borderline (citation present at section/row level but not cell level). See Citation Coverage Rate detail above for full list. | |
 
 ### Checks Passed
 

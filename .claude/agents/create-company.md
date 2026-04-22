@@ -349,6 +349,7 @@ Use `templates/product-description-template.md` as the structure. Focus on what 
 Before saving each file, verify every item below. Fix any that fail before writing the file.
 
 - [ ] Research date block appears at the top of the file
+- [ ] Every growth/change figure uses the correct comparison label: before writing "YoY", "QoQ", "MoM", or "vs prior period", verify the comparison basis directly from the source text. If the source compares two non-standard periods (e.g., 6-month vs 6-month, fiscal half vs calendar year), reflect the actual comparison period in the label — never default to "YoY" without confirming the source period
 - [ ] Every factual claim has an inline citation with source name, date, and a descriptive SRC: Fact ID (e.g. `SRC:asos_fy25_revenue` — never `SRC:1`). This includes every sentence in trend body text, competitor overview narratives, and multi-clause Competitive Summary Matrix cells — each sentence or clause carries its own [SRC:id], not just the paragraph as a whole
 - [ ] Every market size or growth figure has a named source, date, and SRC: Fact ID — and was verified against the source page, not taken from memory
 - [ ] All figures use the most recently dated source available — not the first found
