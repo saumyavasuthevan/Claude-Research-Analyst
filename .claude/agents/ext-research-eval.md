@@ -175,6 +175,32 @@ If the user provides a count, add it to `empty_fields` and recompute `field_reca
 
 ---
 
+## Step 5e — Check for Prior Eval Reports
+
+Before writing the report, check whether a previous eval exists for this document:
+
+1. Glob `projects/[Company]/06- evals/` for files matching `*-ext-research-eval-[filename-stem].md` (same document, any earlier date). The `[filename-stem]` is the document name without `.md` — e.g. `company-overview`.
+2. Sort matches by date prefix ascending. Count them — this count is `N`. The current report will be `v[N+1]`. The most recent prior report is `v[N]`.
+
+**If no prior report found (N = 0):** set `prior = none` — omit the Score History section from the report.
+
+**If a prior report found:** read the most recent one (v[N]). Extract these values from the Machine Verification Results table:
+- Quant Claims Accuracy Rate (%)
+- Link Validity Rate (%)
+- Citation Coverage Rate (%)
+- Field Recall Rate (%)
+- Placeholder Text Violations (count)
+- Aggregator Label Violations (count)
+- Banned Claim Pattern Instances (count)
+- Stale Untagged Source Violations (count)
+- Uncited Quoted String Violations (count)
+
+For each metric, compute Δ = current − prior. Format:
+- Rates: `+Xpp` / `-Xpp` / `—` (no change)
+- Counts: `+N` / `-N` / `—`
+
+---
+
 ## Step 6 — Save Output
 
 Produce the following verification report. Then save it to `projects/[Company]/06- evals/`.
@@ -218,6 +244,24 @@ If the user verified multiple files in one session, save one report per file.
 | Stale Untagged Source Violations | [n] | 0 |
 | Uncited Quoted String Violations | [n] | 0 |
 | Competitor Count | [n] direct competitors | ≥ 3 |
+
+### Score History
+
+*(omit this section entirely if no prior eval exists for this document)*
+
+| Metric | v[N] | v[N+1] | Δ |
+|---|---|---|---|
+| Quant Claims Accuracy | [prior]% | [current]% | [Δ] |
+| Link Validity | [prior]% | [current]% | [Δ] |
+| Citation Coverage | [prior]% | [current]% | [Δ] |
+| Field Recall | [prior]% | [current]% | [Δ] |
+| Placeholder violations | [prior] | [current] | [Δ] |
+| Aggregator violations | [prior] | [current] | [Δ] |
+| Banned patterns | [prior] | [current] | [Δ] |
+| Stale untagged | [prior] | [current] | [Δ] |
+| Uncited quotes | [prior] | [current] | [Δ] |
+
+*Rates: positive Δ = improvement. Violations: negative Δ = improvement.*
 
 **Score legend:**
 
@@ -286,15 +330,6 @@ If the user verified multiple files in one session, save one report per file.
 ### Checks Passed
 
 [List check IDs with no issues, e.g. "M-5, M-7, M-9"]
-
----
-
-### Summary
-
-[2–3 sentences: overall verdict, most critical machine issues, any HHH concerns to note]
-```
-
-If zero issues are found, state: "No issues found. Output meets verification standards."
 
 ---
 

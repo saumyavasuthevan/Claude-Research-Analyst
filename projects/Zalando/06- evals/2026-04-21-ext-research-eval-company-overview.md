@@ -114,8 +114,3 @@ None.
 
 M-1, M-2, M-3, M-4, M-5, M-6, M-7, M-8, M-9, M-10
 
----
-
-### Summary
-
-Strong output — 100% across all four primary metrics: quant accuracy, citation coverage, link validity, and field recall. Vision is labeled [DATA UNAVAILABLE] with documented rationale — counts as intentional per the score legend. Two stale citations were missing `[>2YR]` tags (now fixed); the script's 3rd stale detection was a false positive caused by a regex match on the key legend row. No open issues. HHH evaluation returned no problems across all criteria.

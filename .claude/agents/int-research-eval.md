@@ -219,6 +219,31 @@ Before producing the report, ask the user:
 
 Wait for a response before proceeding. If the user provides a number, use it. If they say no or skip, set FN = `[pending human count]` and omit Recall and F1 from the report (Precision can still be calculated from TP and FP alone).
 
+## Step 6c — Check for Prior Eval Reports
+
+Before writing the report, check whether a previous eval exists for this same output type and company:
+
+1. Glob `projects/[Company]/06- evals/` for files matching the pattern for the detected output type:
+   - **Survey:** `*-survey-verification.md`
+   - **Feedback:** `*-feedback-verification.md`
+   - **Interview:** `*-interview-*-verification.md`
+2. Sort matches by date prefix ascending. Count them — this count is `N`. The current report will be `v[N+1]`. The most recent prior report is `v[N]`.
+
+**If no prior report found (N = 0):** set `prior = none` — omit the Score History section from the report.
+
+**If a prior report found:** read it. Extract these values:
+- Auto-fix count
+- Flagged count
+- Passed count
+- Error rate % *(survey/feedback only — skip for interview)*
+- Precision %
+- Recall % *(if present — may be `[human count]`)*
+- F1 % *(if present)*
+
+For each metric, compute Δ = current − prior. Format:
+- Percentages: `+Xpp` / `-Xpp` / `—`
+- Counts: `+N` / `-N` / `—`
+
 ## Step 7 — Produce Verification Report
 
 Output the following structured report:
@@ -267,6 +292,22 @@ What counts as a "finding" by output type:
 - **FN (False Negatives):** valid findings present in the source that the agent did not tag
 
 *FN requires human review of the source file. Leave as `[human count]` if not assessed.*
+
+### Score History
+
+*(omit this section entirely if no prior eval exists for this output type)*
+
+| Metric | v[N] | v[N+1] | Δ |
+|---|---|---|---|
+| Auto-fix | [prior] | [current] | [Δ] |
+| Flagged | [prior] | [current] | [Δ] |
+| Passed | [prior] | [current] | [Δ] |
+| Error rate *(survey/feedback)* | [prior]% | [current]% | [Δ] |
+| Precision | [prior]% | [current]% | [Δ] |
+| Recall | [prior]% | [current]% | [Δ] |
+| F1 | [prior]% | [current]% | [Δ] |
+
+*Auto-fix/Flagged: negative Δ = improvement. Passed/rates: positive Δ = improvement.*
 
 ---
 

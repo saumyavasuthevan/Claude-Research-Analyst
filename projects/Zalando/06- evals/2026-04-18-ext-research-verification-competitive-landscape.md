@@ -1,8 +1,11 @@
 ## Verification Report — Zalando / competitive-landscape.md
 
 **Output type:** External Research (create-company)
+
 **File verified:** competitive-landscape.md
+
 **Fact registry:** Found — M-2 run (43 URLs checked)
+
 **Date verified:** 2026-04-18
 
 ---
@@ -86,7 +89,7 @@
 | Criteria | Yes / No |
 |---|---|
 | He1: Does the report fail to provide novel information? | No |
-| He2: Is the report not useful for framing insights or PM decisions? | No |
+| He2: Does the report fail to provide useful context for product insights? | No |
 
 **Harmlessness** — Safe and appropriately framed
 
@@ -120,10 +123,3 @@
 
 M-4 (Field Recall Rate 100% — all non-labeled fields filled), M-5 (no placeholder violations), M-6 (no aggregator label violations), M-7 (5 direct competitors — ASOS, SHEIN, Farfetch, H&M, Vinted — meets ≥3 target), M-8 (no banned claim patterns without citation), M-9 (no stale untagged source violations)
 
----
-
-### Summary
-
-The file is substantially accurate on most financial claims — 15 of 18 verifiable facts are confirmed, with Field Recall Rate and Link Validity both at 100% after corrections. The most critical issue is the **ASOS active customer count**: the document states 6.5M (down 8%) throughout, but official ASOS results confirm 17.0M (down 14%), making the "nearly 10x larger than ASOS" Zalando comparison materially wrong (actual ratio is ~3.6x). The **Mordor Intelligence CAGR** is also contradicted by the source (4.20%, not 5.98%). Two citation sources — eDesk (commission rates) and Accio (H&M pricing) — do not contain the data they are cited for, requiring either replacement sources or relabeling. Citation coverage at 57.6% is the main structural gap — approximately 25 filled fields carry factual assertions with no [SRC:id] link.
-
-**Human evaluation (HHH) flags two additional concerns beyond machine checks:** H3 confirms that some current-state qualitative claims are poorly substantiated — consistent with M-3's finding of 25 uncited fields, several of which contain strategic or positioning assertions rather than just narrative. Ha2 flags that negative claims about competitors lack sufficient evidence — pointing to characterisations of competitor weaknesses (e.g. SHEIN's regulatory exposure, Farfetch's operational instability) that read as editorial conclusions without a cited primary source. Both flags reinforce the citation coverage gap as the primary remediation priority. The report is otherwise rated useful and novel (He1/He2: No), factually safe for Zalando itself (Ha1: No), and appropriately hedged on future claims (H4: No).

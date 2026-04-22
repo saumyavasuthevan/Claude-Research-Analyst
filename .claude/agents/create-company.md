@@ -83,14 +83,15 @@ If the same URL is cited in two reports, register it in both registries with the
 | 4 | `"[Company]" competitors alternatives market positioning` | competitive-intelligence.md §Competitor identification |
 | 5 | `"[Company]" market size TAM growth rate industry trends` | competitive-intelligence.md §Market Overview + §Trends |
 
-Use the following source tiers to prioritise which results to trust:
-- Tier 1 (trust first): official company website, press releases, prnewswire.com, businesswire.com, and authoritative industry-specific publications relevant to the company's sector
-- Tier 2: TechCrunch, VentureBeat, Bloomberg, Forbes, Reuters
-- Tier 3 (reviews/pricing — B2B): G2, Capterra, Gartner Peer Insights
-- Tier 3 (reviews/pricing — B2C): Trustpilot, App Store/Play Store
-- Funding: Crunchbase, PitchBook, Tracxn (label as `[UNVERIFIED]`)
+**Source tiers — ranked by proximity to primary evidence:**
 
-**Primary source wins.** If an official filing, press release, or company results page exists for a figure, it overrides any third-party aggregator (Statista, BusinessOfApps, electroiq, etc.). Always search for the primary source before accepting an aggregator figure. If sources conflict, list both — do not silently pick one.
+- **Tier 1 (primary source):** The entity speaking directly — official company website, IR pages, earnings releases, regulatory filings, official newsrooms, press releases on any platform. For publicly listed companies, Tier 1 means the investor relations announcement or filing.
+- **Tier 2 (quality journalism):** Independent reporting by established business or trade publications that cites a primary source. Use only when no Tier 1 source is retrievable.
+- **Aggregators are excluded.** Crunchbase, PitchBook, electroiq, businessofapps, Statista, Accio, SimilarWeb, and any site that repackages data without disclosing primary methodology must not be cited. If no Tier 1 or Tier 2 source is found for a figure, write `[DATA UNAVAILABLE — as of date]`.
+
+**Tier 1 always wins.** Use search result snippets for all claims. **Exception:** for CAGR and TAM figures from analyst report landing pages (Mordor Intelligence, Grand View Research, etc.), fetch the page using `mcp__Bright_Data__extract` before writing any figure — search snippets for these pages are frequently stale or cached from earlier report editions.
+
+**Review platforms are excluded from all factual sections.** G2, Capterra, Gartner Peer Insights, Trustpilot, App Store, and Play Store are reserved exclusively for the Customer Sentiment section (Step 2f). Do not cite them as sources anywhere else in the output files.
 
 If a `projects/[CompanyName]/07- memory/reference_sources.md` file exists for the active company, check it first — it may define company-specific trusted sources that override this default list.
 
@@ -128,8 +129,6 @@ After the 7 main searches, identify every named competitor you plan to include i
 The first query finds current financial facts and scale. The second finds recent named events for the "Recent news" rows in competitor profile tables.
 
 **Scope:** You are looking for facts only — founding year, HQ, funding, revenue/GMV, customer count, product description (one sentence from their website), pricing model (subscription tiers, per-seat, commission %, etc. — from company website or G2; [DATA UNAVAILABLE] if not public; N/A if no structured model exists), and 2–3 named news events from the last 12 months. The pricing model row is always present in the competitor table — mark N/A only if the company has no structured model.
-
-**Do not search for or write:** strengths, weaknesses, target market descriptions, competitive differentiation, or user sentiment. These fields do not exist in `competitive-intelligence-template.md`.
 
 **Do not write comparative claims about a competitor based solely on what the subject company's sources say about them.** Sources like annual reports, investor decks, or industry overviews that describe competitors in passing do not count as independent verification.
 
@@ -203,7 +202,7 @@ Additional filters:
 
 ### Verbatim registry — write before analysis
 
-Before any analysis, write all collected quotes to `projects/[CompanyName]/03- research/quotes_registry.json`:
+Before any analysis, write all collected quotes to `projects/[CompanyName]/01- company context/quotes_registry.json`:
 
 ```json
 [
@@ -350,7 +349,7 @@ Use `templates/product-description-template.md` as the structure. Focus on what 
 Before saving each file, verify every item below. Fix any that fail before writing the file.
 
 - [ ] Research date block appears at the top of the file
-- [ ] Every factual claim has an inline citation with source name, date, and a descriptive SRC: Fact ID (e.g. `SRC:asos_fy25_revenue` — never `SRC:1`)
+- [ ] Every factual claim has an inline citation with source name, date, and a descriptive SRC: Fact ID (e.g. `SRC:asos_fy25_revenue` — never `SRC:1`). This includes every sentence in trend body text, competitor overview narratives, and multi-clause Competitive Summary Matrix cells — each sentence or clause carries its own [SRC:id], not just the paragraph as a whole
 - [ ] Every market size or growth figure has a named source, date, and SRC: Fact ID — and was verified against the source page, not taken from memory
 - [ ] All figures use the most recently dated source available — not the first found
 - [ ] Conflicting figures across sources are listed with both versions, not silently resolved
@@ -361,12 +360,11 @@ Before saving each file, verify every item below. Fix any that fail before writi
 - [ ] No section has been filled with inferred content where data was unavailable
 - [ ] Sections whose primary search failed are marked `[SEARCH FAILED]`, not filled from adjacent searches
 - [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report
-- [ ] `projects/[CompanyName]/03- research/quotes_registry.json` exists if sentiment collection ran — all quotes written verbatim before thematic analysis
+- [ ] `projects/[CompanyName]/01- company context/quotes_registry.json` exists if sentiment collection ran — all quotes written verbatim before thematic analysis
 - [ ] Customer Sentiment section in `company-overview.md` contains either thematic analysis tables (with Q-IDs only, no raw quote text) or the appropriate `[INSUFFICIENT DATA]` label — never `[DATA UNAVAILABLE — sentiment collection not in scope]`
 - [ ] No raw URLs (`https://...`) appear anywhere in any output file — all sources cited by SRC:id only
 - [ ] **competitive-intelligence.md specific:** Every row in every competitor profile table has a SRC:id. Every competitor response cell in trend tables cites a news article. No cell value was inferred from general knowledge — unconfirmed cells use [DATA UNAVAILABLE].
-- [ ] **competitive-intelligence.md specific:** Competitor profiles contain no price range, weaknesses, target market, differentiation, or sentiment rows.
-- [ ] **competitive-intelligence.md specific:** Competitive Summary Matrix contains exactly 3 competitors + subject company (no Competitor 4 row). No price range column present.
+- [ ] **competitive-intelligence.md specific:** Competitive Summary Matrix contains exactly 3 competitors + subject company (no Competitor 4 row). 
 
 ## Step 5 — Confirm
 

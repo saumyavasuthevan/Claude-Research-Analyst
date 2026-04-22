@@ -1,0 +1,21 @@
+{
+  "total_fields": 65,
+  "filled_fields": 46,
+  "labeled_fields": 19,
+  "empty_fields": 0,
+  "fields_with_citation": 39,
+  "field_recall_rate_pct": 100.0,
+  "field_recall_detail": "46 filled / 46 resolvable fields (19 labeled [DATA UNAVAILABLE] excluded from denominator)",
+  "citation_coverage_rate_pct": 84.8,
+  "citation_coverage_detail": "39 cited / 46 data-filled fields (labeled gaps excluded)",
+  "placeholder_violations": 0,
+  "stale_untagged_violations": 0,
+  "_debug": {
+    "bold_fields": 7,
+    "profile_data_rows": 30,
+    "trend_data_rows": 28,
+    "labeled_bold": 1,
+    "labeled_profile": 8,
+    "labeled_trend": 10
+  }
+}
