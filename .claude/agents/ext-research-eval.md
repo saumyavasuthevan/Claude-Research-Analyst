@@ -46,7 +46,7 @@ Wait for user confirmation.
 Write the Python script to `/tmp/ext_research_verification_metrics.py` and execute it. Treat script output as authoritative — never use model arithmetic to determine these values.
 
 ```python
-import re, json, os
+import re, json, os, sys
 from datetime import datetime, timedelta
 
 today = datetime.today()
@@ -54,59 +54,191 @@ cutoff = today - timedelta(days=730)
 
 file_path = "<selected_file_path>"
 evals_dir = "<projects/[Company]/06- evals/>"
-text = open(file_path).read()
 
-# Field inventory
-total_fields   = len(re.findall(r'\*\*[^*]+:\*\*', text))
-labeled_fields = len(re.findall(
-    r'\[(DATA UNAVAILABLE|ASSUMPTION|UNVERIFIED|>2YR|SEARCH FAILED)[^\]]*\]',
-    text
-))
-placeholder_pattern = re.compile(
+try:
+    text = open(file_path, encoding="utf-8").read()
+except FileNotFoundError:
+    print(f"ERROR: file not found: {file_path}", file=sys.stderr)
+    sys.exit(1)
+
+# LABELED = genuine intentional gaps only. UNVERIFIED ESTIMATE and >2YR have
+# real content and must remain in the denominator for citation coverage.
+LABELED_PATTERN = re.compile(
+    r'\[(DATA UNAVAILABLE|ASSUMPTION|SEARCH FAILED)[^\]]*\]',
+    re.IGNORECASE
+)
+CITATION_PATTERN = re.compile(r'\[SRC:[^\]]+\]')
+PLACEHOLDER_PATTERN = re.compile(
     r'\[\s*(Year|X\]M|X\]k|Source|Company Name|Add more|Data Unavailable|Competitor \d|Title|Description)\s*\]',
     re.IGNORECASE
 )
-placeholder_violations = len(placeholder_pattern.findall(text))
-empty_fields   = placeholder_violations
-filled_fields  = total_fields - labeled_fields - empty_fields
 
-# Citation presence
-fields_with_citation = len(re.findall(r'\[SRC:[^\]]+\]', text))
+def parse_cells(line):
+    return [c.strip() for c in line.strip().split("|")[1:-1]]
 
-# Stale untagged violations (stale is allowed if tagged [UNVERIFIED])
-date_pattern = re.findall(r'\[([^,\]]+),\s*(\w+ \d{4}),\s*(SRC:[^\]]+)\]', text)
+def is_separator_row(line):
+    cells = parse_cells(line)
+    return bool(cells) and all(re.match(r"^:?-{2,}:?$", c) for c in cells if c.strip())
+
+fields = []
+lines = text.split("\n")
+current_section = "Document"
+table_state = "outside"  # outside | header_seen | data
+
+i = 0
+while i < len(lines):
+    line = lines[i]
+    stripped = line.strip()
+
+    # Section header — update context label and reset table state
+    if stripped.startswith("#"):
+        current_section = stripped.lstrip("#").strip()
+        table_state = "outside"
+        i += 1
+        continue
+
+    # Blank line ends table
+    if not stripped:
+        if table_state == "data":
+            table_state = "outside"
+        i += 1
+        continue
+
+    # ── Table rows ──────────────────────────────────────────────────────────
+    if stripped.startswith("|"):
+        if is_separator_row(stripped):
+            table_state = "data"
+            i += 1
+            continue
+
+        cells = parse_cells(stripped)
+        if not cells:
+            i += 1
+            continue
+
+        if table_state == "outside":
+            table_state = "header_seen"   # first row is the header — skip
+            i += 1
+            continue
+
+        if table_state == "header_seen":  # malformed (two rows before separator)
+            i += 1
+            continue
+
+        # table_state == "data": process as a field
+        row_text = stripped
+        field_label = cells[0].strip("*").strip()
+
+        # Skip visual-only rows (all cells are empty, "—", or "-")
+        if not any(c and c not in ("—", "-") for c in cells):
+            i += 1
+            continue
+
+        is_labeled    = bool(LABELED_PATTERN.search(row_text))
+        is_placeholder = bool(PLACEHOLDER_PATTERN.search(row_text))
+        has_citation  = bool(CITATION_PATTERN.search(row_text))
+
+        if field_label:
+            fields.append({
+                "label":          f"{current_section} — {field_label}",
+                "is_labeled":     is_labeled,
+                "is_placeholder": is_placeholder,
+                "has_citation":   has_citation,
+            })
+        i += 1
+        continue
+
+    # Non-table line: reset table state
+    if table_state == "data":
+        table_state = "outside"
+
+    # ── Prose **Field:** value (multi-line body) ─────────────────────────────
+    prose_match = re.match(r"^\*\*([^*:]+):\*\*\s*(.*)", stripped)
+    if prose_match:
+        field_name = prose_match.group(1).strip()
+        body_lines = [stripped]
+        j = i + 1
+        while j < len(lines):
+            ns = lines[j].strip()
+            if not ns:
+                break
+            if re.match(r"^\*\*[^*:]+:\*\*", ns):
+                break
+            if ns.startswith("#") or ns.startswith("|"):
+                break
+            body_lines.append(ns)
+            j += 1
+
+        full_text      = " ".join(body_lines)
+        is_labeled     = bool(LABELED_PATTERN.search(full_text))
+        is_placeholder = bool(PLACEHOLDER_PATTERN.search(full_text))
+        has_citation   = bool(CITATION_PATTERN.search(full_text))
+
+        fields.append({
+            "label":          f"{current_section} — {field_name}",
+            "is_labeled":     is_labeled,
+            "is_placeholder": is_placeholder,
+            "has_citation":   has_citation,
+        })
+        i = j
+        continue
+
+    i += 1
+
+# ── Compute metrics ──────────────────────────────────────────────────────────
+total_fields          = len(fields)
+labeled_count         = sum(1 for f in fields if f["is_labeled"])
+placeholder_violations = sum(1 for f in fields if f["is_placeholder"])
+filled_fields         = total_fields - labeled_count - placeholder_violations
+resolvable            = total_fields - labeled_count
+
+cited_list   = [f["label"] for f in fields
+                if not f["is_labeled"] and not f["is_placeholder"] and f["has_citation"]]
+uncited_list = [f["label"] for f in fields
+                if not f["is_labeled"] and not f["is_placeholder"] and not f["has_citation"]]
+
+fields_with_citation_count = len(cited_list)
+
+field_recall_rate    = round(filled_fields / resolvable * 100, 1) if resolvable else 0
+citation_coverage_rate = round(fields_with_citation_count / filled_fields * 100, 1) if filled_fields else 0
+
+# ── Stale untagged violations ────────────────────────────────────────────────
 stale_untagged = 0
-for (source, date_str, src_id) in date_pattern:
+for source, date_str, src_id in re.findall(
+    r'\[([^,\]]+),\s*(\w+ \d{4}),\s*(SRC:[^\]]+)\]', text
+):
     try:
         cite_date = datetime.strptime(date_str.strip(), "%B %Y")
         match_pos = text.find(f"[{source}, {date_str}, {src_id}]")
-        window = text[max(0, match_pos-100):match_pos+200] if match_pos >= 0 else ""
+        window = text[max(0, match_pos - 100):match_pos + 200] if match_pos >= 0 else ""
         if cite_date < cutoff and "[>2YR]" not in window:
             stale_untagged += 1
     except ValueError:
         pass
 
-resolvable = total_fields - labeled_fields
-field_recall_rate = round(filled_fields / resolvable * 100, 1) if resolvable else 0
-citation_coverage_rate = round(fields_with_citation / filled_fields * 100, 1) if filled_fields else 0
-
 results = {
-    "total_fields": total_fields,
-    "filled_fields": filled_fields,
-    "labeled_fields": labeled_fields,
-    "empty_fields": empty_fields,
-    "fields_with_citation": fields_with_citation,
-    "field_recall_rate_pct": field_recall_rate,
-    "field_recall_detail": f"{filled_fields} filled / {resolvable} resolvable fields ({labeled_fields} labeled [DATA UNAVAILABLE] excluded from denominator)",
+    "total_fields":              total_fields,
+    "filled_fields":             filled_fields,
+    "labeled_fields":            labeled_count,
+    "placeholder_violations":    placeholder_violations,
+    "fields_with_citation":      fields_with_citation_count,
+    "uncited_fields":            uncited_list,
+    "field_recall_rate_pct":     field_recall_rate,
+    "field_recall_detail":       (
+        f"{filled_fields} filled / {resolvable} resolvable fields "
+        f"({labeled_count} labeled [DATA UNAVAILABLE] excluded from denominator)"
+    ),
     "citation_coverage_rate_pct": citation_coverage_rate,
-    "citation_coverage_detail": f"{fields_with_citation} cited / {filled_fields} data-filled fields (labeled gaps excluded)",
-    "placeholder_violations": placeholder_violations,
+    "citation_coverage_detail":  (
+        f"{fields_with_citation_count} cited / {filled_fields} data-filled fields "
+        f"(labeled gaps excluded)"
+    ),
     "stale_untagged_violations": stale_untagged,
 }
 
-date_prefix = today.strftime("%Y-%m-%d")
-filename_stem = os.path.basename(file_path).replace('.md', '')
-out_path = os.path.join(evals_dir, f"{date_prefix}-{filename_stem}-verification-computed.json")
+date_prefix   = today.strftime("%Y-%m-%d")
+filename_stem = os.path.basename(file_path).replace(".md", "")
+out_path      = os.path.join(evals_dir, f"{date_prefix}-{filename_stem}-verification-computed.json")
 os.makedirs(evals_dir, exist_ok=True)
 json.dump(results, open(out_path, "w"), indent=2)
 print(json.dumps(results, indent=2))
@@ -122,7 +254,7 @@ For each issue found, record: ID, section/field location, what was found, what i
 |---|---|---|
 | M-1 | **Quant Claims Accuracy** — extract ALL objective factual claims (CEO name, founding year, ARR, user count, funding amount, market size, CAGR, pricing, headcount, G2 scores). For each, fetch the cited URL from `fact_registry.json` and verify the stated value. **Fetch URLs sequentially — do not parallelise. Run `sleep 2` between each fetch. If a rate limit error occurs, run `sleep 5` and retry once. If retry also fails, mark that claim Inconclusive.** Contradictions where correct value is readable from source → Auto-fix. Paywalled or inaccessible → Inconclusive (excluded from rate denominator). | Fetch + LLM verify |
 | M-2 | **Link Validity** — for every URL in `fact_registry.json`, check HTTP status. **Reuse fetch results already retrieved during M-1 — do not re-fetch URLs already visited.** For any URLs not yet fetched in M-1, fetch sequentially with `sleep 2` between each. If a rate limit error occurs, run `sleep 5` and retry once. If retry also fails, mark that URL as Inconclusive (excluded from rate denominator). **4xx responses must be flagged as "Potentially bot-blocked — requires human verification", NOT as definitively broken.** Many sites (e.g. Business of Fashion, MarketScreener, FashionNetwork) return 4xx to automated fetches while remaining fully accessible in a browser. Only 5xx (server errors) and unresolved 3xx redirects should be flagged as broken. Present all 4xx URLs to the user for manual confirmation before recording them as broken. Skip entirely if no fact registry. | HTTP fetch |
-| M-3 | **Citation Coverage** — for every filled factual field, verify a `[SRC:id]` is present. Flag uncited fields. | Regex |
+| M-3 | **Citation Coverage** — read `uncited_fields` list from Step 5a script JSON output and copy it verbatim into the report. Do NOT independently scan for uncited fields via LLM pattern-matching — that approach hallucinated phantom rows and mis-numbered trend sections in prior runs. The script detects both markdown table rows (row-level) and prose `**Field:** value` entries (multi-line body); its field inventory is authoritative. | Script |
 | M-4 | **Field Recall Rate** — use script: `field_recall_rate_pct`. Flag if below 90%. Labeled gaps count as intentional. | Script |
 | M-5 | **Placeholder Text** — use script: `placeholder_violations`. Flag residual template tokens (`[Year]`, `[X]M`, `[Source]`, `[Company Name]`, etc.). Auto-fix: replace with `[DATA UNAVAILABLE — not populated]`. | Script + Regex |
 | M-6 | **Aggregator Label Compliance** — figures from Crunchbase, PitchBook, Getlatka, or SimilarWeb must carry `[UNVERIFIED]`. Match source name near a figure. Flag violations. | Pattern match |
@@ -375,4 +507,4 @@ Eval report: [full path]
 - Never apply any auto-fix without explicit user confirmation.
 - If `fact_registry.json` is not found, skip M-2 entirely and note this in the report header.
 - M-10 (Uncited Quoted Strings): if the file has no User Sentiment section, set Count to `N/A — no User Sentiment section` and Target to `N/A`. Do not write 0.
-- Citation Coverage Rate Detail cell: always append a named list of every uncited field after the script verbatim string, formatted as **[n] uncited fields:** followed by each field name. Never leave the detail as just the script output.
+- Citation Coverage Rate Detail cell: copy `citation_coverage_detail` verbatim from script JSON, then append **[n] uncited fields:** followed by each entry in `uncited_fields` from the same JSON. Never derive or rewrite this list independently — uncited field identification comes from the script only.
