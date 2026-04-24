@@ -3,7 +3,7 @@
 ### Challenge
 * The bar for PM operational efficiency and effectiveness has risen
 * Most PMs respond with **fragmented** AI use — faster at isolated tasks, but still siloed
-* We know that the future is a **unified system** that connects these workflows together. But unification introduces a harder problem: **hallucinations compound** as AI **flattens qualitative nuance**, human judgment is often replaced, and one agent's output feeds into the next
+* We know that the future is a **unified system** that connects these workflows together. But unification introduces a harder problem: **hallucinations compound** as one agent's output feeds into the next and AI **flattens qualitative nuance** as human judgment is often carelessly replaced 
 * The core tension is leveraging the **speed of AI while preserving quality**
 
 ### Goal 
