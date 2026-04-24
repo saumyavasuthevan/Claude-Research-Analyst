@@ -1,5 +1,8 @@
 # 🔬 PM Operating System Index
 
+### tl;dr
+A growing collection of work-in-progress Product Management workflows and tools to minimise OPEX while delivering PM artifacts users can trust
+
 ### Challenge
 * The bar for PM operational efficiency and effectiveness has risen
 * Most PMs respond with **fragmented** AI use — faster at isolated tasks, but still siloed
