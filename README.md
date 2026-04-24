@@ -2,19 +2,19 @@
 
 ### Challenge
 * The bar for PM operational efficiency and effectiveness has risen
-* Most PMs respond with fragmented AI use — faster at isolated tasks, but still siloed
-* The right response is a unified system that connects these workflows together
-* But unification introduces a harder problem: hallucinations compound as one agent's output feeds the next, AI flattens qualitative nuance, and human judgment is often replaced
-* The core tension is leveraging the speed of AI while preserving quality 
+* Most PMs respond with **fragmented** AI use — faster at isolated tasks, but still siloed
+* The right response is a **unified system** that connects these workflows together
+* But unification introduces a harder problem: **hallucinations compound** as AI flattens qualitative nuance, human judgment is often replaced, and one agent's output feeds the next
+* The core tension is leveraging the **speed of AI while preserving quality**
 
 ### Goal 
-* Create a PM operating system that combines the best of human, code, and AI to co-create PM artifacts that users can trust.
+* Create a PM operating system that combines the best of human, code, and AI to co-create PM artifacts that minimise OPEX while delivering outputs users can trust
 
 ### Approach  
-* Break down current PM workflows into their component tasks
-* Assess the best solution for each task: deterministic code for anything rules-based, AI for analysis, synthesis, and objective verification, humans for implicit problem context and strategic direction, qualitative verification, and conflict resolution. 
-* Close the feedback loop with evals at every step — so hallucinations don't compound silently across agents and the system benchmarks its own accuracy over time
-* Start simple and add complexity only where it earns its place — e.g. beginning with an agent producing a report, manually identifying errors, then introducing an eval agent, then deterministic data pipelines where precision matters
+* Break down current PM workflows into their **component tasks**
+* Assess the best solution for each task: **deterministic code** for anything rules-based, **AI** for analysis, synthesis, and objective verification, **humans** for implicit problem context and strategic direction, qualitative verification, and conflict resolution. 
+* Close the feedback loop with **evals** at every step — so hallucinations don't compound silently across agents and the system benchmarks its own accuracy over time
+* Start simple and **add complexity iteratively** — e.g. beginning with an agent producing a report, manually identifying errors, then introducing an eval agent, then deterministic data pipelines to meet accuracy requirements 
 * Actively remove tasks LLMs do poorly — e.g. removing SWOT analysis from competitive intelligence reports in favour of qualitative claims that summarise verified sources 
 
 ### 🔍 Product Discovery
