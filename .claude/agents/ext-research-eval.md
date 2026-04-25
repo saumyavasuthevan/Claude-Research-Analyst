@@ -61,10 +61,10 @@ except FileNotFoundError:
     print(f"ERROR: file not found: {file_path}", file=sys.stderr)
     sys.exit(1)
 
-# LABELED = genuine intentional gaps only. UNVERIFIED ESTIMATE and >2YR have
-# real content and must remain in the denominator for citation coverage.
+# LABELED = intentional gaps: [UNVERIFIED], [SEARCH FAILED], [ASSUMPTION], [INSUFFICIENT DATA].
+# [>2YR] has real content and must remain in the denominator for citation coverage.
 LABELED_PATTERN = re.compile(
-    r'\[(DATA UNAVAILABLE|ASSUMPTION|SEARCH FAILED)[^\]]*\]',
+    r'\[(UNVERIFIED|SEARCH FAILED|ASSUMPTION|INSUFFICIENT DATA)[^\]]*\]',
     re.IGNORECASE
 )
 CITATION_PATTERN = re.compile(r'\[SRC:[^\]]+\]')
@@ -226,7 +226,7 @@ results = {
     "field_recall_rate_pct":     field_recall_rate,
     "field_recall_detail":       (
         f"{filled_fields} filled / {resolvable} resolvable fields "
-        f"({labeled_count} labeled [DATA UNAVAILABLE] excluded from denominator)"
+        f"({labeled_count} labeled [UNVERIFIED]/[SEARCH FAILED] excluded from denominator)"
     ),
     "citation_coverage_rate_pct": citation_coverage_rate,
     "citation_coverage_detail":  (
@@ -256,12 +256,12 @@ For each issue found, record: ID, section/field location, what was found, what i
 | M-2 | **Link Validity** — for every URL in `fact_registry.json`, check HTTP status. **Reuse fetch results already retrieved during M-1 — do not re-fetch URLs already visited.** For any URLs not yet fetched in M-1, fetch sequentially with `sleep 2` between each. If a rate limit error occurs, run `sleep 5` and retry once. If retry also fails, mark that URL as Inconclusive (excluded from rate denominator). **4xx responses must be flagged as "Potentially bot-blocked — requires human verification", NOT as definitively broken.** Many sites (e.g. Business of Fashion, MarketScreener, FashionNetwork) return 4xx to automated fetches while remaining fully accessible in a browser. Only 5xx (server errors) and unresolved 3xx redirects should be flagged as broken. Present all 4xx URLs to the user for manual confirmation before recording them as broken. Skip entirely if no fact registry. | HTTP fetch |
 | M-3 | **Citation Coverage** — read `uncited_fields` list from Step 5a script JSON output and copy it verbatim into the report. Do NOT independently scan for uncited fields via LLM pattern-matching — that approach hallucinated phantom rows and mis-numbered trend sections in prior runs. The script detects both markdown table rows (row-level) and prose `**Field:** value` entries (multi-line body); its field inventory is authoritative. | Script |
 | M-4 | **Field Recall Rate** — use script: `field_recall_rate_pct`. Flag if below 90%. Labeled gaps count as intentional. | Script |
-| M-5 | **Placeholder Text** — use script: `placeholder_violations`. Flag residual template tokens (`[Year]`, `[X]M`, `[Source]`, `[Company Name]`, etc.). Auto-fix: replace with `[DATA UNAVAILABLE — not populated]`. | Script + Regex |
-| M-6 | **Aggregator Label Compliance** — figures from Crunchbase, PitchBook, Getlatka, or SimilarWeb must carry `[UNVERIFIED]`. Match source name near a figure. Flag violations. | Pattern match |
+| M-5 | **Placeholder Text** — use script: `placeholder_violations`. Flag residual template tokens (`[Year]`, `[X]M`, `[Source]`, `[Company Name]`, etc.). Auto-fix: replace with `[UNVERIFIED — placeholder not populated]`. | Script + Regex |
+| M-6 | **Blocked Source Compliance** — run `python3 scripts/validate.py` on all three fact registries. Any KNOWN_BAD domain (Crunchbase, PitchBook, electroiq, businessofapps, Statista, Accio, SimilarWeb, Tracxn, cedcommerce.com, getlatka.com) or invalid `source_type` value is a violation — `validate.py` should have caught these before the report was saved. Also flag any `[VALIDATION_FAILED]` tags in the report body (each = 1 violation). | Run validate.py |
 | M-7 | **Minimum Competitor Count** — `competitive-landscape.md` only. The Detailed Competitor Analysis section must contain ≥3 named direct competitors. Flag if fewer. Skip for all other files. | Count |
 | M-8 | **Banned Claim Patterns** — scan for "only", "leading", "largest", "fastest", "no competitor offers", "uniquely", "the only [X] that" without an adjacent `[SRC:id]`. Flag each instance. | Regex |
 | M-9 | **Stale Untagged Sources** — use script: `stale_untagged_violations`. Sources with a parseable date >2 years old NOT tagged `[>2YR]` are violations. Stale + tagged is allowed. | Script |
-| M-10 | **Uncited Quoted Strings** — scan User Sentiment sections for any content inside `"..."` (consumer praise, complaints, testimonials) that lacks an adjacent `[SRC:id]`. Each instance is a violation — the agent must have sourced or fabricated the quote from general knowledge. Flag all instances for human review. Auto-fix: replace bare quoted string with `[DATA UNAVAILABLE — quoted phrase has no citation; remove or source from review platform]`. | Regex |
+| M-10 | **Uncited Quoted Strings** — scan User Sentiment sections for any content inside `"..."` (consumer praise, complaints, testimonials) that lacks an adjacent `[SRC:id]`. Each instance is a violation — the agent must have sourced or fabricated the quote from general knowledge. Flag all instances for human review. Auto-fix: replace bare quoted string with `[UNVERIFIED — quoted phrase has no citation; remove or source from review platform]`. | Regex |
 
 ### Step 5c — Collect FN Count (Recall Adjustment)
 
@@ -322,7 +322,7 @@ Before writing the report, check whether a previous eval exists for this documen
 - Citation Coverage Rate (%)
 - Field Recall Rate (%)
 - Placeholder Text Violations (count)
-- Aggregator Label Violations (count)
+- Blocked Source Violations (count)
 - Banned Claim Pattern Instances (count)
 - Stale Untagged Source Violations (count)
 - Uncited Quoted String Violations (count)
@@ -371,7 +371,7 @@ If the user verified multiple files in one session, save one report per file.
 | Metric | Count | Target |
 |---|---|---|
 | Placeholder Text Violations | [n] | 0 |
-| Aggregator Label Violations (`[UNVERIFIED]` missing) | [n] | 0 |
+| Blocked Source Violations (KNOWN_BAD domain or invalid `source_type`) | [n] | 0 |
 | Banned Claim Pattern Instances | [n] | 0 |
 | Stale Untagged Source Violations | [n] | 0 |
 | Uncited Quoted String Violations | [n or N/A — no User Sentiment section] | [0 or N/A] |
@@ -388,7 +388,7 @@ If the user verified multiple files in one session, save one report per file.
 | Citation Coverage | [prior]% | [current]% | [Δ] |
 | Field Recall | [prior]% | [current]% | [Δ] |
 | Placeholder violations | [prior] | [current] | [Δ] |
-| Aggregator violations | [prior] | [current] | [Δ] |
+| Blocked source violations | [prior] | [current] | [Δ] |
 | Banned patterns | [prior] | [current] | [Δ] |
 | Stale untagged | [prior] | [current] | [Δ] |
 | Uncited quotes | [prior] | [current] | [Δ] |
@@ -404,7 +404,7 @@ If the user verified multiple files in one session, save one report per file.
 | Citation Coverage Rate | % of filled fields with ≥1 [SRC:id] — presence only, not quality | Fields with citation ÷ filled fields. Source quality is H1/H2. |
 | Field Recall Rate | % of template fields filled with real data. Labeled gaps count as intentional. | Filled fields ÷ total fields. Target: ≥90%. |
 | Placeholder Text Violations | Template tokens still in the file — not filled or labeled as intentional gaps | Count. Target: 0. |
-| Aggregator Label Violations | Crunchbase/PitchBook/Getlatka/SimilarWeb figures without [UNVERIFIED] | Count. Target: 0. |
+| Blocked Source Violations | KNOWN_BAD domain sources in fact registry or report body, or invalid `source_type` values. Each `[VALIDATION_FAILED]` tag also counts. | Count. Target: 0. |
 | Banned Claim Pattern Instances | Unsupported superlatives without [SRC:id] — high hallucination risk | Count. Target: 0. |
 | Stale Untagged Source Violations | Sources >2 years old not tagged [>2YR]. Stale + tagged is fine. | Count. Target: 0. |
 | Uncited Quoted String Violations | Quoted consumer phrases in User Sentiment fields with no [SRC:id] — likely hallucinated from general knowledge | Count. Target: 0. |
@@ -488,7 +488,7 @@ Machine results:
   Link Validity Rate: [n]% (or skipped — no fact registry)
   Citation Coverage Rate: [n]%
   Field Recall Rate: [n]%
-  Violations: placeholder [n] | aggregator [n] | banned patterns [n] | stale untagged [n]
+  Violations: placeholder [n] | blocked sources [n] | banned patterns [n] | stale untagged [n]
   Auto-fix issues: [n] ([n] applied) | Flagged: [n]
 
 Human evaluation (HHH): [Completed / Skipped]
@@ -500,7 +500,7 @@ Eval report: [full path]
 
 - Never modify `fact_registry.json` or any source data file — only the verified `.md` file.
 - All field metric values (recall rate, citation coverage, placeholder count, stale untagged count) must come from the Step 5a script. Never use model arithmetic to compute these.
-- The Detail cell for Field Recall Rate and Citation Coverage Rate must be copied verbatim from `field_recall_detail` and `citation_coverage_detail` in the script JSON output. Never rewrite or paraphrase these strings — that is how the [DATA UNAVAILABLE] denominator exclusion was previously lost.
+- The Detail cell for Field Recall Rate and Citation Coverage Rate must be copied verbatim from `field_recall_detail` and `citation_coverage_detail` in the script JSON output. Never rewrite or paraphrase these strings — that is how the [UNVERIFIED]/[SEARCH FAILED] denominator exclusion was previously lost.
 - **Auto-fix** = correct value is determinable from the source (wrong number, placeholder text, missing aggregator label). Agent proposes exact correction.
 - **Flag** = requires human judgment (qual claim substantiation, banned pattern context, link relevance). Agent surfaces the issue; proposes no correction.
 - M-7 (competitor count) applies only to `competitive-landscape.md` — skip for all other files.

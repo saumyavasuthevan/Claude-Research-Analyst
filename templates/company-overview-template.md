@@ -4,12 +4,13 @@
 This template is designed for LLM-sourced research via web search (Brave Search API).
 
 RULES:
-1. Every cell with a value must have a [SRC:id] citation.
-2. If a fact cannot be found, write [DATA UNAVAILABLE — as of date]. Never construct an estimate.
+1. Every cell with a value must have a [SRC:id] citation. Every fact_registry entry must include "source_type": "tier1_official" or "tier2_news".
+2. If searched but no tier1_official/tier2_news source found: [UNVERIFIED — no primary source found as of date]. If the search itself failed: [SEARCH FAILED — as of date]. Never construct an estimate.
 3. Competitor analysis: do not include — covered in competitive-intelligence.md.
 4. Pricing: do not include — covered in product-description.md.
 5. Strategic priorities and OKRs: only include if explicitly stated in a press release, earnings call, or investor update — not inferred from product announcements.
 6. No raw URLs anywhere. Register all sources in fact_registry_company-overview.json and cite by SRC:id.
+7. Blocked sources: Crunchbase, LinkedIn (metrics/funding), PitchBook, and all KNOWN_BAD aggregators must not be cited. Use company website, IR pages, or tier2_news press coverage instead.
 -->
 
 *Last verified: [YYYY-MM-DD]*
@@ -19,7 +20,7 @@ RULES:
 ## Company Background
 
 <!-- Search: "[Company Name] founded year headquarters employees countries operates"
-Source from LinkedIn, Crunchbase, company website, or press releases. -->
+Source from company website (About page, Careers page), press releases, or tier2_news coverage. Do not cite Crunchbase or LinkedIn — blocked sources. -->
 
 | Field | Value |
 |---|---|
@@ -32,13 +33,13 @@ Source from LinkedIn, Crunchbase, company website, or press releases. -->
 ### Leadership Team
 
 <!-- Search: "[Company Name] CEO CPO leadership team"
-Source from LinkedIn or company About page.
+Source from company About page or press releases. Do not cite LinkedIn — blocked source.
 List named C-suite leaders only. Do not estimate headcount per department. -->
 
 - [Name] — [Title] [SRC:id]
 - [Name] — [Title] [SRC:id]
 
-*(Label [DATA UNAVAILABLE — as of date] if leadership is not publicly listed)*
+*(Label [UNVERIFIED — not publicly listed as of date] if leadership is not publicly listed)*
 
 ---
 
@@ -48,9 +49,9 @@ List named C-suite leaders only. Do not estimate headcount per department. -->
 Source directly from company website. Quote verbatim where possible. -->
 
 **Mission:** [Quote verbatim from company website] [SRC:id]
-**Vision:** [Quote verbatim — or DATA UNAVAILABLE] [SRC:id]
+**Vision:** [Quote verbatim from company website [SRC:id]] — or [UNVERIFIED — not publicly stated as of date]
 
-*(Label [DATA UNAVAILABLE — as of date] if values aren't publicly stated)*
+*(Label [UNVERIFIED — not publicly stated as of date] if values aren't on the company website)*
 
 ---
 
@@ -60,7 +61,7 @@ Source directly from company website. Quote verbatim where possible. -->
 
 <!-- Search: "[Company Name] ARR revenue customers users growth"
 Use press releases, earnings calls (if public), or credible news coverage.
-Label [DATA UNAVAILABLE — as of date] for any metric not publicly stated. -->
+Label [UNVERIFIED — not publicly stated as of date] for any metric not publicly stated. -->
 
 **Customers:** [X active / registered — specify which] [SRC:id]
 **Revenue / GMV:** $[X] [ARR / GMV / revenue — specify which, FYXX] [SRC:id]
@@ -68,15 +69,15 @@ Label [DATA UNAVAILABLE — as of date] for any metric not publicly stated. -->
 
 ### Funding History
 
-<!-- Search: "[Company Name] funding rounds investors Crunchbase"
-List each round chronologically. Apply labelling rules per create-company.md for aggregator-sourced figures.
-If last round >24 months ago, flag: ⚠️ Last disclosed funding is >24 months old — treat as a material signal. -->
+<!-- Search: "[Company Name] funding rounds investors"
+Source from company newsroom, press releases, or tier2_news coverage. Do not cite Crunchbase or PitchBook — blocked sources.
+List each round chronologically. If last round >24 months ago, flag: ⚠️ Last disclosed funding is >24 months old — treat as a material signal. -->
 
 | Round | Year | Amount | Lead investor |
 |---|---|---|---|
 | [Round name] | [YYYY] | $[X]M | [Investor name] [SRC:id] |
 
-*(Label [DATA UNAVAILABLE — as of date] if round details are unconfirmed)*
+*(Label [UNVERIFIED — no primary source found as of date] if round details are unconfirmed)*
 
 ---
 
@@ -91,7 +92,7 @@ Market sizing (TAM, CAGR) is in competitive-intelligence.md — do not duplicate
 **Primary:** [Customer segment — size, industry, role, need] [SRC:id]
 **Secondary:** [Secondary segment] [SRC:id]
 
-*(Label [DATA UNAVAILABLE] if not publicly stated)*
+*(Label [UNVERIFIED — not publicly stated] if not on company website or tier2_news coverage)*
 
 ---
 
@@ -99,7 +100,7 @@ Market sizing (TAM, CAGR) is in competitive-intelligence.md — do not duplicate
 
 <!-- Search: "[Company Name] lawsuit regulatory risk churn challenge"
 Categorise under the three headings below.
-Label [DATA UNAVAILABLE — as of date] for any category with no public signals. -->
+Label [UNVERIFIED — no public signals found as of date] for any category with no public signals. -->
 
 ### Market Risks
 - **[Risk 1]:** [Description — e.g., category commoditisation, macro headwinds] [SRC:id]
@@ -213,8 +214,10 @@ Label [DATA UNAVAILABLE — as of date] for any category with no public signals.
 
 | Label | Meaning |
 |---|---|
-| `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
-| `[UNVERIFIED — Source, date, SRC:id]` | Figure from a data aggregator that does not disclose its methodology, or sourced from subject-company materials only. Treat as directional only. |
-| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Verify before use. |
+| `[UNVERIFIED — no primary source found as of date]` | Searched but no tier1_official or tier2_news source found. Field was actively searched — data is unverifiable, not forgotten. |
+| `[UNVERIFIED — not publicly stated as of date]` | Searched company website and press coverage; value is not publicly disclosed. |
+| `[SEARCH FAILED — as of date]` | Search query returned no results for this field. |
+| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Re-verify before use. |
+| `[ASSUMPTION — reasoning: ...]` | Inferred from multiple sources but not explicitly stated by any single source. |
 | `[INSUFFICIENT DATA]` | Not enough customer verbatims collected to conduct thematic analysis. |
 | `⚠️ Last disclosed funding is >24 months old` | Most recent funding round is older than 24 months — activity since then is unconfirmed. |

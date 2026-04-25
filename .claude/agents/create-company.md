@@ -62,7 +62,8 @@ If the same URL is cited in two reports, register it in both registries with the
     "url": "https://corporate.zalando.com/...",
     "title": "Zalando FY2025 Full Year Results",
     "fetched_at": "2026-04-18",
-    "quote": "Active customers reached 62 million"
+    "quote": "Active customers reached 62 million",
+    "source_type": "tier1_official"
   }
 }
 ```
@@ -83,13 +84,13 @@ If the same URL is cited in two reports, register it in both registries with the
 | 4 | `"[Company]" competitors alternatives market positioning` | competitive-intelligence.md §Competitor identification |
 | 5 | `"[Company]" market size TAM growth rate industry trends` | competitive-intelligence.md §Market Overview + §Trends |
 
-**Source tiers — ranked by proximity to primary evidence:**
+**Source tiers:**
 
-- **Tier 1 (primary source):** The entity speaking directly — official company website, IR pages, earnings releases, regulatory filings, official newsrooms, press releases on any platform. For publicly listed companies, Tier 1 means the investor relations announcement or filing.
-- **Tier 2 (quality journalism):** Independent reporting by established business or trade publications that cites a primary source. Use only when no Tier 1 source is retrievable.
-- **Aggregators are excluded.** Crunchbase, PitchBook, electroiq, businessofapps, Statista, Accio, SimilarWeb, and any site that repackages data without disclosing primary methodology must not be cited. If no Tier 1 or Tier 2 source is found for a figure, write `[DATA UNAVAILABLE — as of date]`.
+- **`tier1_official` (primary source):** The entity speaking directly — official company website, IR pages, earnings releases, regulatory filings, official newsrooms, press releases on any platform. For publicly listed companies, `tier1_official` means the investor relations announcement or filing.
+- **`tier2_news` (quality journalism):** Independent reporting by established business or trade publications that cites a primary source. Use only when no `tier1_official` source is retrievable.
+- **All other sources are blocked.** Aggregators (Crunchbase, PitchBook, electroiq, businessofapps, Statista, Accio, SimilarWeb, Tracxn, cedcommerce.com, getlatka.com), social posts (LinkedIn, Twitter/X), and any site that repackages data without a named primary source must not be cited. Declaring a `source_type` other than `tier1_official` or `tier2_news` will fail structural validation. If no `tier1_official` or `tier2_news` source is found, write `[UNVERIFIED — no primary source found as of date]`.
 
-**Tier 1 always wins.** Use search result snippets for all claims. **Exception:** for CAGR and TAM figures from analyst report landing pages (Mordor Intelligence, Grand View Research, etc.), fetch the page using `mcp__Bright_Data__extract` before writing any figure — search snippets for these pages are frequently stale or cached from earlier report editions.
+**`tier1_official` always wins.** Use search result snippets for all claims. **Exception:** for CAGR and TAM figures from analyst report landing pages (Mordor Intelligence, Grand View Research, etc.), fetch the page using `mcp__Bright_Data__extract` before writing any figure — search snippets for these pages are frequently stale or cached from earlier report editions.
 
 **Review platforms are excluded from all factual sections.** G2, Capterra, Gartner Peer Insights, Trustpilot, App Store, and Play Store are reserved exclusively for the Customer Sentiment section (Step 2f). Do not cite them as sources anywhere else in the output files.
 
@@ -128,7 +129,7 @@ After the 7 main searches, identify every named competitor you plan to include i
 
 The first query finds current financial facts and scale. The second finds recent named events for the "Recent news" rows in competitor profile tables.
 
-**Scope:** You are looking for facts only — founding year, HQ, funding, revenue/GMV, customer count, product description (one sentence from their website), pricing model (subscription tiers, per-seat, commission %, etc. — from company website or G2; [DATA UNAVAILABLE] if not public; N/A if no structured model exists), and 2–3 named news events from the last 12 months. The pricing model row is always present in the competitor table — mark N/A only if the company has no structured model.
+**Scope:** You are looking for facts only — founding year, HQ, funding, revenue/GMV, customer count, product description (one sentence from their website), pricing model (subscription tiers, per-seat, commission %, etc. — from company website or G2; [UNVERIFIED — no primary source found] if not public; N/A if no structured model exists), and 2–3 named news events from the last 12 months. The pricing model row is always present in the competitor table — mark N/A only if the company has no structured model.
 
 **Do not write comparative claims about a competitor based solely on what the subject company's sources say about them.** Sources like annual reports, investor decks, or industry overviews that describe competitors in passing do not count as independent verification.
 
@@ -152,7 +153,7 @@ The goal is to find specific named actions competitors have taken in response to
 - Response cell: embed `[SRC:id]` inline at the end of the named action — **no separate Source column**. Example: `"Launched "Styled By You" AI stylist in November 2025 — 100,000 curated outfits; AI suggests complementary items for loyalty members [SRC:guardian_asos_ai_stylist]"`
 - "No public signal as of [date]" is valid for additional rows beyond the 2 required confirmed examples — never as a substitute for them.
 - Never infer a competitor response from their general product description or market positioning.
-- If the search returns no relevant result for a competitor on a trend, write `[DATA UNAVAILABLE — no public signal retrieved as of date]`.
+- If the search returns no relevant result for a competitor on a trend, write `[SEARCH FAILED — no public signal retrieved as of date]`.
 
 ## Step 2f — Customer Sentiment Collection (Bright Data)
 
@@ -261,6 +262,23 @@ mkdir -p "projects/[CompanyName]/01- company context"
 
 Use the company's official capitalisation (e.g. "Ironclad", "LawGeex", "WorkMotion").
 
+## Step 3a — Surface DISPUTED Claims
+
+Before writing any files, review all research notes for factual contradictions: two different sources giving different values for the same metric (e.g. different revenue figures, different user counts, different dates for the same event).
+
+For each contradiction found, present to the user:
+
+```
+DISPUTED: [description of the conflicting claim]
+  Source A: [value] — [SRC:id] ([source name, date])
+  Source B: [value] — [SRC:id] ([source name, date])
+  Your call: which value should I use, or should I label this [UNVERIFIED]?
+```
+
+Wait for user response before proceeding to write files. If user selects a value, use it with its source and write as a confirmed fact. If user cannot confirm or does not respond, write `[UNVERIFIED — disputed: brief description]` in that field.
+
+If no contradictions are found, note: "No DISPUTED claims identified — proceeding to write files."
+
 ## Step 4 — Fill and Save All Three Files
 
 Using the search results, fill in all three templates and save them to the output folder. Write all three files — do not skip any.
@@ -269,9 +287,10 @@ Add this block at the very top of every file, before any other content:
 
 ```markdown
 > **Research date: [date]. All figures should be re-verified if this document
-> is used more than 90 days after this date. Figures tagged [UNVERIFIED] are
-> from aggregators or unverified sources. Figures tagged [>2YR] are older than
-> 2 years and require immediate re-verification before use.**
+> is used more than 90 days after this date. Fields tagged [UNVERIFIED] have no
+> verified primary source. Fields tagged [SEARCH FAILED] returned no search
+> results. Fields tagged [>2YR] are older than 2 years and require
+> re-verification before use.**
 ```
 
 ### Citation rule — inline at point of writing
@@ -280,7 +299,7 @@ Every factual claim must include an inline citation at the moment it is written.
 
 **Format:** `[Source Name, Month Year, SRC:id]` immediately after the claim, where `SRC:id` is the descriptive snake_case Fact ID registered in the appropriate `fact_registry_*.json` during Step 2.
 
-**Do not write a field's content and then search for a citation.** Write only what you have a source for at the moment of writing. If you have no source, write `[DATA UNAVAILABLE]` or the appropriate label — never fill a field then retroactively hunt for a citation.
+**Do not write a field's content and then search for a citation.** Write only what you have a source for at the moment of writing. If you have no source, write `[UNVERIFIED]` or the appropriate label — never fill a field then retroactively hunt for a citation.
 
 ### Freshness check — required before writing any figure
 
@@ -302,16 +321,17 @@ If your most recent source for a figure is older than 2 years from today, tag it
 
 | Type | When to use | Label |
 |---|---|---|
-| Sourced fact | Directly stated in a named source | `[Source Name, Month Year, SRC:id]` |
+| Confirmed sourced fact | Directly stated in a `tier1_official` or `tier2_news` source | `[Source Name, Month Year, SRC:id]` |
 | Inference | Reasoned from multiple sources but not explicitly stated | `[ASSUMPTION — reasoning: ...]` |
-| Aggregator figure | From Crunchbase, PitchBook, Getlatka, G2, or similar | `[UNVERIFIED — Source, date, SRC:id]` |
-| Missing data | Searched but could not find | `[DATA UNAVAILABLE — as of date]` |
-| Search failure | Primary search for this section failed or errored | `[SEARCH FAILED — data not retrieved as of date]` |
+| Unverified / no primary source | Searched but only aggregator or social source found, or no usable source at all | `[UNVERIFIED — no primary source found as of date]` |
 | Unverified competitor claim | Competitor described only via subject-company sources | `[UNVERIFIED — sourced from subject-company materials only]` |
+| Search failure | No search results returned for this query | `[SEARCH FAILED — data not retrieved as of date]` |
 | Stale figure | Most recent source older than 2 years | `[>2YR — last confirmed date, SRC:id]` |
 | URL missing from results | Source retrieved but URL not returned by search | `[URL NOT RETRIEVED]` |
 
-**Never write plausible-sounding content to fill a gap.** If the data isn't there, use the label.
+**Only claims with a `tier1_official` or `tier2_news` source appear as data in the final report.** `[UNVERIFIED]` and `[SEARCH FAILED]` labels tell the reader the field was actively searched — the data is either unverifiable or missing, not forgotten. Never write plausible-sounding content to fill a gap.
+
+**DISPUTED claims** — if two sources give contradictory values for the same fact (e.g. two different revenue figures), do not write either value. Flag the claim as DISPUTED during Step 3a and wait for user confirmation before writing.
 
 ### Banned claim patterns
 
@@ -360,12 +380,40 @@ Before saving each file, verify every item below. Fix any that fail before writi
 - [ ] Every `[ASSUMPTION]` tag includes a reasoning note
 - [ ] No section has been filled with inferred content where data was unavailable
 - [ ] Sections whose primary search failed are marked `[SEARCH FAILED]`, not filled from adjacent searches
-- [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report
+- [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report, and every entry has a `source_type` field set to `tier1_official` or `tier2_news`
 - [ ] `projects/[CompanyName]/01- company context/quotes_registry.json` exists if sentiment collection ran — all quotes written verbatim before thematic analysis
-- [ ] Customer Sentiment section in `company-overview.md` contains either thematic analysis tables (with Q-IDs only, no raw quote text) or the appropriate `[INSUFFICIENT DATA]` label — never `[DATA UNAVAILABLE — sentiment collection not in scope]`
+- [ ] Customer Sentiment section in `company-overview.md` contains either thematic analysis tables (with Q-IDs only, no raw quote text) or the appropriate `[INSUFFICIENT DATA]` label — never `[UNVERIFIED — sentiment collection not in scope]`
 - [ ] No raw URLs (`https://...`) appear anywhere in any output file — all sources cited by SRC:id only
-- [ ] **competitive-intelligence.md specific:** Every row in every competitor profile table has a SRC:id. Every competitor response cell in trend tables cites a news article. No cell value was inferred from general knowledge — unconfirmed cells use [DATA UNAVAILABLE].
+- [ ] **competitive-intelligence.md specific:** Every row in every competitor profile table has a SRC:id. Every competitor response cell in trend tables cites a news article. No cell value was inferred from general knowledge — cells where data was searched but not found use `[UNVERIFIED — no primary source found as of date]`; cells where the search itself returned nothing use `[SEARCH FAILED]`.
 - [ ] **competitive-intelligence.md specific:** Competitive Summary Matrix contains exactly 3 competitors + subject company (no Competitor 4 row). 
+
+## Step 4c — Run Structural Validation
+
+After completing the pre-save integrity check, validate all three fact registries:
+
+```bash
+python3 scripts/validate.py \
+  "projects/[CompanyName]/01- company context/fact_registry_company-overview.json" \
+  "projects/[CompanyName]/01- company context/fact_registry_competitive-intelligence.json" \
+  "projects/[CompanyName]/01- company context/fact_registry_product-description.json"
+```
+
+**If the validator exits with violations (exit code 1):**
+- Read the violation list
+- For each KNOWN_BAD domain error: find a `tier1_official` or `tier2_news` replacement, or remove the source and update the inline citation to `[UNVERIFIED — no primary source found]`
+- For each invalid `source_type` error: correct the field to `tier1_official` or `tier2_news`
+- Re-run the validator — max 2 correction attempts
+- If violations persist after 2 attempts: tag affected claims `[VALIDATION_FAILED — source not verified]` and continue
+
+**After validation passes**, append the Source Registry to `competitive-intelligence.md`:
+
+```bash
+python3 scripts/render.py \
+  "projects/[CompanyName]/01- company context/fact_registry_competitive-intelligence.json" \
+  >> "projects/[CompanyName]/01- company context/competitive-intelligence.md"
+```
+
+The Source Registry appendix lists every source with its type badge and any `confidence_reason` note. All `confidence_reason` detail lives here — not inline in the report body.
 
 ## Step 5 — Confirm
 
@@ -394,8 +442,8 @@ quotes_registry.json: [N] entries written / not created (if skipped)
 Competitors independently verified: [list]
 Competitors NOT independently verified: [list, or "none"]
 
-[DATA UNAVAILABLE] tags written: X
-[UNVERIFIED] tags written: X (aggregator figures + unverified competitor claims)
+[UNVERIFIED] tags written: X
+[SEARCH FAILED] tags written: X
 [>2YR] tags written: X
 [URL NOT RETRIEVED] tags written: X
 
@@ -406,11 +454,11 @@ Flags for human review: [list any conflicting figures, stale claims,
 ## Error Handling
 
 - **Company not found:** Ask the user to confirm the exact company name or provide a website URL.
-- **Limited public data (private company):** Proceed with what is available. Label all gaps clearly. Note at the top of each file: `> ⚠️ Limited public data available — private company. Significant sections below are labelled DATA UNAVAILABLE.`
+- **Limited public data (private company):** Proceed with what is available. Label all gaps clearly. Note at the top of each file: `> ⚠️ Limited public data available — private company. Significant sections below are labelled [UNVERIFIED] or [SEARCH FAILED].`
 - **Conflicting figures across sources:** List all reported figures with source IDs and dates. Do not silently pick one.
-- **No pricing data:** Label `[DATA UNAVAILABLE — as of date]`. Do not estimate or cite aggregator sites (Accio, PriceRunner, etc.) for pricing.
+- **No pricing data:** Label `[UNVERIFIED — no primary source found as of date]`. Do not estimate or cite aggregator sites (Accio, PriceRunner, etc.) for pricing.
 - **3+ search failures:** Stop, retry with `sleep 5` between attempts, report to user before writing. See Step 2b.
 - **Rate limit persists after retry:** Attempt query with `web_search` fallback tool. Label results `[web_search fallback, date]`.
 - **Competitor data only available from subject-company sources:** Write the section with confirmed facts only, tag all claims `[UNVERIFIED — sourced from subject-company materials only]`, and list them in the Step 5 confirmation.
 - **URL not present in search results:** Write `[URL NOT RETRIEVED]` — never construct or guess a URL from memory.
-- **No named competitor actions found for a trend:** Write `[DATA UNAVAILABLE — no public signal retrieved as of date]` in each response cell. Do not infer actions.
+- **No named competitor actions found for a trend:** Write `[SEARCH FAILED — no public signal retrieved as of date]` in each response cell. Do not infer actions.

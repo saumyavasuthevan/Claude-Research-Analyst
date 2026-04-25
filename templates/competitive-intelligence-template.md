@@ -5,12 +5,13 @@ This template is designed for LLM-sourced research via web search (Brave Search 
 Every field maps to a specific findable fact. Synthesis stays with the PM.
 
 RULES:
-1. Every cell with a value must have a [SRC:id] citation.
-2. If a fact cannot be found, write [DATA UNAVAILABLE — as of date]. Never construct an estimate.
+1. Every cell with a value must have a [SRC:id] citation. Every fact_registry entry must include "source_type": "tier1_official" or "tier2_news".
+2. If searched but no tier1_official/tier2_news source found: [UNVERIFIED — no primary source found as of date]. If search returned no results at all: [SEARCH FAILED — as of date]. Never construct an estimate.
 3. Pricing: pricing model label (e.g., "subscription tiers", "per seat", "commission %") from company website or G2 only. Never cite aggregator sites (Accio, PriceRunner, etc.).
 4. Trend response cells — must cite a specific news article. "No public signal" is valid. Never infer an action from general product knowledge.
 5. CAGR and market size figures must be verified against the source page, not taken from memory.
 6. No raw URLs anywhere. Register all sources in fact_registry_competitive-intelligence.json and cite by SRC:id.
+7. After saving this file, run: python3 scripts/validate.py fact_registry_competitive-intelligence.json && python3 scripts/render.py fact_registry_competitive-intelligence.json >> competitive-intelligence.md
 -->
 
 **Market:** [Market name]
@@ -30,11 +31,11 @@ Verify the exact CAGR figure against the source page — do not use a cached or 
 
 **M&A activity (last 24 months):**
 - [Acquirer] acquired [Target], [Month YYYY] — [SRC:id]
-- [DATA UNAVAILABLE — no M&A activity retrieved as of date]
+- [SEARCH FAILED — no M&A activity retrieved as of date]
 
 **Funding rounds in this space (last 12 months):**
 - [Company] raised $[X]m [Series X], [Month YYYY] — [SRC:id]
-- [DATA UNAVAILABLE — no funding rounds retrieved as of date]
+- [SEARCH FAILED — no funding rounds retrieved as of date]
 
 <!-- Named, cited events only. No editorial conclusions. Each bullet must include a SRC:id. -->
 
@@ -58,7 +59,7 @@ Response cell: embed [SRC:id] inline at the end of the named action — no separ
 |---|---|
 | [Name] | [Specific named action — e.g., "Launched X feature, Month YYYY [SRC:id]"] |
 | [Name] | [No public signal as of YYYY-MM-DD] |
-| [Name] | [DATA UNAVAILABLE] |
+| [Name] | [SEARCH FAILED] |
 
 ---
 
@@ -129,9 +130,9 @@ No synthesis cells. -->
 
 <!-- One table per competitor — 3 closest competitors only (matching the summary matrix).
 Every row with a value requires a SRC:id.
-Recent news = last 12 months only. If nothing found: [DATA UNAVAILABLE — no news retrieved as of date].
+Recent news = last 12 months only. If nothing found: [SEARCH FAILED — no news retrieved as of date].
 Pricing model: subscription tiers, per-seat, commission %, free+premium, etc. — from company website or G2.
-  Use [DATA UNAVAILABLE] if not stated publicly. Use N/A only if the company has no structured pricing model.
+  Use [UNVERIFIED — no primary source found] if not stated publicly. Use N/A only if the company has no structured pricing model.
 Do not add rows for price range, weaknesses, target market, or differentiation. -->
 
 ### [Competitor 1]
@@ -144,10 +145,10 @@ Do not add rows for price range, weaknesses, target market, or differentiation. 
 | Customers | [X active / registered — specify which] | SRC:id |
 | Employees | [~X] | SRC:id |
 | Product | [One sentence from company website] | SRC:id |
-| Pricing model | [e.g., "subscription tiers", "per seat, annual", "commission %"] OR [DATA UNAVAILABLE — as of date] OR N/A | SRC:id or — |
+| Pricing model | [e.g., "subscription tiers", "per seat, annual", "commission %"] OR [UNVERIFIED — no primary source found as of date] OR N/A | SRC:id or — |
 | Recent news 1 | [Named event, Month YYYY] | SRC:id |
 | Recent news 2 | [Named event, Month YYYY] | SRC:id |
-| Recent news 3 | [Named event, Month YYYY] OR [DATA UNAVAILABLE — no news retrieved as of date] | SRC:id or — |
+| Recent news 3 | [Named event, Month YYYY] OR [SEARCH FAILED — no news retrieved as of date] | SRC:id or — |
 
 ---
 
@@ -161,10 +162,10 @@ Do not add rows for price range, weaknesses, target market, or differentiation. 
 | Customers | [X — specify active / registered] | SRC:id |
 | Employees | [~X] | SRC:id |
 | Product | [One sentence from company website] | SRC:id |
-| Pricing model | [e.g., "subscription tiers", "per seat, annual", "commission %"] OR [DATA UNAVAILABLE — as of date] OR N/A | SRC:id or — |
+| Pricing model | [e.g., "subscription tiers", "per seat, annual", "commission %"] OR [UNVERIFIED — no primary source found as of date] OR N/A | SRC:id or — |
 | Recent news 1 | [Named event, Month YYYY] | SRC:id |
 | Recent news 2 | [Named event, Month YYYY] | SRC:id |
-| Recent news 3 | [Named event, Month YYYY] OR [DATA UNAVAILABLE — no news retrieved as of date] | SRC:id or — |
+| Recent news 3 | [Named event, Month YYYY] OR [SEARCH FAILED — no news retrieved as of date] | SRC:id or — |
 
 ---
 
@@ -178,10 +179,10 @@ Do not add rows for price range, weaknesses, target market, or differentiation. 
 | Customers | [X — specify active / registered] | SRC:id |
 | Employees | [~X] | SRC:id |
 | Product | [One sentence from company website] | SRC:id |
-| Pricing model | [e.g., "subscription tiers", "per seat, annual", "commission %"] OR [DATA UNAVAILABLE — as of date] OR N/A | SRC:id or — |
+| Pricing model | [e.g., "subscription tiers", "per seat, annual", "commission %"] OR [UNVERIFIED — no primary source found as of date] OR N/A | SRC:id or — |
 | Recent news 1 | [Named event, Month YYYY] | SRC:id |
 | Recent news 2 | [Named event, Month YYYY] | SRC:id |
-| Recent news 3 | [Named event, Month YYYY] OR [DATA UNAVAILABLE — no news retrieved as of date] | SRC:id or — |
+| Recent news 3 | [Named event, Month YYYY] OR [SEARCH FAILED — no news retrieved as of date] | SRC:id or — |
 
 ---
 
@@ -191,8 +192,13 @@ Do not add rows for price range, weaknesses, target market, or differentiation. 
 
 | Label | Meaning |
 |---|---|
-| `[DATA UNAVAILABLE — as of date]` | No public information found for this field as of the date shown. |
-| `[UNVERIFIED — Source, date, SRC:id]` | Figure from a data aggregator (e.g. Crunchbase, PitchBook) that does not disclose its methodology, or sourced from subject-company materials only. Treat as directional only. |
-| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Verify before use. |
+| `[UNVERIFIED — no primary source found as of date]` | Searched but no tier1_official or tier2_news source found. Field was actively searched — data is unverifiable, not forgotten. |
+| `[UNVERIFIED — sourced from subject-company materials only]` | Competitor claim sourced only from the subject company's own materials. Not independently verified. |
+| `[SEARCH FAILED — as of date]` | Search query returned no results for this field. |
+| `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Re-verify before use. |
+| `[ASSUMPTION — reasoning: ...]` | Inferred from multiple sources but not explicitly stated by any single source. |
+| `[URL NOT RETRIEVED]` | Source retrieved but URL was not returned by the search tool. |
+
+*Source Registry appendix (generated by `scripts/render.py`) lists every source with type badge (`tier1_official` / `tier2_news`) and any confidence notes.*
 
 <!-- Last verified: [YYYY-MM-DD] -->
