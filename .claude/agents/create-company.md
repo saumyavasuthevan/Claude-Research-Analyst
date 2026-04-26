@@ -61,12 +61,56 @@ If the same URL is cited in two reports, register it in both registries with the
   "SRC:zalando_fy25_results": {
     "url": "https://corporate.zalando.com/...",
     "title": "Zalando FY2025 Full Year Results",
+    "published_at": "2026-03-05",
     "fetched_at": "2026-04-18",
     "quote": "Active customers reached 62 million",
     "source_type": "tier1_official"
   }
 }
 ```
+
+**`published_at`** is the date the source was originally published. **`fetched_at`** is the date you retrieved it. The `[>2YR]` freshness check uses `published_at` — not `fetched_at`.
+
+**Three valid states for `published_at`:**
+
+| Value | Meaning | When to use |
+|---|---|---|
+| `"YYYY-MM-DD"` | Publication date confirmed | Dated articles — press releases, news, analyst reports, earnings filings |
+| `"live"` | Source is a live company page — content is current by definition, no article date exists | Company homepage, About, Product pages, Help docs, Careers, Pricing pages |
+| `"[DATE UNKNOWN]"` | Dated article but no publication date found in snippet or metadata | News or press release where date extraction failed |
+
+**How to determine `published_at`:** Check in this order:
+1. **Brave Search result metadata** — the date shown under the search result title (e.g. `"Apr 18, 2026"`, `"3 days ago"` — convert relative dates to absolute using today's date)
+2. **Snippet text** — press releases and news articles often open with a date string in the first sentence or byline
+3. **If neither yields a date:**
+   - Source URL is on the **company's own domain** and is not a press release, newsroom article, or IR filing → set `"published_at": "live"`
+   - Source is a **dated article** (news, press release, analyst report, earnings — including press releases hosted on company domains) → set `"published_at": "[DATE UNKNOWN]"`
+
+**How strictly `[DATE UNKNOWN]` is treated depends on the section being sourced.** Template sections fall into two categories:
+
+| Category | Definition | `[DATE UNKNOWN]` handling |
+|---|---|---|
+| **Perishable** | Figures that change frequently — financials, headcount, market sizes, competitor actions, risks | Trigger a targeted `mcp__Bright_Data__extract` fetch on the source URL to retrieve the publication date before writing the claim. If the fetch also yields no date, write `[>2YR]` and note `[DATE UNKNOWN — fetch attempted]` in the registry. |
+| **Evergreen** | Facts that rarely change — founding year, HQ, mission statement, product category, core feature descriptions | Accept `[DATE UNKNOWN]` without a fetch. Still apply `[>2YR]` if `published_at` IS known and is older than 2 years. |
+
+**Section taxonomy — apply before writing each field:**
+
+| File | Section | Category |
+|---|---|---|
+| company-overview | Company Background (Founded, HQ, Operates in) | Evergreen |
+| company-overview | Leadership Team | Evergreen |
+| company-overview | Company Mission | Evergreen |
+| company-overview | Market Position / Target Market | Evergreen |
+| company-overview | Company Stage & Traction (metrics, funding) | **Perishable** |
+| company-overview | Key Risks & Challenges | **Perishable** |
+| company-overview | Customer Sentiment | **Perishable** |
+| competitive-intelligence | Market Overview (TAM, CAGR, M&A, funding) | **Perishable** |
+| competitive-intelligence | Market Trends (all competitor response cells) | **Perishable** |
+| competitive-intelligence | Competitive Summary Matrix (Revenue, Customers, Latest signal) | **Perishable** |
+| competitive-intelligence | Competitor Profiles — Stage, Revenue, Customers, Employees, Recent news rows | **Perishable** |
+| competitive-intelligence | Competitor Profiles — Founded, HQ, Product description rows | Evergreen |
+| product-description | What is [Company]?, Core Value Proposition, Product Portfolio, Core Features | Evergreen |
+| product-description | Product Metrics | **Perishable** |
 
 **Fact ID format:** `SRC:[short_snake_case_description]` — e.g. `SRC:asos_fy25_revenue`, `SRC:mordor_eu_ecommerce_cagr`. Never use `SRC:1`, `SRC:2`, or other numeric IDs.
 
@@ -314,8 +358,15 @@ Before writing any statistic (user counts, market size, pricing, growth rates):
               vs ~180M [Strava Year in Sport, Dec 2025, SRC:strava_2025]
      ```
 
-If your most recent source for a figure is older than 2 years from today, tag it:
-`[>2YR — last confirmed [date], SRC:id]`
+Use `published_at` from the fact registry entry to determine age — not `fetched_at`.
+
+**Before writing each figure, classify the section as Perishable or Evergreen using the taxonomy above, then apply the matching rule:**
+
+- **Any section + `published_at` is `"live"`:** skip the 2yr check entirely. The page is maintained in-place and is current by definition. No tag required.
+- **Perishable section + `published_at` is a known date older than 2 years:** tag `[>2YR — last confirmed [date], SRC:id]`. Do not use the figure without this tag.
+- **Perishable section + `published_at` is `[DATE UNKNOWN]`:** run a targeted `mcp__Bright_Data__extract` fetch on the source URL to retrieve the publication date. If the fetch returns a date, update the registry and re-apply the 2yr check. If the fetch yields no date either, tag the claim `[>2YR — DATE UNKNOWN, fetch attempted, SRC:id]` and do not write the figure as a confirmed fact.
+- **Evergreen section + `published_at` is a known date older than 2 years:** tag `[>2YR — last confirmed [date], SRC:id]`.
+- **Evergreen section + `published_at` is `[DATE UNKNOWN]`:** write the claim without a `[>2YR]` tag. No fetch required. Note `[DATE UNKNOWN]` in the registry entry only.
 
 ### Labelling rules — classify before writing, not after
 
@@ -380,7 +431,8 @@ Before saving each file, verify every item below. Fix any that fail before writi
 - [ ] Every `[ASSUMPTION]` tag includes a reasoning note
 - [ ] No section has been filled with inferred content where data was unavailable
 - [ ] Sections whose primary search failed are marked `[SEARCH FAILED]`, not filled from adjacent searches
-- [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report, and every entry has a `source_type` field set to `tier1_official` or `tier2_news`
+- [ ] All three `fact_registry_*.json` files exist — one per report (`company-overview`, `competitive-intelligence`, `product-description`) — each containing one entry per source cited in that report, and every entry has a `source_type` field set to `tier1_official` or `tier2_news`, and a `published_at` field set to a date string, `"live"`, or `"[DATE UNKNOWN]"` — no entry has a null or missing `published_at`
+- [ ] Every registry entry with `"published_at": "[DATE UNKNOWN]"` that supports a **perishable** field has had a Bright Data `extract` fetch attempted to resolve the date — and the registry entry has been updated with the result or marked `[DATE UNKNOWN — fetch attempted]`
 - [ ] `projects/[CompanyName]/01- company context/quotes_registry.json` exists if sentiment collection ran — all quotes written verbatim before thematic analysis
 - [ ] Customer Sentiment section in `company-overview.md` contains either thematic analysis tables (with Q-IDs only, no raw quote text) or the appropriate `[INSUFFICIENT DATA]` label — never `[UNVERIFIED — sentiment collection not in scope]`
 - [ ] No raw URLs (`https://...`) appear anywhere in any output file — all sources cited by SRC:id only
