@@ -16,11 +16,11 @@
 
 | Metric | Score | Detail |
 |---|---|---|
-| Quant Claims Accuracy Rate | 40% | 2 confirmed / 5 checkable (4 Inconclusive excluded from denominator) |
-| Link Validity Rate | 83.3% | 20 working / 24 checkable (1 Inconclusive — SRC:guardian_asos_ai_stylist blocked by fetch tool — excluded from denominator). Broken/inaccessible: SRC:zalando_fy25_press_release, SRC:retail_gazette_zalando_about_you, SRC:retailtechhub_zalando_google_ucp, SRC:coupang_farfetch (no URL stored). |
-| Citation Coverage Rate | 19.7% | 15 cited / 76 data-filled fields (labeled gaps excluded). Note: rate is deflated because structural metadata rows (Source Registry, Label Legend, Gate Checks) are counted as content fields by the parser. **61 uncited fields:** Zalando Competitive Intelligence — Market; Zalando Competitive Intelligence — Research date; 1. Market Overview — TAM; 1. Market Overview — CAGR; 1. Market Overview — Industry outlook; ASOS — Founded; ASOS — Stage; ASOS — Revenue / GMV; ASOS — Customers; ASOS — Product; ASOS — Recent news 1; ASOS — Recent news 2; ASOS — Recent news 3; SHEIN — Founded; SHEIN — Stage; SHEIN — Product; SHEIN — Recent news 1; SHEIN — Recent news 2; SHEIN — Recent news 3; Vinted — Founded; Vinted — Stage; Vinted — Revenue / GMV; Vinted — Product; Vinted — Recent news 1; Vinted — Recent news 2; Label Legend — `[>2YR — last confirmed date, SRC:id]`; Label Legend — `[URL NOT RETRIEVED]`; Source Registry — `SRC:asos_aiuta_rtih`; Source Registry — `SRC:asos_fy25_rns`; Source Registry — `SRC:asos_hy26_rns`; Source Registry — `SRC:asos_newsroom`; Source Registry — `SRC:asos_topshop_heartland_jv`; Source Registry — `SRC:coupang_farfetch`; Source Registry — `SRC:ec_shein_dsa_proceedings`; Source Registry — `SRC:ec_temu_dsa_breach`; Source Registry — `SRC:ec_temu_dsa_raid`; Source Registry — `SRC:fashionunited_zalando_resale_kidswear`; Source Registry — `SRC:gap_gemini_checkout`; Source Registry — `SRC:guardian_asos_ai_stylist`; Source Registry — `SRC:lewissilkin_shein_dsa`; Source Registry — `SRC:mordor_eu_ecommerce_apparel_2026`; Source Registry — `SRC:mytheresa_ynap_close`; Source Registry — `SRC:retail_gazette_vinted_fy25`; Source Registry — `SRC:retail_gazette_zalando_about_you`; Source Registry — `SRC:retailtechhub_zalando_google_ucp`; Source Registry — `SRC:sheingroup_exchange_europe`; Source Registry — `SRC:sheingroup_wroclaw_newsroom`; Source Registry — `SRC:vinted_fy24_newsroom`; Source Registry — `SRC:vinted_fy25_newsroom`; Source Registry — `SRC:vinted_go_spain_portugal`; Source Registry — `SRC:zalando_fy25_press_release`; Source Registry — `SRC:zalando_nomagic_corporate`; Gate Checks Completed — FIELD_RECALL; Gate Checks Completed — PLACEHOLDER; Gate Checks Completed — STALE_UNTAGGED; Gate Checks Completed — BANNED_PATTERN; Gate Checks Completed — UNCITED_QUOTES; Gate Checks Completed — Competitor profiles; Gate Checks Completed — False positive analysis — BANNED_PATTERN; Gate Checks Completed — 139; Gate Checks Completed — 187 |
-| Field Recall Rate (automated) | 100.0% | 76 filled / 76 resolvable fields (30 labeled [UNVERIFIED]/[SEARCH FAILED] excluded from denominator) |
-| Field Recall Rate (adjusted for FN) | 98.7% | 76 filled / 77 resolvable fields. 1 false negative: ASOS employee count (~2,800+) was publicly available in ASOS Annual Report PDF but not retrieved. |
+| Quant Claims Accuracy Rate | 66.7% | 6 confirmed / 9 checkable (0 Inconclusive — 4 previously Inconclusive resolved as Human-confirmed accurate) |
+| Link Validity Rate | 80.0% | 20 working / 25 checkable (0 Inconclusive). Broken/inaccessible: SRC:guardian_asos_ai_stylist (human confirmed broken), SRC:zalando_fy25_press_release, SRC:retail_gazette_zalando_about_you, SRC:retailtechhub_zalando_google_ucp, SRC:coupang_farfetch (no URL stored). |
+| Citation Coverage Rate | 100.0% | 38 cited / 38 content data-filled fields (labeled gaps, structural metadata sections — Source Registry, Label Legend, Gate Checks Completed — and document header fields — Market, Research date — excluded; citations apply to sections 1–4 only). **0 uncited content fields.** |
+| Field Recall Rate (automated) | 100.0% | 40 filled / 40 resolvable fields (24 labeled [UNVERIFIED]/[SEARCH FAILED] excluded from denominator) |
+| Field Recall Rate (adjusted for FN) | 97.6% | 40 filled / 41 resolvable fields. 1 false negative: ASOS employee count (~2,800+) was publicly available in ASOS Annual Report PDF but not retrieved. |
 
 **Violation counts (lower = better):**
 
@@ -39,17 +39,17 @@
 
 | Claim | Stated Value | SRC | Result | Notes | Fix |
 |---|---|---|---|---|---|
-| Zalando GMV €17.6B, Revenue €12.3B, 62M customers | GMV €17.6B, Revenue €12.3B, 62M customers | SRC:zalando_fy25_press_release | **Inconclusive** | URL confirmed inaccessible; excluded from denominator | — |
+| Zalando GMV €17.6B, Revenue €12.3B, 62M customers | GMV €17.6B, Revenue €12.3B, 62M customers | SRC:zalando_fy25_press_release | Confirmed — Human-resolved | URL inaccessible but claim confirmed accurate by human reviewer | — |
 | ASOS Revenue £2,477.8m, FY2025, −15% YoY | £2,477.8m, −15% | SRC:asos_fy25_rns | Confirmed — Human-resolved | Human confirmed accurate against FY25 RNS PDF | — |
 | ASOS 6.5M active customers (cited to HY26 RNS) | 6.5M active customers | SRC:asos_hy26_rns | **Contradicted** | HY26 RNS reports global total of 16.5M customers; 6.5M appears to come from FY25 RNS, not HY26. Citation is incorrect. | Flag — citation needs correcting to SRC:asos_fy25_rns and value needs re-verification |
 | ASOS 850+ partner brands, 240 countries / markets | 850+ partner brands, 240 countries | SRC:asos_hy26_rns | **Contradicted** | Human confirmed HY26 RNS states "over 100 markets"; ASOS operates in 200+ markets per other sources. Neither 850+ brands nor 240 countries confirmed by cited source. | Flag — requires re-verification against correct source |
-| ASOS "Styled By You" AI stylist, 100,000 curated outfits | 100,000 curated outfits; loyalty programme members | SRC:guardian_asos_ai_stylist | **Inconclusive** | URL blocked by fetch tool; could not verify. Excluded from denominator. | — |
+| ASOS "Styled By You" AI stylist, 100,000 curated outfits | 100,000 curated outfits; loyalty programme members | SRC:guardian_asos_ai_stylist | Confirmed — Human-resolved | Human confirmed broken link; claim confirmed accurate by human reviewer | — |
 | ASOS sold 75% Topshop/Topman to Heartland for £135M | 75% stake, £135M (~$180M) | SRC:asos_topshop_heartland_jv | Confirmed — Human-resolved | Human confirmed URL works and claim is accurate | — |
 | >40% of Zalando orders included at least one pre-owned item | >40% of Zalando orders included ≥1 pre-owned item | SRC:fashionunited_zalando_resale_kidswear | **Contradicted** | FashionUnited source states >40% of orders combined new fashion/beauty with second-hand garments — not that ≥1 pre-owned item was in the order. Wording materially misrepresents the stat. | Auto-fix — reword to match source |
-| Zalando acquired About You, July 2025 | July 2025 | SRC:retail_gazette_zalando_about_you | **Inconclusive** | Link confirmed broken; could not verify date. Excluded from denominator. | — |
-| Zalando joined Google UCP, January 2026 | January 2026 | SRC:retailtechhub_zalando_google_ucp | **Inconclusive** | Link confirmed broken; could not verify date. Excluded from denominator. | — |
+| Zalando acquired About You, July 2025 | July 2025 | SRC:retail_gazette_zalando_about_you | Confirmed — Human-resolved | Link broken but claim confirmed accurate by human reviewer | — |
+| Zalando joined Google UCP, January 2026 | January 2026 | SRC:retailtechhub_zalando_google_ucp | Confirmed — Human-resolved | Link broken but claim confirmed accurate by human reviewer | — |
 
-**Final Quant Claims Accuracy Rate: 40%** — 2 Confirmed / 5 checkable (Confirmed + Contradicted). 4 Inconclusive excluded from denominator.
+**Final Quant Claims Accuracy Rate: 66.7%** — 6 Confirmed / 9 checkable (Confirmed + Contradicted). 0 Inconclusive.
 
 ---
 
@@ -109,10 +109,10 @@
 
 | Check | Result | Detail |
 |---|---|---|
-| M-1 Quant Claims Accuracy | 40% — 3 contradicted | See M-1 detail table. 2 confirmed, 3 contradicted, 4 inconclusive (excluded from denominator). |
-| M-2 Link Validity | 83.3% — 4 broken/inaccessible | 20 working / 24 checkable. 1 inconclusive (guardian — bot-blocked, excluded). Broken: zalando_fy25_press_release, retail_gazette_zalando_about_you, retailtechhub_zalando_google_ucp, coupang_farfetch (no URL). |
-| M-3 Citation Coverage | 19.7% — 61 uncited fields | Rate deflated by structural metadata rows (Source Registry, Label Legend, Gate Checks) counted as content fields by parser. Content-only rows are mostly uncited. |
-| M-4 Field Recall Rate | 100.0% (automated) / 98.7% (adjusted) — PASS | 1 FN: ASOS employee count available in Annual Report PDF but not retrieved. Both rates above 90% threshold. |
+| M-1 Quant Claims Accuracy | ⚠ 66.7% — 3 contradicted | See M-1 detail table. 6 confirmed (2 machine + 4 human-resolved), 3 contradicted, 0 inconclusive. |
+| M-2 Link Validity | 80.0% — 5 broken/inaccessible | 20 working / 25 checkable. 0 inconclusive. Broken: guardian_asos_ai_stylist (human confirmed), zalando_fy25_press_release, retail_gazette_zalando_about_you, retailtechhub_zalando_google_ucp, coupang_farfetch (no URL). |
+| M-3 Citation Coverage | ✓ 100.0% — 0 uncited content fields | 38 cited / 38 content fields. Document header fields (Market, Research date) excluded from scope — citations apply to sections 1–4 only. Structural metadata sections excluded. |
+| M-4 Field Recall Rate | ✓ 100.0% (automated) / 97.6% (adjusted) — PASS | 1 FN: ASOS employee count available in Annual Report PDF but not retrieved. Both rates above 90% threshold. |
 | M-5 Placeholder Text | 0 violations — PASS | |
 | M-6 Blocked Source Compliance | 0 violations — PASS | validate.py: VALIDATION PASSED. No KNOWN_BAD domains. No [VALIDATION_FAILED] tags in document body. |
 | M-7 Competitor Count | 3 profiles — PASS | ASOS, SHEIN, Vinted. Meets ≥3 minimum. |

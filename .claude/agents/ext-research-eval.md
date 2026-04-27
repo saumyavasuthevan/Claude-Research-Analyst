@@ -67,7 +67,7 @@ LABELED_PATTERN = re.compile(
     r'\[(UNVERIFIED|SEARCH FAILED|ASSUMPTION|INSUFFICIENT DATA)[^\]]*\]',
     re.IGNORECASE
 )
-CITATION_PATTERN = re.compile(r'\[SRC:[^\]]+\]')
+CITATION_PATTERN = re.compile(r'\bSRC:[a-zA-Z0-9_]+')
 PLACEHOLDER_PATTERN = re.compile(
     r'\[\s*(Year|X\]M|X\]k|Source|Company Name|Add more|Data Unavailable|Competitor \d|Title|Description)\s*\]',
     re.IGNORECASE
@@ -79,6 +79,10 @@ def parse_cells(line):
 def is_separator_row(line):
     cells = parse_cells(line)
     return bool(cells) and all(re.match(r"^:?-{2,}:?$", c) for c in cells if c.strip())
+
+# Structural metadata sections — excluded from all field metrics (not content fields).
+# "Document" = preamble fields before the first # heading (e.g. Market, Research date in competitive-intelligence files).
+EXCLUDED_SECTIONS = {"Source Registry", "Label Legend", "Gate Checks Completed", "Document"}
 
 fields = []
 lines = text.split("\n")
@@ -129,6 +133,11 @@ while i < len(lines):
         row_text = stripped
         field_label = cells[0].strip("*").strip()
 
+        # Skip structural metadata sections — not content fields
+        if current_section in EXCLUDED_SECTIONS:
+            i += 1
+            continue
+
         # Skip visual-only rows (all cells are empty, "—", or "-")
         if not any(c and c not in ("—", "-") for c in cells):
             i += 1
@@ -153,6 +162,11 @@ while i < len(lines):
         table_state = "outside"
 
     # ── Prose **Field:** value (multi-line body) ─────────────────────────────
+    # Skip prose fields in excluded sections too
+    if current_section in EXCLUDED_SECTIONS:
+        i += 1
+        continue
+
     prose_match = re.match(r"^\*\*([^*:]+):\*\*\s*(.*)", stripped)
     if prose_match:
         field_name = prose_match.group(1).strip()
@@ -545,3 +559,5 @@ Eval report: [full path]
 - If `fact_registry.json` is not found, skip M-2 entirely and note this in the report header.
 - M-10 (Uncited Quoted Strings): if the file has no User Sentiment section, set Count to `N/A — no User Sentiment section` and Target to `N/A`. Do not write 0.
 - Citation Coverage Rate Detail cell: copy `citation_coverage_detail` verbatim from script JSON, then append **[n] uncited fields:** followed by each entry in `uncited_fields` from the same JSON. Never derive or rewrite this list independently — uncited field identification comes from the script only.
+- Structural metadata sections (`Source Registry`, `Label Legend`, `Gate Checks Completed`) are excluded from all field metrics by the script. Document header fields appearing before the first `#` heading (captured as section `Document` — e.g. `Market`, `Research date` in competitive-intelligence files) are also excluded. For competitive-intelligence files, citation coverage applies to sections 1 (Market Overview) through 4 (Competitor Profiles) only. Do not include rows from these sections in citation coverage, field recall, or uncited field lists. The script enforces this via `EXCLUDED_SECTIONS` — if these sections appear in `uncited_fields`, the script has not been updated and must be re-run with the correct version.
+- `CITATION_PATTERN` uses `\bSRC:[a-zA-Z0-9_]+` (not `\[SRC:[^\]]+\]`). This detects citations in all three formats used in competitive intelligence files: `[SRC:id]` inline, `[Publisher, Date, SRC:id]` in prose fields, and plain `SRC:id` in a dedicated Source table column. The bracket-only pattern missed the latter two and systematically undercounted citation coverage.
