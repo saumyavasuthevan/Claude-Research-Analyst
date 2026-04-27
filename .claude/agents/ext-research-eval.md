@@ -250,6 +250,8 @@ Save the computed JSON as `[YYYY-MM-DD]-[filename]-verification-computed.json` i
 
 For each issue found, record: ID, section/field location, what was found, what it should be, fix type (`Auto-fix` or `Flag`).
 
+**Check ownership:** M-1 and M-2 are ext-research-eval only (require live URL fetching). M-6 is pre-validated by `create-company` Step 4c (`validate.py`). M-3, M-4, M-5, M-7, M-8, M-9, M-10 are pre-validated by `create-company` Step 4d (metrics gate). Ext-research-eval runs all checks independently for verification — failures on a recently generated file indicate the create-company gate was bypassed.
+
 | ID | Check | How |
 |---|---|---|
 | M-1 | **Quant Claims Accuracy** — extract ALL objective factual claims (CEO name, founding year, ARR, user count, funding amount, market size, CAGR, pricing, headcount, G2 scores). For each, fetch the cited URL from `fact_registry.json` and verify the stated value. **Fetch URLs sequentially — do not parallelise. Run `sleep 2` between each fetch. If a rate limit error occurs, run `sleep 5` and retry once. If retry also fails, mark that claim Inconclusive.** Contradictions where correct value is readable from source → Auto-fix. Paywalled or inaccessible → Inconclusive (excluded from rate denominator). | Fetch + LLM verify |
@@ -273,31 +275,53 @@ For each issue found, record: ID, section/field location, what was found, what i
 
 If the user provides a count, add it to `empty_fields` and recompute `field_recall_rate_pct` for the report.
 
-### Step 5d — Collect HHH Human Evaluation
+### Step 5d — Human Gate: Claim Verification + HHH Evaluation
 
-> "Please complete the HHH evaluation below after reading the full report.
-> **Answer Yes or No. 'Yes' means you found a problem.**
+**This is a required gate. Do not proceed to Step 5e or Step 6 until the user has responded to both sections in a single reply.**
+
+After all M-1 through M-10 machine checks are complete, send the following two sections in one message:
+
+---
+
+**Section A — Claim Verification (required before publishing)**
+
+Compile every claim marked **Contradicted** or **Inconclusive** from the M-1 check into the table below. Include: the claim description, the value as stated in the document, what the source actually shows, the SRC ID, and the machine result. Leave the Your Decision column blank for the user to fill in. If there are no Contradicted or Inconclusive claims, write: *"No contradicted or inconclusive claims — proceed to Section B."*
+
+> "**Section A: Claim Verification — required before publishing**
 >
-> **Honesty** — Accuracy and truthfulness of the research
+> For each claim below, reply with **Remains Contradicted** or **Human-resolved** in the Your Decision column.
+>
+> | # | Claim | Stated in document | What source shows | SRC ID | Machine result | Your decision |
+> |---|---|---|---|---|---|---|
+> | 1 | [claim description] | [value as written] | [what source actually shows] | [SRC:id] | Contradicted / Inconclusive | |
+>
+> Once you reply, I will update the M-1 table and recalculate the accuracy rate before publishing."
+
+After the user responds, apply these rules before moving to Step 5e:
+- **Human-resolved** → update M-1 Result to `Confirmed — Human-resolved`; include in confirmed count
+- **Remains Contradicted** → keep Result as `**Contradicted**`; update Notes to `Reviewed — remains contradicted`
+- **Unresolved Inconclusives** → remain excluded from accuracy denominator
+- Calculate the final Quant Claims Accuracy Rate: `Confirmed ÷ (Confirmed + Contradicted)`. Update the Rates table header and Score History with this figure — this is the one and only computation; do not write a preliminary rate before the gate.
+
+---
+
+**Section B — HHH Evaluation (required before publishing)**
+
+> "**Section B: HHH Human Evaluation**
+>
+> Please answer Yes or No below. **'Yes' means you found a problem.**
 >
 > | # | Criterion | Yes / No |
 > |---|---|---|
+> | **Honesty** | | |
 > | H1 | Are any citations inaccurate or incomplete? (wrong source, missing date, misattributed) | |
 > | H2 | Are any links inaccessible or unverifiable? (paywall, dead page, not matching the claim) | |
-> | H3 | Are any qualitative claims about **current state** (e.g., "market leader", "customers love") poorly substantiated by their cited source? | |
-> | H4 | Are any qualitative claims about **future state** (roadmap, strategy) presented as confirmed or with over-confidence? | |
->
-> **Helpfulness** — Effectiveness in solving the PM's problem
->
-> | # | Criterion | Yes / No |
-> |---|---|---|
-> | He1 | Does the report fail to provide information that is novel to the user? | |
-> | He2 | Does the report fail to provide useful context for product insights? | |
->
-> **Harmlessness** — Safety and appropriate framing
->
-> | # | Criterion | Yes / No |
-> |---|---|---|
+> | H3 | Are any current-state qualitative claims poorly substantiated by their cited source? | |
+> | H4 | Are any future-state claims (roadmap, strategy) presented with over-confidence? | |
+> | **Helpfulness** | | |
+> | He1 | Does the report fail to provide information that is novel to you? | |
+> | He2 | Does the report fail to provide useful context for product decisions? | |
+> | **Harmlessness** | | |
 > | Ha1 | Does the report make negative claims about **the company** without sufficient evidence? | |
 > | Ha2 | Does the report make negative claims about **competitors** without sufficient evidence? | |
 >
@@ -395,26 +419,11 @@ If the user verified multiple files in one session, save one report per file.
 
 *Rates: positive Δ = improvement. Violations: negative Δ = improvement.*
 
-**Score legend:**
-
-| Metric | What it measures | How calculated |
-|---|---|---|
-| Quant Claims Accuracy Rate | % of all objective facts confirmed correct by their cited source | Confirmed ÷ (Confirmed + Contradicted). Inconclusive excluded. |
-| Link Validity Rate | % of URLs in fact registry returning a working page | Working links ÷ total links. Broken = 4xx/5xx or unresolved redirect. |
-| Citation Coverage Rate | % of filled fields with ≥1 [SRC:id] — presence only, not quality | Fields with citation ÷ filled fields. Source quality is H1/H2. |
-| Field Recall Rate | % of template fields filled with real data. Labeled gaps count as intentional. | Filled fields ÷ total fields. Target: ≥90%. |
-| Placeholder Text Violations | Template tokens still in the file — not filled or labeled as intentional gaps | Count. Target: 0. |
-| Blocked Source Violations | KNOWN_BAD domain sources in fact registry or report body, or invalid `source_type` values. Each `[VALIDATION_FAILED]` tag also counts. | Count. Target: 0. |
-| Banned Claim Pattern Instances | Unsupported superlatives without [SRC:id] — high hallucination risk | Count. Target: 0. |
-| Stale Untagged Source Violations | Sources >2 years old not tagged [>2YR]. Stale + tagged is fine. | Count. Target: 0. |
-| Uncited Quoted String Violations | Quoted consumer phrases in User Sentiment fields with no [SRC:id] — likely hallucinated from general knowledge | Count. Target: 0. |
-| Competitor Count | Named direct competitors with a dedicated block in competitive-landscape.md | Raw count. Target: ≥3. |
-
 **Quant Claims Accuracy detail (M-1):**
 
-| Claim | Stated Value | Src | Result | Notes |
-|---|---|---|---|---|
-| [e.g., Founded year] | 2019 | SRC:source_id | Confirmed / Contradicted / Inconclusive | |
+| Claim | Stated Value | SRC | Result | Notes | Fix |
+|---|---|---|---|---|---|
+| [e.g., Founded year] | 2019 | SRC:source_id | Confirmed / Contradicted / Inconclusive | | |
 
 ---
 
@@ -459,9 +468,37 @@ If the user verified multiple files in one session, save one report per file.
 | ID | Section | Issue | Response |
 |---|---|---|---|
 
-### Checks Passed
+### All Checks — Results Summary
 
-[List check IDs with no issues, e.g. "M-5, M-7, M-9"]
+| Check | Result | Detail |
+|---|---|---|
+| M-1 Quant Claims Accuracy | ⚠ [n]% — [n] contradicted | See M-1 detail table |
+| M-2 Link Validity | [n]% — [n] broken / skipped — no fact registry | [summary] |
+| M-3 Citation Coverage | [n]% — [n] uncited fields | See Rates table |
+| M-4 Field Recall Rate | ✓ [n]% / ✗ [n]% — below 90% | |
+| M-5 Placeholder Text | ✓ 0 violations / ✗ [n] violations | |
+| M-6 Blocked Source Compliance | ✓ 0 violations / ✗ [n] violations | |
+| M-7 Competitor Count | ✓ [n] profiles / ✗ fewer than 3 / N/A | [names if applicable] |
+| M-8 Banned Claim Patterns | ✓ 0 violations / ✗ [n] violations | |
+| M-9 Stale Untagged Sources | ✓ 0 violations / ✗ [n] violations | |
+| M-10 Uncited Quoted Strings | ✓ 0 / ✗ [n] violations / N/A — no User Sentiment section | |
+
+---
+
+**Score legend:**
+
+| Metric | What it measures | How calculated |
+|---|---|---|
+| Quant Claims Accuracy Rate | % of all objective facts confirmed correct by their cited source | Confirmed ÷ (Confirmed + Contradicted). Inconclusive excluded. |
+| Link Validity Rate | % of URLs in fact registry returning a working page | Working links ÷ total links. Broken = 4xx/5xx or unresolved redirect. |
+| Citation Coverage Rate | % of filled fields with ≥1 [SRC:id] — presence only, not quality | Fields with citation ÷ filled fields. Source quality is H1/H2. |
+| Field Recall Rate | % of template fields filled with real data. Labeled gaps count as intentional. | Filled fields ÷ total fields. Target: ≥90%. |
+| Placeholder Text Violations | Template tokens still in the file — not filled or labeled as intentional gaps | Count. Target: 0. |
+| Blocked Source Violations | KNOWN_BAD domain sources in fact registry or report body, or invalid `source_type` values. Each `[VALIDATION_FAILED]` tag also counts. | Count. Target: 0. |
+| Banned Claim Pattern Instances | Unsupported superlatives without [SRC:id] — high hallucination risk | Count. Target: 0. |
+| Stale Untagged Source Violations | Sources >2 years old not tagged [>2YR]. Stale + tagged is fine. | Count. Target: 0. |
+| Uncited Quoted String Violations | Quoted consumer phrases in User Sentiment fields with no [SRC:id] — likely hallucinated from general knowledge | Count. Target: 0. |
+| Competitor Count | Named direct competitors with a dedicated block in competitive-landscape.md | Raw count. Target: ≥3. |
 
 ---
 

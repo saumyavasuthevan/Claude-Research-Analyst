@@ -96,7 +96,7 @@ European fashion ecommerce is consolidating rapidly around a smaller number of s
 | **Zalando** | Acquired About You (DACH competitor), July 2025, adding scale in Germany/Austria/Switzerland and gaining Scayle software platform for B2B expansion [SRC:retail_gazette_zalando_about_you] |
 | **Mytheresa** | Acquired Yoox Net-a-Porter (YNAP) from Richemont — agreement signed October 2024, acquisition closed April 24, 2025 — consolidating European luxury ecommerce; rebranding group as LuxExperience [SRC:mytheresa_ynap_close] |
 | **ASOS** | Sold 75% stake in Topshop/Topman brands to Heartland for £135M (~$180M), September 2024 — strategic exit from brand ownership to focus on marketplace model [SRC:asos_topshop_heartland_jv] |
-| **Coupang** | Completed acquisition of Farfetch, January 2024 [UNVERIFIED — no tier1_official source URL retrieved, SRC:coupang_farfetch] |
+| **Coupang** | Completed acquisition of Farfetch, January 2024 [UNVERIFIED — no tier1_official source URL retrieved, SRC:coupang_farfetch] [>2YR — last confirmed Jan 2024, SRC:coupang_farfetch] |
 
 ---
 
@@ -226,3 +226,27 @@ Fashion platforms are integrating with AI agents and LLM-powered search surfaces
 | `SRC:vinted_go_spain_portugal` | Vinted FY2025 Annual Results — Vinted Group Newsroom, April 9, 2026 | ✅ tier1\_official | 2026-04-25 | — |
 | `SRC:zalando_fy25_press_release` | Zalando FY2025 Full Year Results Press Release, March 2026 | ✅ tier1\_official | 2026-04-25 | — |
 | `SRC:zalando_nomagic_corporate` | Zalando to install up to 50 AI-powered Nomagic robots in its European fulfilment centres — Zalando Corporate, March 19, 2026 | ✅ tier1\_official | 2026-04-25 | — |
+
+---
+
+## Gate Checks Completed
+
+*Run retroactively on 2026-04-26 using the Step 4d Pre-Publish Metrics Gate (create-company.md).*
+
+| Check | Result | Detail |
+|---|---|---|
+| FIELD_RECALL | ✅ PASS | 100% — 67 filled / 95 total rows (28 labeled, 0 placeholders) |
+| PLACEHOLDER | ✅ PASS | 0 unfilled template tokens |
+| STALE_UNTAGGED | ✅ PASS | 0 citations >2yr without `[>2YR]` tag |
+| BANNED_PATTERN | ✅ PASS | 4 regex hits — all false positives (see below) |
+| UNCITED_QUOTES | ✅ PASS | 0 bare quoted strings in sentiment sections |
+| Competitor profiles | ✅ PASS | 3 named competitor profile blocks present (ASOS, SHEIN, Vinted) |
+
+**False positive analysis — BANNED_PATTERN:**
+
+| Line | Text | Why not a violation |
+|---|---|---|
+| 139 | "Online-**only** multi-brand fashion retailer…" | Business model descriptor; `SRC:asos_hy26_rns` present in same cell — outside gate's 100-char lookahead window |
+| 186 | "…Treat as directional **only**." | Legend key — definitional text for `[UNVERIFIED ESTIMATE]` label, not a factual claim |
+| 187 | "`[UNVERIFIED — sourced from subject-company materials **only**]`" | Legend key — label definition text, not a factual claim |
+| 187 | "Competitor claim sourced **only** from the subject company's own materials." | Legend key — explanatory text for the label above, not a factual claim |

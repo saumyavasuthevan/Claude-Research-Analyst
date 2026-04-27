@@ -467,6 +467,135 @@ python3 scripts/render.py \
 
 The Source Registry appendix lists every source with its type badge and any `confidence_reason` note. All `confidence_reason` detail lives here — not inline in the report body.
 
+## Step 4d — Pre-Publish Metrics Gate
+
+After `render.py` appends the Source Registry, run this blocking gate on all three output files. **Do not proceed to Step 5 if any violations are reported — fix each one, then re-run.**
+
+Write the script to `/tmp/create_company_gate.py` and execute it. Do not save the script to the project.
+
+```python
+import re, os, sys
+from datetime import datetime, timedelta
+
+today = datetime.today()
+cutoff = today - timedelta(days=730)
+
+LABELED    = re.compile(r'\[(UNVERIFIED|SEARCH FAILED|ASSUMPTION|INSUFFICIENT DATA)[^\]]*\]', re.IGNORECASE)
+CITATION   = re.compile(r'\[SRC:[^\]]+\]')
+PLACEHOLDER = re.compile(r'\[\s*(Year|X\]M|X\]k|Source|Company Name|Add more|Data Unavailable|Competitor \d|Title|Description)\s*\]', re.IGNORECASE)
+BANNED     = re.compile(r'\b(only|leading|largest|fastest|no competitor offers|uniquely)\b', re.IGNORECASE)
+QUOTED     = re.compile(r'"[^"]{10,}"')
+
+def parse_cells(line):
+    return [c.strip() for c in line.strip().split("|")[1:-1]]
+
+def is_sep(line):
+    cells = parse_cells(line)
+    return bool(cells) and all(re.match(r"^:?-{2,}:?$", c) for c in cells if c.strip())
+
+def collect_rows(text):
+    rows, lines, state = [], text.split("\n"), "outside"
+    i = 0
+    while i < len(lines):
+        s = lines[i].strip()
+        if s.startswith("#"):  state = "outside"; i += 1; continue
+        if not s:
+            if state == "data": state = "outside"
+            i += 1; continue
+        if s.startswith("|"):
+            if is_sep(s): state = "data"; i += 1; continue
+            cells = parse_cells(s)
+            if not cells: i += 1; continue
+            if state == "outside": state = "header_seen"; i += 1; continue
+            if state == "header_seen": i += 1; continue
+            label = cells[0].strip("*").strip()
+            if any(c and c not in ("—", "-") for c in cells) and label:
+                rows.append(s)
+            i += 1; continue
+        if state == "data": state = "outside"
+        m = re.match(r"^\*\*([^*:]+):\*\*\s*(.*)", s)
+        if m:
+            body = [s]; j = i + 1
+            while j < len(lines):
+                ns = lines[j].strip()
+                if not ns or re.match(r"^\*\*[^*:]+:\*\*", ns) or ns.startswith("#") or ns.startswith("|"): break
+                body.append(ns); j += 1
+            rows.append(" ".join(body)); i = j; continue
+        i += 1
+    return rows
+
+all_pass = True
+for path in sys.argv[1:]:
+    try:
+        text = open(path, encoding="utf-8").read()
+    except FileNotFoundError:
+        print(f"SKIP: {path} not found"); continue
+
+    rows = collect_rows(text)
+    total   = len(rows)
+    labeled = sum(1 for r in rows if LABELED.search(r))
+    ph      = sum(1 for r in rows if PLACEHOLDER.search(r))
+    filled  = total - labeled - ph
+    recall  = round(filled / (total - labeled) * 100, 1) if (total - labeled) else 0.0
+
+    stale = 0
+    for src, dt, sid in re.findall(r'\[([^,\]]+),\s*(\w+ \d{4}),\s*(SRC:[^\]]+)\]', text):
+        try:
+            d = datetime.strptime(dt.strip(), "%B %Y")
+            pos = text.find(f"[{src}, {dt}, {sid}]")
+            win = text[max(0, pos - 100):pos + 200] if pos >= 0 else ""
+            if d < cutoff and "[>2YR]" not in win: stale += 1
+        except ValueError: pass
+
+    banned_count = sum(
+        1 for m in BANNED.finditer(text)
+        if not CITATION.search(text[m.start():min(len(text), m.end() + 100)])
+    )
+
+    in_sentiment, uncited_quotes = False, 0
+    for line in text.split("\n"):
+        if re.search(r'(user|customer)\s+sentiment', line, re.IGNORECASE): in_sentiment = True
+        if in_sentiment:
+            for q in QUOTED.finditer(line):
+                if not CITATION.search(line[q.start():min(len(line), q.end() + 60)]): uncited_quotes += 1
+
+    viols = []
+    if recall < 90:       viols.append(f"FIELD_RECALL {recall}% < 90% — fill missing fields or apply [UNVERIFIED]/[SEARCH FAILED]")
+    if ph > 0:            viols.append(f"PLACEHOLDER {ph} unfilled template token(s) — replace with data or label")
+    if stale > 0:         viols.append(f"STALE_UNTAGGED {stale} citation(s) >2yr without [>2YR] tag")
+    if banned_count > 0:  viols.append(f"BANNED_PATTERN {banned_count} unsupported superlative(s) without [SRC:id]")
+    if uncited_quotes > 0: viols.append(f"UNCITED_QUOTES {uncited_quotes} quoted string(s) in sentiment without [SRC:id] — replace with [UNVERIFIED] label")
+
+    name = os.path.basename(path)
+    if viols:
+        all_pass = False
+        print(f"\nGATE FAIL — {name}")
+        for v in viols: print(f"  ✗ {v}")
+    else:
+        print(f"GATE PASS — {name} | recall {recall}% | placeholders {ph} | stale {stale} | banned {banned_count} | uncited quotes {uncited_quotes}")
+
+sys.exit(0 if all_pass else 1)
+```
+
+```bash
+python3 /tmp/create_company_gate.py \
+  "projects/[CompanyName]/01- company context/company-overview.md" \
+  "projects/[CompanyName]/01- company context/competitive-intelligence.md" \
+  "projects/[CompanyName]/01- company context/product-description.md"
+```
+
+**If exit code 1:** fix every listed violation, then re-run until all three files return GATE PASS.
+
+| Violation | Fix |
+|---|---|
+| `FIELD_RECALL` | Identify unfilled non-labeled rows; fill with data, or apply `[UNVERIFIED]` / `[SEARCH FAILED]` |
+| `PLACEHOLDER` | Replace each residual template token with real data or the appropriate label |
+| `STALE_UNTAGGED` | Add `[>2YR — last confirmed [date], SRC:id]` inline next to each stale citation |
+| `BANNED_PATTERN` | Add `[SRC:id]` immediately after the superlative, or rephrase without the banned term |
+| `UNCITED_QUOTES` | Replace each bare quoted string with `[UNVERIFIED — quoted phrase has no citation; remove or source from review platform]` |
+
+**`competitive-intelligence.md` manual gate:** count named competitor profile blocks. If fewer than 3, add the missing profiles before proceeding.
+
 ## Step 5 — Confirm
 
 After saving all three files, confirm with:
