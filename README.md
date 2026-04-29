@@ -20,6 +20,8 @@ A growing collection of **work-in-progress** Product Management workflows and to
 * Actively remove tasks LLMs do poorly — e.g. removing SWOT analysis from competitive intelligence reports in favour of qualitative claims that summarise verified sources 
 
 ### 🔍 Product Discovery
+<img width="5181" height="3422" alt="image" src="https://github.com/user-attachments/assets/72328ea6-6f26-4632-8690-6a20a828e3a0" />
+
 
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
