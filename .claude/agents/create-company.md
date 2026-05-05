@@ -441,7 +441,9 @@ Before saving each file, verify every item below. Fix any that fail before writi
 
 ## Step 4c — Run Structural Validation
 
-After completing the pre-save integrity check, validate all three fact registries:
+After completing the pre-save integrity check, run all four scripts **in sequence**. All must pass before proceeding to Step 4d.
+
+**Script 1 — Domain + schema validation** (existing):
 
 ```bash
 python3 scripts/validate.py \
@@ -450,14 +452,61 @@ python3 scripts/validate.py \
   "projects/[CompanyName]/01- company context/fact_registry_product-description.json"
 ```
 
-**If the validator exits with violations (exit code 1):**
-- Read the violation list
-- For each KNOWN_BAD domain error: find a `tier1_official` or `tier2_news` replacement, or remove the source and update the inline citation to `[UNVERIFIED — no primary source found]`
+**If exit code 1:**
+- For each KNOWN_BAD domain error: find a `tier1_official` or `tier2_news` replacement, or remove the source and label the claim `[UNVERIFIED — no primary source found]`
 - For each invalid `source_type` error: correct the field to `tier1_official` or `tier2_news`
-- Re-run the validator — max 2 correction attempts
-- If violations persist after 2 attempts: tag affected claims `[VALIDATION_FAILED — source not verified]` and continue
+- Re-run — max 2 correction attempts; if violations persist tag affected claims `[VALIDATION_FAILED — source not verified]` and continue
 
-**After validation passes**, append the Source Registry to `competitive-intelligence.md`:
+---
+
+**Script 2 — URL health check** (new):
+
+```bash
+python3 scripts/check_links.py \
+  "projects/[CompanyName]/01- company context/fact_registry_company-overview.json" \
+  "projects/[CompanyName]/01- company context/fact_registry_competitive-intelligence.json" \
+  "projects/[CompanyName]/01- company context/fact_registry_product-description.json"
+```
+
+This script HTTP-checks every URL and **auto-patches broken entries in-place**: sets `url` to `[URL NOT RETRIEVED — <status>]` and `quote` to `[FETCH FAILED — <status> at <date>]`.
+
+**If exit code 1:**
+- Read the violation list — each entry names the SRC:id and HTTP status
+- For each broken URL: attempt to find an alternate stable URL for the same source (IR page, official press room, archived version); update the registry entry with the working URL and re-run
+- If no alternate URL exists: the entry has already been patched to `[URL NOT RETRIEVED]`; update any inline citation in the report to `[UNVERIFIED — source URL inaccessible as of <date>]`
+- Re-run — max 2 correction attempts; if the URL remains broken after attempts, leave the `[URL NOT RETRIEVED]` patch in place and continue
+
+---
+
+**Script 3 — Number-source alignment check** (new):
+
+```bash
+python3 scripts/check_numbers.py \
+  "projects/[CompanyName]/01- company context/competitive-intelligence.md" \
+  "projects/[CompanyName]/01- company context/fact_registry_competitive-intelligence.json"
+
+python3 scripts/check_numbers.py \
+  "projects/[CompanyName]/01- company context/company-overview.md" \
+  "projects/[CompanyName]/01- company context/fact_registry_company-overview.json"
+
+python3 scripts/check_numbers.py \
+  "projects/[CompanyName]/01- company context/product-description.md" \
+  "projects/[CompanyName]/01- company context/fact_registry_product-description.json"
+```
+
+This script verifies that every numeric value adjacent to a `[SRC:id]` citation in the report appears in the `quote` field of the corresponding registry entry. It is read-only — it never modifies files.
+
+**If exit code 1:**
+- Read the mismatch table — each row shows the SRC:id, the orphaned number(s), and the claim snippet
+- For each mismatch, choose one:
+  - **Correct the claim** to use the exact number from the `quote` field
+  - **Update the `quote` field** in the registry to include the verified number (only if you re-fetched the source and confirmed the number)
+  - **Reassign the SRC:id** to the registry entry that actually contains the number
+- Re-run — max 2 correction attempts; if a mismatch cannot be resolved, label the claim `[UNVERIFIED — figure not confirmed in cited source]`
+
+---
+
+**Script 4 — Render Source Registry** (existing):
 
 ```bash
 python3 scripts/render.py \

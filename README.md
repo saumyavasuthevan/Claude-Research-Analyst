@@ -1,23 +1,87 @@
 # 🔬 PM Operating System Index
 
 ### tl;dr
-A growing collection of **work-in-progress** Product Management workflows and tools to minimise OPEX while delivering PM artifacts users can trust
+A growing collection of **WIP** Product Management workflows and tools (Claude Code, OpenClaw, n8n) to minimise OPEX while delivering PM artifacts users can trust 
+
 
 ### Challenge
-* The bar for PM operational efficiency and effectiveness has risen
-* Most PMs respond with **fragmented** AI use — faster at isolated tasks, but still siloed
-* We know that the future is a **unified system** that connects these workflows together. But unification introduces a harder problem: **hallucinations compound** as one agent's output feeds into the next and AI **flattens qualitative nuance** as human judgment is often carelessly replaced 
-* The core tension is leveraging the **speed of AI while preserving quality**
+PMs are under heavy pressure to **quickly determine ["what to build"](https://www.ycombinator.com/rfs)** so that we can continue to deliver business outcomes at the new speed of execution
 
-### Goal 
-* Create a PM operating system that combines the best of human, code, and AI to co-create PM artifacts that minimise OPEX while delivering outputs users can trust
+* But **fragmented tooling** and **ad hoc processes** results in:
+  * Handing off human judgement to agents in the wrong use case
+  * Outputs of unreliable quality which humans then need to spend a lot of time verifying or risk errors (which in turn, loses trust)
+  * Incremental speed gains
+* Ultimately, these disappointing outcomes result in an inability to compete with competitors due to:
+  * Higher **OPEX** (due to lower operational efficiency and effectiveness)
+  * Fewer successful business outcomes (due to **a less powerful engine to make sound product bets**)
 
-### Approach  
-* Break down current PM workflows into their **component tasks**
-* Assess the best solution for each task: **deterministic code** for anything rules-based, **AI** for analysis, synthesis, and objective verification, **humans** for implicit problem context and strategic direction, qualitative verification, and conflict resolution. 
-* Close the feedback loop with **evals** at every step — so hallucinations don't compound silently across agents and the system benchmarks its own accuracy over time
-* Start simple and **add complexity iteratively** — e.g. beginning with an agent producing a report, manually identifying errors, then introducing an eval agent, then deterministic data pipelines to meet accuracy requirements 
-* Actively remove tasks LLMs do poorly — e.g. removing SWOT analysis from competitive intelligence reports in favour of qualitative claims that summarise verified sources 
+### User Personas
+ * Short-term target: Solo PMs
+ * Long-term targets: Squad PMs and "People who do product work" (Rationale: This requires a scaled solution to collaborate effectively and alignment on shared processes, beyond MVP scope)
+
+### Vision 
+A unified system to inform **faster product bets**, made with the **confidence** to defend them. 
+
+### Product Principles  
+1. **Never compromise on quality**
+
+   Accuracy thresholds are defined first. If AI meets the threshold, within strict cost constraints, automate. If not, it's a human job for now.
+
+   *Good looks like: a PM can say what work gets done by AI and what doesn't, and defend the line.*
+
+2. **Guilty until proven innocent**
+
+   Every output is assumed to be untrustworthy until proven otherwise through evals. No output feeds the next step without verification.
+
+   *Good looks like: Stakeholder discussions are about strategy, not about whether a claim is substantiated.*
+
+3. **Don't make me work harder**
+
+   If the output requires verifying every step, the work has just been moved downstream.
+
+   *Good looks like: HITL is used strategically, not as a catch-all for hallucination.*
+
+4. **Outcomes over outputs**
+
+   Start by defining what each task needs to achieve. Design the experience, process, and tool around that — not around what AI is capable of doing.
+
+   *Good looks like: a lo-fi prototype for a concept test — even when AI could do a lot more.*
+
+5. **Get smarter each round**
+
+   Every human and machine eval feeds back into the system.
+
+   *Good looks like: Precision/recall improves version to version and we learn why.*
+
+### Roadmap
+MVP prioritises the critical user journey to minimise lead time from a business goal to a validated feature that's ready for development:
+* Discovery: User research
+* Solution definition
+* Prototyping
+* Meetings
+
+R1 expands on the critical user journey to further increase efficiency:
+* Discovery: Market Research
+* Development 
+* Testing
+* GTM
+* Comms
+
+See detailed [roadmap and prioritisation criteria](https://docs.google.com/spreadsheets/d/14EWsWYquwbsFQ8w3uOwpFP5Fme2mU-jBUyPLY8_u5ts/edit?gid=0#gid=0)
+
+### Measurements
+**Lagging metrics:**
+
+* **Efficiency:** 20% reduction in average time spent per validated feature (discovery to ready-for-dev, segmented by story points)
+* **Quality:** 90% of agents in production meet eval thresholds, 1Q post-launch (measured quarterly)
+* **Stakeholder trust:** % of OS-assisted outputs shared with stakeholders that were accepted without further requests for evidence or verification (manually tracked 14-days post-share)
+
+**Leading metrics:**
+
+* 20% reduction in time within each task type
+* % fully autonomous tasks increasing MoM (agent completed, output used as-is)
+* % semi-autonomous tasks increasing MoM (agent completed, PM refined or validated)
+* % manual tasks decreasing MoM (agent not used or output not used entirely)
 
 ### 🔍 Product Discovery
 
