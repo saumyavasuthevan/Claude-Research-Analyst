@@ -35,15 +35,16 @@ flowchart LR
 | Customer sentiment analysis relied on Brave Search snippets — which surface page-level summaries, not individual user reviews, resulting in findings that were too **surface-level** to be useful. | **Integrated Bright Data API** to access behind-the-wall social data across B2C platforms (e.g., App Store, Play Store, Reddit) and B2B platforms (e.g,. G2, Trustpilot, LinkedIn). Thematic analysis uses pre-defined codes for common product feedback categories (deductive reasoning), combined with emergent codes emergent (inductive reasoning). | Sentiments analysis **grounded in rich social data**; Hybrid deductive and inductive coding framework **minimised token consumption** while ensuring we **captured novel patterns.** |
 | Agent ignored rule about sequential searches, scraping all social media platforms **simultaneously**, leading to unnecessary API usage. | Replaced with a **sequential loop (search → scrape → count → gate)**, ensuring only one platform is processed at a time before proceeding to the next. | **Reduced redundant API calls** |
 | Agent wrote quant figures from search snippets — which reflect **cached** earlier editions, not the live page. | **Forced a live fetch** using `mcp__Bright_Data__extract` for all frequently updated analyst report figures. | Cited figures now reflect the current live page. |
+| Broken URLs were added to fact registries resulting 20% broken links in Zalando competitive intel v3| HTTP-validation for every URL and agent re-sources broken links before publication. | Broken URLs patched deterministically at the source — not during evals. |
+| Quant numbers were attributed to wrong periods (e.g. 6.5M cited under HY26, which actually reports 16.5M), resulting in Quant Claims Accuracy rate of 66% in Zalando competitive intel v3. | New script extracts unitised numbers** (%, M, billion) adjacent to each `[SRC:id]` citation and verifies each appears in the registry `quote` field. Agent must correct claims or update `quote` fields before proceeding. | Number-source mismatches flagged deterministically; agent is forced to reconcile claim before the report is written. |
 
 ---
 
 ## Evals
 
 - **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — Uses a **two-pronged** evaluation approach: 1. **Machine-led evaluation**: Conducts **objective** checks (e.g., quant computations, link and citation coverage, template adherence). 2. **Human-led evaluation**: Conducts **subjective** checks based on HHH (Honesty, Helpfulness, Harmlessness) to assess its true usefulness to PMs. 
-- **Coverage:** Run on Zalando competitive-intelligence.md and company-overview.md — product-description.md eval pending.
-- **Reports:**
-  - [2026-04-18 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md)
+- **Eval Reports:**
+  - [2026-04-26 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-04-26-ext-research-eval-competitive-intelligence-v3.md)
   - [2026-04-21 — Zalando company overview](../projects/Zalando/06-%20evals/2026-04-21-ext-research-eval-company-overview.md)
 
 ---
@@ -51,8 +52,7 @@ flowchart LR
 ## Sample Output
 
 - [Zalando — company-overview.md](../projects/Zalando/01-%20company%20context/company-overview.md)
-- [Zalando — competitive-intelligence.md](../projects/Zalando/01-%20company%20context/competitive-intelligence.md)
-- [Zalando — product-description.md](../projects/Zalando/01-%20company%20context/product-description.md)
+- [Zalando — competitive-intelligence.md](../projects/Zalando/01-%20company%20context/competitive-intelligence-v3.md)
 
 ---
 
@@ -68,6 +68,4 @@ flowchart LR
 ## Links
 
 - [Agent instructions](../.claude/agents/create-company.md) — prompt Claude uses at runtime
-- [Eval report — competitive intelligence](../projects/Zalando/06-%20evals/2026-04-18-ext-research-verification-competitive-landscape.md) — latest verification run
-- [Eval report — company overview](../projects/Zalando/06-%20evals/2026-04-21-ext-research-eval-company-overview.md) — latest verification run
 

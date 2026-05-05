@@ -35,6 +35,29 @@
 
 ---
 
+### Score History
+
+| Metric | v1 (2026-04-18) | v2 (2026-04-22) | v3 (2026-04-26) | Δ (v2→v3) |
+|---|---|---|---|---|
+| Quant Claims Accuracy | 83% | 80% | 66.7% | −13.3pp |
+| Link Validity | 100% | 93% | 80.0% | −13pp |
+| Citation Coverage | 57.6% | 84.8% | 100.0% | +15.2pp |
+| Field Recall | 100% | 100% | 100.0% | — |
+| Placeholder violations | 0 | 0 | 0 | — |
+| Blocked source violations | 0 | 0 | 0 | — |
+| Banned patterns | 0 | 0 | 0 | — |
+| Stale untagged | 0 | 0 | 0 | — |
+| Uncited quotes | N/A | N/A | N/A | — |
+
+*Rates: positive Δ = improvement. Violations: negative Δ = improvement.*
+
+**Notes on score changes (v2→v3):**
+- Quant Accuracy −13.3pp: Reflects more rigorous checks, not a quality regression. A new validation script specifically designed to catch number-period mismatches surfaced 3 errors that v2 checks would not have detected — e.g. a figure cited to the wrong filing period, and a stat whose wording misrepresented the source.
+- Link Validity −13pp: Reflects a genuine quality regression in the v3 output. The agent sourced more URLs (25 vs 15 in v2) but failed to validate them before writing — 4 were dead article links and 1 had no URL stored at all. The v3 eval also applies stricter rules: bot-blocked URLs that were previously counted as working (6 in v2) now require human confirmation to pass.
+- Citation Coverage +15.2pp: A structural rule requiring a citation at the cell level (not just section level) was enforced in v3 — 100% coverage across all 38 content fields.
+
+---
+
 ### Quant Claims Accuracy detail (M-1)
 
 | Claim | Stated Value | SRC | Result | Notes | Fix |
