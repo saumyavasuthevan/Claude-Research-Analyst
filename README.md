@@ -84,8 +84,6 @@ See detailed [roadmap and prioritisation criteria](https://docs.google.com/sprea
 * % manual tasks decreasing MoM (agent not used or output not used entirely)
 
 ### 🔍 Product Discovery
-<img width="5181" height="3422" alt="image" src="https://github.com/user-attachments/assets/72328ea6-6f26-4632-8690-6a20a828e3a0" />
-
 
 | Tool | Agent / Skill | Purpose |
 | :--- | :--- | :--- |
