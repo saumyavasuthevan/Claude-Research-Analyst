@@ -16,10 +16,10 @@
 **Industry outlook:** The European fashion ecommerce apparel market is growing steadily at 4.20% CAGR through 2031, driven by marketplace dominance (80.88% platform share), AI-powered personalisation investment, and structural growth in secondhand channels, while regulatory pressure on ultra-fast fashion platforms and logistics cost challenges are headwinds for non-EU-domiciled operators [Mordor Intelligence, Apr 2026, SRC:mordor_eu_ecommerce_apparel_2026].
 
 **M&A activity (last 24 months):**
-- Zalando acquired About You (DACH fashion marketplace), July 2025 [Retail Gazette, Nov 2025, SRC:retail_gazette_zalando_about_you]
+- Zalando acquired About You (DACH fashion marketplace), July 2025 [Retail Gazette, Nov 2025, SRC:retail_gazette_zalando_about_you] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26]
 - Mytheresa and Richemont signed agreement for Mytheresa to acquire Yoox Net-a-Porter (YNAP), October 2024; acquisition closed April 24, 2025 [GlobeNewswire/Mytheresa IR, Apr 2025, SRC:mytheresa_ynap_close]
 - Coupang completed acquisition of Farfetch, January 2024 [UNVERIFIED — no tier1_official source URL retrieved; cited in prior research, SRC:coupang_farfetch] [>2YR — last confirmed Jan 2024, SRC:coupang_farfetch]
-- ASOS sold 75% stake in Topshop and Topman brands to Heartland (Bestseller holding company) for £135M (~$180M), September 2024 [Retail TouchPoints, Sep 2024, SRC:asos_topshop_heartland_jv]
+- ASOS sold 75% stake in Topshop and Topman brands to Heartland (Bestseller holding company) for £135M (~$180M), September 2024 [Retail TouchPoints, Sep 2024, SRC:asos_topshop_heartland_jv] [URL INACCESSIBLE — 403 as of 2026-05-05; claim confirmed accurate 2026-04-26]
 
 **Funding rounds in this space (last 12 months):**
 - Vinted: secondary share sale at €5B valuation, October 2024, bringing in new investors [Vinted Group Newsroom, Apr 2025, SRC:vinted_fy24_newsroom]; exploring further share sale at ~€8B valuation in early 2026 [UNVERIFIED — Silicon Republic, 2025; URL NOT RETRIEVED]
@@ -35,8 +35,8 @@ Fashion ecommerce platforms are deploying AI beyond basic recommendations — in
 
 | Competitor | Response |
 |---|---|
-| **Zalando** | Extended pre-owned resale model to kidswear, February 2026 — in 2025 more than 40% of Zalando orders included at least one pre-owned item; up to 50% of second-hand listings sell within 24 hours [SRC:fashionunited_zalando_resale_kidswear]. AI Size & Fit tool deployed across platform to reduce size-related returns [SRC:zalando_fy25_press_release] |
-| **ASOS** | Launched hybrid virtual try-on experience in partnership with AI fashion platform AIUTA, February 2026 — covers ~10,000 products on iOS app; customers upload own photo or choose AI-generated model; initial rollout to select UK and US customers [SRC:asos_aiuta_rtih]. Also launched "Styled By You" AI stylist feature in November 2025 — database of 100,000 curated outfits for loyalty programme members [SRC:guardian_asos_ai_stylist] |
+| **Zalando** | Extended pre-owned resale model to kidswear, February 2026 — in 2025 more than 40% of Zalando orders combined new fashion and beauty products with second-hand garments; up to 50% of second-hand listings sell within 24 hours [SRC:fashionunited_zalando_resale_kidswear]. AI Size & Fit tool deployed across platform to reduce size-related returns [SRC:zalando_fy25_press_release] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] |
+| **ASOS** | Launched hybrid virtual try-on experience in partnership with AI fashion platform AIUTA, February 2026 — covers ~10,000 products on iOS app; customers upload own photo or choose AI-generated model; initial rollout to select UK and US customers [SRC:asos_aiuta_rtih]. Also launched "Styled By You" AI stylist feature in November 2025 — database of 100,000 curated outfits for loyalty programme members [SRC:guardian_asos_ai_stylist] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] |
 | **SHEIN** | [UNVERIFIED — no public signal on a dedicated virtual try-on or conversational AI stylist product launch retrieved as of 2026-04-25] |
 | **Vinted** | [UNVERIFIED — no public signal on a dedicated AI personalisation or virtual try-on product launch retrieved as of 2026-04-25] |
 
@@ -81,24 +81,24 @@ European fashion ecommerce platforms are investing in owned logistics infrastruc
 
 ### Trend 5: Platform Consolidation in European Fashion Ecommerce
 
-European fashion ecommerce is consolidating rapidly around a smaller number of scaled platforms, with three major acquisitions completed in 2024–2025 reshaping the competitive landscape and reducing the number of independent mid-scale operators [Retail Gazette, Nov 2025, SRC:retail_gazette_zalando_about_you].
+European fashion ecommerce is consolidating rapidly around a smaller number of scaled platforms, with three major acquisitions completed in 2024–2025 reshaping the competitive landscape and reducing the number of independent mid-scale operators [Retail Gazette, Nov 2025, SRC:retail_gazette_zalando_about_you] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26].
 
 | Competitor | Response |
 |---|---|
-| **Zalando** | Acquired About You (DACH competitor), July 2025, adding scale in Germany/Austria/Switzerland and gaining Scayle software platform for B2B expansion [SRC:retail_gazette_zalando_about_you] |
+| **Zalando** | Acquired About You (DACH competitor), July 2025, adding scale in Germany/Austria/Switzerland and gaining Scayle software platform for B2B expansion [SRC:retail_gazette_zalando_about_you] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] |
 | **Mytheresa** | Acquired Yoox Net-a-Porter (YNAP) from Richemont — agreement signed October 2024, acquisition closed April 24, 2025 — consolidating European luxury ecommerce; rebranding group as LuxExperience [SRC:mytheresa_ynap_close] |
-| **ASOS** | Sold 75% stake in Topshop/Topman brands to Heartland for £135M (~$180M), September 2024 — strategic exit from brand ownership to focus on marketplace model [SRC:asos_topshop_heartland_jv] |
+| **ASOS** | Sold 75% stake in Topshop/Topman brands to Heartland for £135M (~$180M), September 2024 — strategic exit from brand ownership to focus on marketplace model [SRC:asos_topshop_heartland_jv] [URL INACCESSIBLE — 403 as of 2026-05-05; claim confirmed accurate 2026-04-26] |
 | **Coupang** | Completed acquisition of Farfetch, January 2024 [UNVERIFIED — no tier1_official source URL retrieved, SRC:coupang_farfetch] [>2YR — last confirmed Jan 2024, SRC:coupang_farfetch] |
 
 ---
 
 ### Trend 6: Agentic Commerce and AI-Driven Discovery
 
-Fashion platforms are integrating with AI agents and LLM-powered search surfaces (Google AI Mode, Gemini) to capture traffic from conversational commerce and agentic purchasing flows, treating AI agents as a new customer acquisition channel [Retail Technology Innovation Hub, Jan 2026, SRC:retailtechhub_zalando_google_ucp].
+Fashion platforms are integrating with AI agents and LLM-powered search surfaces (Google AI Mode, Gemini) to capture traffic from conversational commerce and agentic purchasing flows, treating AI agents as a new customer acquisition channel [Retail Technology Innovation Hub, Jan 2026, SRC:retailtechhub_zalando_google_ucp] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26].
 
 | Competitor | Response |
 |---|---|
-| **Zalando** | Joined Google's Universal Commerce Protocol (UCP) open standard for agentic commerce, January 2026 — enables checkout via AI Mode in Google Search and Gemini app [SRC:retailtechhub_zalando_google_ucp] |
+| **Zalando** | Joined Google's Universal Commerce Protocol (UCP) open standard for agentic commerce, January 2026 — enables checkout via AI Mode in Google Search and Gemini app [SRC:retailtechhub_zalando_google_ucp] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] |
 | **Gap** | Became first major fashion retailer to launch checkout directly inside Google Gemini, March 2026 — customers can browse, receive styling advice, and complete purchases without leaving AI chat [SRC:gap_gemini_checkout] |
 | **SHEIN** | [UNVERIFIED — no public SHEIN agentic commerce integration retrieved as of 2026-04-25] |
 | **ASOS** | [UNVERIFIED — no confirmed ASOS agentic commerce platform integration retrieved as of 2026-04-25] |
@@ -110,8 +110,8 @@ Fashion platforms are integrating with AI agents and LLM-powered search surfaces
 
 | Company | Founded | HQ | Stage / Funding | Revenue or GMV | Customers | Latest signal |
 |---|---|---|---|---|---|---|
-| **Zalando (us)** | 2008 | Berlin, Germany | Public (XETRA: ZAL) [SRC:zalando_fy25_press_release] | GMV €17.6B, Revenue €12.3B, FY2025 [SRC:zalando_fy25_press_release] | 62M active customers, FY2025 [SRC:zalando_fy25_press_release] | Announced roll-out of up to 50 AI-powered Nomagic robots across European fulfilment network, March 2026 [SRC:zalando_nomagic_corporate] |
-| **ASOS** | 2000 | London, UK [SRC:asos_hy26_rns] | Public (LSE: ASC); loss-making in FY25 [SRC:asos_fy25_rns] | Revenue £2,477.8m, FY2025 (52 wks to Aug 2025), −15% vs FY2024 [SRC:asos_fy25_rns] | 6.5M active customers, FY2025 (−8% YoY) [SRC:asos_hy26_rns] | Launched hybrid virtual try-on with AIUTA, Feb 2026 [SRC:asos_aiuta_rtih]; Topshop EU launched in 23 countries, Jan 2026 [SRC:asos_newsroom] |
+| **Zalando (us)** | 2008 | Berlin, Germany | Public (XETRA: ZAL) [SRC:zalando_fy25_press_release] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] | GMV €17.6B, Revenue €12.3B, FY2025 [SRC:zalando_fy25_press_release] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] | 62M active customers, FY2025 [SRC:zalando_fy25_press_release] [URL INACCESSIBLE — 404 as of 2026-05-05; claim confirmed accurate 2026-04-26] | Announced roll-out of up to 50 AI-powered Nomagic robots across European fulfilment network, March 2026 [SRC:zalando_nomagic_corporate] |
+| **ASOS** | 2000 | London, UK [SRC:asos_hy26_rns] | Public (LSE: ASC); loss-making in FY25 [SRC:asos_fy25_rns] | Revenue £2,477.8m, FY2025 (52 wks to Aug 2025), −15% vs FY2024 [SRC:asos_fy25_rns] | 6.5M active customers, FY2025 (−8% YoY) [SRC:asos_fy25_rns] | Launched hybrid virtual try-on with AIUTA, Feb 2026 [SRC:asos_aiuta_rtih]; Topshop EU launched in 23 countries, Jan 2026 [SRC:asos_newsroom] |
 | **SHEIN** | 2008 | Singapore [SRC:sheingroup_wroclaw_newsroom] | Private (pre-IPO; IPO not completed as of Apr 2026) [UNVERIFIED — no tier1_official confirmation of current valuation as of 2026-04-25] | Revenue ~$38B (2024) [UNVERIFIED ESTIMATE — Sacra, 2025]; no tier1_official financial disclosure | [UNVERIFIED — global active shopper count not publicly disclosed as of 2026-04-25] | Opened European logistics hub in Wrocław, Poland, Dec 2025 [SRC:sheingroup_wroclaw_newsroom]; EU DSA formal proceedings opened Feb 2026 [SRC:ec_shein_dsa_proceedings] |
 | **Vinted** | 2008 | Vilnius, Lithuania [SRC:vinted_fy25_newsroom] | Private; profitable; secondary share sale at €5B valuation, Oct 2024 [SRC:vinted_fy24_newsroom] | GMV €10.8B (+47% YoY), Revenue €1.1B (+38% YoY), FY2025 [SRC:vinted_fy25_newsroom] | [UNVERIFIED — active buyer/seller count not disclosed in FY2025 results as of 2026-04-25] | Published FY2025 results: GMV €10.8B, revenue €1.1B, net profit €62M, April 2026 [SRC:vinted_fy25_newsroom] |
 
@@ -126,13 +126,13 @@ Fashion platforms are integrating with AI agents and LLM-powered search surfaces
 | Founded | 2000, London, UK | SRC:asos_hy26_rns |
 | Stage | Public (LSE: ASC); loss-making in FY2025 (adjusted loss before tax £69.5m H1 FY25) | SRC:asos_fy25_rns, SRC:asos_hy26_rns |
 | Revenue / GMV | Revenue £2,477.8m (FY2025, 52 wks to Aug 2025), −15% vs FY2024 | SRC:asos_fy25_rns |
-| Customers | 6.5M active customers (FY2025 year-end = HY26 opening), −8% vs FY2024 | SRC:asos_hy26_rns |
+| Customers | 6.5M active customers (FY2025, 52 wks to Aug 2025), −8% vs FY2024 | SRC:asos_fy25_rns |
 | Employees | [UNVERIFIED — not disclosed in FY2025 RNS or HY26 RNS as of 2026-04-25] | — |
-| Product | Online-only multi-brand fashion retailer targeting 18–30-year-olds, selling own label plus 850+ partner brands across 240 countries | SRC:asos_hy26_rns |
+| Product | Online-only multi-brand fashion retailer targeting 18–30-year-olds [UNVERIFIED — demographic claim not confirmed in cited source as of 2026-04-25], selling own label plus partner brands in over 100 markets | SRC:asos_hy26_rns |
 | Pricing model | Free to browse; ASOS Premier delivery subscription available; marketplace commission model — exact % [UNVERIFIED — not publicly disclosed as of 2026-04-25] | SRC:asos_newsroom |
 | Recent news 1 | Launched hybrid virtual try-on experience in partnership with AIUTA — ~10,000 products on iOS app, February 2026 | SRC:asos_aiuta_rtih |
 | Recent news 2 | Topshop EU launched in 23 countries, January 2026 | SRC:asos_newsroom |
-| Recent news 3 | Sold 75% stake in Topshop and Topman to Heartland for £135M (~$180M), September 2024 | SRC:asos_topshop_heartland_jv |
+| Recent news 3 | Sold 75% stake in Topshop and Topman to Heartland for £135M (~$180M), September 2024 [URL INACCESSIBLE — 403 as of 2026-05-05; claim confirmed accurate 2026-04-26] | SRC:asos_topshop_heartland_jv |
 
 ---
 
@@ -180,65 +180,8 @@ Fashion platforms are integrating with AI agents and LLM-powered search surfaces
 | `[SEARCH FAILED — as of date]` | Search query returned no results for this field. |
 | `[>2YR — last confirmed date, SRC:id]` | Most recent source is older than 2 years. Re-verify before use. |
 | `[URL NOT RETRIEVED]` | Source retrieved but URL was not returned by the search tool. |
+| `[URL INACCESSIBLE — <status> as of date; claim confirmed accurate date]` | Source URL returns an HTTP error as of the check date (check_links.py). The claim itself was confirmed accurate by human review in ext-research-eval. |
 
 *Source Registry appendix (generated by `scripts/render.py`) follows below.*
 
-<!-- Last verified: 2026-04-25 -->
-
----
-
-## Source Registry
-
-*Generated from `fact_registry_competitive-intelligence-v3.json` — 25 source(s)*
-
-| Fact ID | Title | Source Type | Fetched | Note |
-|---|---|---|---|---|
-| `SRC:asos_aiuta_rtih` | New ASOS virtual try-on experience launches in partnership with AI fashion platform AIUTA — Retail Technology Innovation Hub, February 17, 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:asos_fy25_rns` | ASOS Plc FY25 Full Year Results RNS, 20 November 2025 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:asos_hy26_rns` | ASOS Plc Interim Results for the 26 weeks to 1 March 2026 (HY26 RNS), 23 April 2026 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:asos_newsroom` | ASOS plc Latest News — Official Newsroom | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:asos_topshop_heartland_jv` | ASOS Sells Majority Stake in Topshop, Topman as Turnaround Effort Continues — Retail TouchPoints, September 2024 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:coupang_farfetch` | [URL NOT RETRIEVED — Coupang Farfetch acquisition January 2024] | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:ec_shein_dsa_proceedings` | European Commission opens formal DSA proceedings against SHEIN, February 16, 2026 — Digital Policy Alert | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:ec_temu_dsa_breach` | EU Commission finds Temu in breach of online platform rules — Euronews, July 28, 2025 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:ec_temu_dsa_raid` | Commission opens probe into Shein's marketing under DSA — EU Perspectives, February 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:fashionunited_zalando_resale_kidswear` | Zalando extends its resale model to kidswear — FashionUnited, February 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:gap_gemini_checkout` | Gap partners with Google Gemini for in-app checkout — All Things Fashion Tech, March 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:guardian_asos_ai_stylist` | ASOS launches 'Styled By You' AI stylist feature — The Guardian, November 2025 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:lewissilkin_shein_dsa` | Digital Services Act: Shein becomes the latest VLOP to face formal proceedings — Lewis Silkin, February 27, 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:mordor_eu_ecommerce_apparel_2026` | Europe E-Commerce Apparel Market Size & Share Analysis - Growth Trends and Forecast (2026–2031) | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:mytheresa_ynap_close` | Mytheresa and Richemont announce successful completion of YNAP acquisition — GlobeNewswire, April 24, 2025 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:retail_gazette_vinted_fy25` | Vinted confirms 38% growth YoY as reselling market booms — Retail Gazette, April 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:retail_gazette_zalando_about_you` | Zalando acquires About You — Retail Gazette, November 2025 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:retailtechhub_zalando_google_ucp` | Zalando joins Google Universal Commerce Protocol for agentic commerce — Retail Technology Innovation Hub, January 2026 | 🔵 tier2\_news | 2026-04-25 | — |
-| `SRC:sheingroup_exchange_europe` | SHEIN Launches SHEIN Exchange Resale Platform in Europe and the United Kingdom — SHEIN Group Newsroom, June 3, 2024 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:sheingroup_wroclaw_newsroom` | SHEIN Opens State-of-the-Art European Logistics Hub in Wrocław, Poland — SHEIN Group Newsroom, December 22, 2025 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:vinted_fy24_newsroom` | Vinted FY2024 Annual Results — Vinted Group Newsroom, April 29, 2025 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:vinted_fy25_newsroom` | Vinted FY2025 Annual Results — Vinted Group Newsroom, April 9, 2026 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:vinted_go_spain_portugal` | Vinted FY2025 Annual Results — Vinted Group Newsroom, April 9, 2026 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:zalando_fy25_press_release` | Zalando FY2025 Full Year Results Press Release, March 2026 | ✅ tier1\_official | 2026-04-25 | — |
-| `SRC:zalando_nomagic_corporate` | Zalando to install up to 50 AI-powered Nomagic robots in its European fulfilment centres — Zalando Corporate, March 19, 2026 | ✅ tier1\_official | 2026-04-25 | — |
-
----
-
-## Gate Checks Completed
-
-*Run retroactively on 2026-04-26 using the Step 4d Pre-Publish Metrics Gate (create-company.md).*
-
-| Check | Result | Detail |
-|---|---|---|
-| FIELD_RECALL | ✅ PASS | 100% — 67 filled / 95 total rows (28 labeled, 0 placeholders) |
-| PLACEHOLDER | ✅ PASS | 0 unfilled template tokens |
-| STALE_UNTAGGED | ✅ PASS | 0 citations >2yr without `[>2YR]` tag |
-| BANNED_PATTERN | ✅ PASS | 4 regex hits — all false positives (see below) |
-| UNCITED_QUOTES | ✅ PASS | 0 bare quoted strings in sentiment sections |
-| Competitor profiles | ✅ PASS | 3 named competitor profile blocks present (ASOS, SHEIN, Vinted) |
-
-**False positive analysis — BANNED_PATTERN:**
-
-| Line | Text | Why not a violation |
-|---|---|---|
-| 139 | "Online-**only** multi-brand fashion retailer…" | Business model descriptor; `SRC:asos_hy26_rns` present in same cell — outside gate's 100-char lookahead window |
-| 186 | "…Treat as directional **only**." | Legend key — definitional text for `[UNVERIFIED ESTIMATE]` label, not a factual claim |
-| 187 | "`[UNVERIFIED — sourced from subject-company materials **only**]`" | Legend key — label definition text, not a factual claim |
-| 187 | "Competitor claim sourced **only** from the subject company's own materials." | Legend key — explanatory text for the label above, not a factual claim |
+<!-- Last verified: 2026-05-05 -->

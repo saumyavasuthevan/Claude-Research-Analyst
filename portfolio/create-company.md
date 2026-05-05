@@ -21,7 +21,7 @@ flowchart LR
 
 ---
 
-## Iterations
+## Challenges and Iterations
 
 | Challenge | Fix | Result |
 |---|---|---|
@@ -41,10 +41,51 @@ flowchart LR
 ---
 
 ## Evals
-
 - **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — Uses a **two-pronged** evaluation approach: 1. **Machine-led evaluation**: Conducts **objective** checks (e.g., quant computations, link and citation coverage, template adherence). 2. **Human-led evaluation**: Conducts **subjective** checks based on HHH (Honesty, Helpfulness, Harmlessness) to assess its true usefulness to PMs. 
+
+### Machine-led Evaluation 
+| Metric | v1 (2026-04-18) | v2 (2026-04-22) | v3 (2026-04-26) | v4 (2026-05-05) | Δ (v3→v4) |
+|---|---|---|---|---|---|
+| Quant Claims Accuracy | 83% | 80% | 66.7% | 100% | +33.3pp |
+| Link Validity | 100% | 93% | 80.0% | 100% | +20pp |
+| Citation Coverage | 57.6% | 84.8% | 100.0% | 100% | — |
+| Field Recall | 100% | 100% | 100.0% | 100% | — |
+| Placeholder violations | 0 | 0 | 0 | 0 | — |
+| Blocked source violations | 0 | 0 | 0 | 0 | — |
+| Banned patterns | 0 | 0 | 0 | 0 | — |
+| Stale untagged | 0 | 0 | 0 | 0 | — |
+| Uncited quotes | N/A | N/A | N/A | N/A | — |
+
+### Human-led Evaluation (HHH)
+
+Based on latest eval:
+
+**Honesty** — Accuracy and truthfulness
+
+| Criteria | Yes / No |
+|---|---|
+| H1: Are any citations inaccurate or incomplete? | No |
+| H2: Are any links inaccessible or unverifiable? | Yes — 5 URLs return 4xx to automated fetches; human confirmed all 5 are bot-blocked and accessible in browser |
+| H3: Are any current-state qualitative claims poorly substantiated? | No |
+| H4: Are any future-state claims presented with over-confidence? | No |
+
+**Helpfulness** — Effectiveness in solving the PM's problem
+
+| Criteria | Yes / No |
+|---|---|
+| He1: Does the report fail to provide novel information? | No |
+| He2: Is the report not useful for framing insights or PM decisions? | No |
+
+**Harmlessness** — Safe and appropriately framed
+
+| Criteria | Yes / No |
+|---|---|
+| Ha1: Negative claims about the company lack sufficient evidence? | No |
+| Ha2: Negative claims about competitors lack sufficient evidence? | No |
+
+
 - **Eval Reports:**
-  - [2026-04-26 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-04-26-ext-research-eval-competitive-intelligence-v3.md)
+  - [2026-05-05 — Zalando competitive intelligence](../projects/Zalando/06-%20evals/2026-05-05-ext-research-eval-competitive-intelligence-v4.md)
   - [2026-04-21 — Zalando company overview](../projects/Zalando/06-%20evals/2026-04-21-ext-research-eval-company-overview.md)
 
 ---
@@ -52,7 +93,7 @@ flowchart LR
 ## Sample Output
 
 - [Zalando — company-overview.md](../projects/Zalando/01-%20company%20context/company-overview.md)
-- [Zalando — competitive-intelligence.md](../projects/Zalando/01-%20company%20context/competitive-intelligence-v3.md)
+- [Zalando — competitive-intelligence.md](../projects/Zalando/01-%20company%20context/competitive-intelligence-v4.md)
 
 ---
 

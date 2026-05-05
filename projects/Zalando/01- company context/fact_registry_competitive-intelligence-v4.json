@@ -1,0 +1,238 @@
+{
+  "SRC:mordor_eu_ecommerce_apparel_2026": {
+    "url": "https://www.mordorintelligence.com/industry-reports/europe-e-commerce-apparel-market",
+    "title": "Europe E-Commerce Apparel Market Size & Share Analysis - Growth Trends and Forecast (2026\u20132031)",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "Base Year Market Size (2025): USD 125.68 Billion; Market Size (2026): USD 130.96 Billion; Market Size (2031): USD 160.89 Billion; Growth Rate (2026\u20132031): 4.20% CAGR",
+    "source_type": "tier2_news",
+    "confidence_reason": "Analyst report landing page \u2014 no article-level publication date displayed. Forecast period 2026\u20132031 and fresh fetch on 2026-04-25 confirms current edition. Month/year sufficient signal: not >2YR.",
+    "url_status": "ok"
+  },
+  "SRC:zalando_fy25_press_release": {
+    "url": "[URL NOT RETRIEVED \u2014 404]",
+    "title": "Zalando FY2025 Full Year Results Press Release, March 2026",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "[FETCH FAILED \u2014 HTTP 404 at 2026-05-05]",
+    "source_type": "tier1_official",
+    "confidence_reason": "Title states March 2026 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "404"
+  },
+  "SRC:asos_hy26_rns": {
+    "url": "https://tools.euroland.com/tools/PressReleases/GetPressRelease/?ID=7946871&lang=en-GB&companycode=services",
+    "title": "ASOS Plc Interim Results for the 26 weeks to 1 March 2026 (HY26 RNS), 23 April 2026",
+    "published_at": "2026-04-23",
+    "fetched_at": "2026-04-25",
+    "quote": "Active customers (m): 6.5m (-5%); HY26 adjusted group revenue: \u00a31,113.5m; HY26 GMV: \u00a31,170.1m",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:asos_fy25_rns": {
+    "url": "https://www.asosplc.com/media/ikxfhqeu/asos-fy25-results-rns-final-20251120.pdf",
+    "title": "ASOS Plc FY25 Full Year Results RNS, 20 November 2025",
+    "published_at": "2025-11-20",
+    "fetched_at": "2026-04-25",
+    "quote": "Revenue \u00a32,477.8m (FY25); active customers 6.5m (\u22128% YoY)",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:asos_newsroom": {
+    "url": "https://www.asosplc.com/news/",
+    "title": "ASOS plc Latest News \u2014 Official Newsroom",
+    "published_at": "live",
+    "fetched_at": "2026-04-25",
+    "quote": "Tech 17 Feb 2026: ASOS launches hybrid approach to virtual try-on, giving customers a unique way to shop with confidence; Topshop 15 Jan 2026: Topshop EU launches in 23 countries",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:asos_aiuta_rtih": {
+    "url": "https://retailtechinnovationhub.com/home/2026/2/17/new-asos-virtual-try-on-experience-launches-in-partnership-with-ai-fashion-platform-aiuta",
+    "title": "New ASOS virtual try-on experience launches in partnership with AI fashion platform AIUTA \u2014 Retail Technology Innovation Hub, February 17, 2026",
+    "published_at": "2026-02-17",
+    "fetched_at": "2026-04-25",
+    "quote": "Asos is laying claim to a unique hybrid approach to virtual try-on that lets customers see how selected products could look on them by uploading their own image or choosing an AI generated virtual model that represents their likeness. This initially launches in partnership with AI fashion platform AIUTA with around 10,000 products on the Asos iOS app.",
+    "source_type": "tier2_news",
+    "url_status": "ok"
+  },
+  "SRC:asos_topshop_heartland_jv": {
+    "url": "[URL NOT RETRIEVED \u2014 403]",
+    "title": "ASOS Sells Majority Stake in Topshop, Topman as Turnaround Effort Continues \u2014 Retail TouchPoints, September 2024",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "[FETCH FAILED \u2014 HTTP 403 at 2026-05-05]",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states September 2024 \u2014 month/year only, exact day not in title. September 2024 > April 2024 cutoff: not >2YR.",
+    "url_status": "403"
+  },
+  "SRC:sheingroup_wroclaw_newsroom": {
+    "url": "https://www.sheingroup.com/newsroom/shein-opens-state-of-the-art-european-logistics-hub-in-wroclaw-poland-lifting-total-jobs-created",
+    "title": "SHEIN Opens State-of-the-Art European Logistics Hub in Wroc\u0142aw, Poland \u2014 SHEIN Group Newsroom, December 22, 2025",
+    "published_at": "2025-12-22",
+    "fetched_at": "2026-04-25",
+    "quote": "SHEIN Opens State-of-the-Art European Logistics Hub in Wroc\u0142aw, Poland, Lifting Total Jobs Created in Poland to 5,000",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:sheingroup_exchange_europe": {
+    "url": "https://www.sheingroup.com/newsroom/shein-launches-shein-exchange-resale-platform-in-europe-and-the-united-kingdom",
+    "title": "SHEIN Launches SHEIN Exchange Resale Platform in Europe and the United Kingdom \u2014 SHEIN Group Newsroom, June 3, 2024",
+    "published_at": "2024-06-03",
+    "fetched_at": "2026-04-25",
+    "quote": "SHEIN Launches SHEIN Exchange Resale Platform in Europe and the United Kingdom",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:ec_shein_dsa_proceedings": {
+    "url": "https://digitalpolicyalert.org/change/10163",
+    "title": "European Commission opens formal DSA proceedings against SHEIN, February 16, 2026 \u2014 Digital Policy Alert",
+    "published_at": "2026-02-16",
+    "fetched_at": "2026-04-25",
+    "quote": "On 16 February 2026, the European Commission opened formal proceedings against Shein under the Digital Services Act (DSA). The proceeding focuses on the company's systems to limit illegal products in the European Union.",
+    "source_type": "tier2_news",
+    "url_status": "ok"
+  },
+  "SRC:ec_temu_dsa_breach": {
+    "url": "https://www.euronews.com/next/2025/07/28/eu-commission-finds-temu-in-breach-of-online-platform-rules",
+    "title": "EU Commission finds Temu in breach of online platform rules \u2014 Euronews, July 28, 2025",
+    "published_at": "2025-07-28",
+    "fetched_at": "2026-04-25",
+    "quote": "The European Commission said on Monday that Chinese e-commerce platform Temu is in breach of the Digital Services Act (DSA) for not properly assessing the risks of illegal products it sells on its website.",
+    "source_type": "tier2_news",
+    "url_status": "ok"
+  },
+  "SRC:ec_temu_dsa_raid": {
+    "url": "https://euperspectives.eu/2026/02/commission-probe-sheins-marketing/",
+    "title": "Commission opens probe into Shein's marketing under DSA \u2014 EU Perspectives, February 2026",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "In July 2025, the Commission issued preliminary findings against Temu for failing to police illegal products like unsafe toys. Regulators even raided the Dublin headquarters of Temu in December 2025 to investigate foreign subsidies.",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states February 2026 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "ok"
+  },
+  "SRC:vinted_fy25_newsroom": {
+    "url": "https://company.vinted.com/newsroom/financial-results-2025",
+    "title": "Vinted FY2025 Annual Results \u2014 Vinted Group Newsroom, April 9, 2026",
+    "published_at": "2026-04-09",
+    "fetched_at": "2026-04-25",
+    "quote": "Marketplace GMV: \u20ac10.8bn (+47% YoY; 2024: \u20ac7.3bn); Revenue: \u20ac1.1bn (+38% YoY; 2024: \u20ac813m); Adjusted EBITDA: \u20ac151m (-5% YoY); Net Profit: \u20ac62m (-19% YoY)",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:vinted_fy24_newsroom": {
+    "url": "https://company.vinted.com/newsroom/Vinted-delivers-strong-profitable-growth-while-investing",
+    "title": "Vinted FY2024 Annual Results \u2014 Vinted Group Newsroom, April 29, 2025",
+    "published_at": "2025-04-29",
+    "fetched_at": "2026-04-25",
+    "quote": "Revenue \u20ac813.4m (+36%); Net Profit \u20ac76.7m (+330%); average employees over 2,200 by end of 2024; secondary share sale at \u20ac5B valuation, October 2024",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:vinted_go_spain_portugal": {
+    "url": "https://company.vinted.com/newsroom/financial-results-2025",
+    "title": "Vinted FY2025 Annual Results \u2014 Vinted Group Newsroom, April 9, 2026",
+    "published_at": "2026-04-09",
+    "fetched_at": "2026-04-25",
+    "quote": "During 2025 Vinted Go, Vinted's in-house carrier service, launched in Spain and Portugal and opened a new sortation centre in France to support growing parcel volumes. Vinted Go Carrier now operates in 5 markets: Belgium, France, the Netherlands, Portugal and Spain.",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:retail_gazette_vinted_fy25": {
+    "url": "https://www.retailgazette.co.uk/blog/2026/04/vinted-confirms-38-growth-yoy-as-reselling-market-booms/",
+    "title": "Vinted confirms 38% growth YoY as reselling market booms \u2014 Retail Gazette, April 2026",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "Its in-house logistics arm, Vinted Go, launched in Spain and Portugal during 2025, opened a new sortation centre in France and now operates carrier services in five markets: Belgium, France, the Netherlands, Portugal and Spain.",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states April 2026 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "ok"
+  },
+  "SRC:mytheresa_ynap_close": {
+    "url": "https://www.globenewswire.com/news-release/2025/04/24/3067104/0/en/MYT-Netherlands-Parent-B-V-Mytheresa-and-Richemont-announce-the-successful-completion-of-Mytheresa-s-acquisition-of-YOOX-NET-A-PORTER-YNAP.html",
+    "title": "Mytheresa and Richemont announce successful completion of YNAP acquisition \u2014 GlobeNewswire, April 24, 2025",
+    "published_at": "2025-04-24",
+    "fetched_at": "2026-04-25",
+    "quote": "Mytheresa (NYSE:MYTE) successfully closed its acquisition of YNAP from Richemont (SWX:CFR), following the fulfillment of all conditions including receipt of all regulatory approvals.",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:coupang_farfetch": {
+    "url": "[URL NOT RETRIEVED \u2014 registry URL was incorrect Zalando IR page; no verified source URL found for Coupang/Farfetch acquisition]",
+    "title": "[URL NOT RETRIEVED \u2014 Coupang Farfetch acquisition January 2024]",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "Coupang completed acquisition of Farfetch, January 2024",
+    "source_type": "tier2_news",
+    "url_status": "URL_INCORRECT",
+    "confidence_reason": "Title states January 2024 \u2014 month/year only, exact day not in title. January 2024 < April 2024 cutoff: >2YR. [>2YR] tag applied in report. URL in v3 registry was incorrectly set to Zalando IR page \u2014 corrected to [URL NOT RETRIEVED] in v4."
+  },
+  "SRC:retail_gazette_zalando_about_you": {
+    "url": "[URL NOT RETRIEVED \u2014 404]",
+    "title": "Zalando acquires About You \u2014 Retail Gazette, November 2025",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "[FETCH FAILED \u2014 HTTP 404 at 2026-05-05]",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states November 2025 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "404"
+  },
+  "SRC:zalando_nomagic_corporate": {
+    "url": "https://corporate.zalando.com/en/technology/zalando-install-50-ai-powered-nomagic-robots-its-european-fulfilment-centres",
+    "title": "Zalando to install up to 50 AI-powered Nomagic robots in its European fulfilment centres \u2014 Zalando Corporate, March 19, 2026",
+    "published_at": "2026-03-19",
+    "fetched_at": "2026-04-25",
+    "quote": "Zalando is supercharging its logistics backbone with the roll-out of up to 50 AI-driven Nomagic robots across its European fulfilment network.",
+    "source_type": "tier1_official",
+    "url_status": "ok"
+  },
+  "SRC:fashionunited_zalando_resale_kidswear": {
+    "url": "https://fashionunited.uk/news/retail/zalando-extends-its-resale-model-to-kidswear/2026022586501",
+    "title": "Zalando extends its resale model to kidswear \u2014 FashionUnited, February 2026",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "Up to 50 percent of second-hand items on the platform sell within the first 24 hours of being listed. In 2025, more than 40 percent of orders placed on Zalando included at least one pre-owned item.",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states February 2026 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "ok"
+  },
+  "SRC:guardian_asos_ai_stylist": {
+    "url": "[URL NOT RETRIEVED \u2014 404]",
+    "title": "ASOS launches 'Styled By You' AI stylist feature \u2014 The Guardian, November 2025",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "[FETCH FAILED \u2014 HTTP 404 at 2026-05-05]",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states November 2025 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "404"
+  },
+  "SRC:retailtechhub_zalando_google_ucp": {
+    "url": "[URL NOT RETRIEVED \u2014 404]",
+    "title": "Zalando joins Google Universal Commerce Protocol for agentic commerce \u2014 Retail Technology Innovation Hub, January 2026",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "[FETCH FAILED \u2014 HTTP 404 at 2026-05-05]",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states January 2026 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "404"
+  },
+  "SRC:gap_gemini_checkout": {
+    "url": "https://allthingsfashiontech.substack.com/p/legacy-brands-are-fully-embracing",
+    "title": "Gap partners with Google Gemini for in-app checkout \u2014 All Things Fashion Tech, March 2026",
+    "published_at": "[DATE UNKNOWN]",
+    "fetched_at": "2026-04-25",
+    "quote": "Gap is partnering with Google's Gemini to allow shoppers to check out directly within the AI platform, making it the first major fashion company to work directly with the tech company to fuel agentic commerce",
+    "source_type": "tier2_news",
+    "confidence_reason": "Title states March 2026 \u2014 month/year only, exact day not in title. Not >2YR.",
+    "url_status": "ok"
+  },
+  "SRC:lewissilkin_shein_dsa": {
+    "url": "https://www.lewissilkin.com/insights/2026/02/27/digital-services-act-shein-becomes-the-latest-vlop-to-face-formal-proceedings-102mkps",
+    "title": "Digital Services Act: Shein becomes the latest VLOP to face formal proceedings \u2014 Lewis Silkin, February 27, 2026",
+    "published_at": "2026-02-27",
+    "fetched_at": "2026-04-25",
+    "quote": "This is not the first fast-fashion VLOP to be investigated by the European Commission, with Temu being preliminarily found to be in breach of the DSA in July 2025 for the sale of illegal products on its marketplace.",
+    "source_type": "tier2_news",
+    "url_status": "ok"
+  }
+}

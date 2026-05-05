@@ -1,4 +1,4 @@
-# 🔬 PM Operating System Index
+# 🔬 PM Operating System 
 
 ### tl;dr
 A growing collection of **WIP** Product Management workflows and tools (Claude Code, OpenClaw, n8n) to minimise OPEX while delivering PM artifacts users can trust 
@@ -16,8 +16,8 @@ PMs are under heavy pressure to **quickly determine ["what to build"](https://ww
   * Fewer successful business outcomes (due to **a less powerful engine to make sound product bets**)
 
 ### User Personas
- * Short-term target: Solo PMs
- * Long-term targets: Squad PMs and "People who do product work" (Rationale: This requires a scaled solution to collaborate effectively and alignment on shared processes, beyond MVP scope)
+ * Short-term target: **Solo PMs**
+ * Long-term targets: **Squad PMs** and **"People who do product work"** (Rationale: This requires a scaled solution to collaborate effectively and alignment on shared processes, beyond MVP scope)
 
 ### Vision 
 A unified system to inform **faster product bets**, made with the **confidence** to defend them. 
@@ -31,7 +31,7 @@ A unified system to inform **faster product bets**, made with the **confidence**
 
 2. **Guilty until proven innocent**
 
-   Every output is assumed to be untrustworthy until proven otherwise through evals. No output feeds the next step without verification.
+   High-risk outputs are assumed to be untrustworthy until proven otherwise through evals. No output feeds the next step without verification.
 
    *Good looks like: Stakeholder discussions are about strategy, not about whether a claim is substantiated.*
 
@@ -82,6 +82,8 @@ See detailed [roadmap and prioritisation criteria](https://docs.google.com/sprea
 * % fully autonomous tasks increasing MoM (agent completed, output used as-is)
 * % semi-autonomous tasks increasing MoM (agent completed, PM refined or validated)
 * % manual tasks decreasing MoM (agent not used or output not used entirely)
+
+## Index
 
 ### 🔍 Product Discovery
 

@@ -1,0 +1,13 @@
+{
+  "total_fields": 62,
+  "filled_fields": 37,
+  "labeled_fields": 25,
+  "placeholder_violations": 0,
+  "fields_with_citation": 37,
+  "uncited_fields": [],
+  "field_recall_rate_pct": 100.0,
+  "field_recall_detail": "37 filled / 37 resolvable fields (25 labeled [UNVERIFIED]/[SEARCH FAILED] excluded from denominator)",
+  "citation_coverage_rate_pct": 100.0,
+  "citation_coverage_detail": "37 cited / 37 data-filled fields (labeled gaps excluded)",
+  "stale_untagged_violations": 0
+}
