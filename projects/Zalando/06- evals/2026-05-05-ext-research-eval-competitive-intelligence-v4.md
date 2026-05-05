@@ -70,7 +70,7 @@
 | Criteria | Yes / No |
 |---|---|
 | H1: Are any citations inaccurate or incomplete? | No |
-| H2: Are any links inaccessible or unverifiable? | Yes — 5 URLs return 4xx to automated fetches; human confirmed all 5 are bot-blocked and accessible in browser |
+| H2: Are any links inaccessible or unverifiable? | No — human confirmed all 5 links are bot-blocked but accessible in browser |
 | H3: Are any current-state qualitative claims poorly substantiated? | No |
 | H4: Are any future-state claims presented with over-confidence? | No |
 

@@ -44,6 +44,8 @@ flowchart LR
 - **Method:** [`ext-research-eval`](../.claude/agents/ext-research-eval.md) — Uses a **two-pronged** evaluation approach: 1. **Machine-led evaluation**: Conducts **objective** checks (e.g., quant computations, link and citation coverage, template adherence). 2. **Human-led evaluation**: Conducts **subjective** checks based on HHH (Honesty, Helpfulness, Harmlessness) to assess its true usefulness to PMs. 
 
 ### Machine-led Evaluation 
+Based on latest competitive intel eval (version 4):
+
 | Metric | v1 (2026-04-18) | v2 (2026-04-22) | v3 (2026-04-26) | v4 (2026-05-05) | Δ (v3→v4) |
 |---|---|---|---|---|---|
 | Quant Claims Accuracy | 83% | 80% | 66.7% | 100% | +33.3pp |
@@ -57,15 +59,14 @@ flowchart LR
 | Uncited quotes | N/A | N/A | N/A | N/A | — |
 
 ### Human-led Evaluation (HHH)
-
-Based on latest eval:
+Based on latest competitive intel eval (version 4):
 
 **Honesty** — Accuracy and truthfulness
 
 | Criteria | Yes / No |
 |---|---|
 | H1: Are any citations inaccurate or incomplete? | No |
-| H2: Are any links inaccessible or unverifiable? | Yes — 5 URLs return 4xx to automated fetches; human confirmed all 5 are bot-blocked and accessible in browser |
+| H2: Are any links inaccessible or unverifiable? | No — human confirmed all 5 links are bot-blocked but accessible in browser |
 | H3: Are any current-state qualitative claims poorly substantiated? | No |
 | H4: Are any future-state claims presented with over-confidence? | No |
 
